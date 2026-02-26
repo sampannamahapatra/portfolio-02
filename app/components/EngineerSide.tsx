@@ -50,19 +50,24 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
     >
       <AmbientBackground />
 
-      {/* Premium Glass Top Navigation */}
+      {/* Premium Glass Top Navigation - Now Sticky */ overlaying}
       <motion.nav
-        initial={{ y: -50, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}
-        className="absolute top-6 left-1/2 md:left-auto md:right-8 -translate-x-1/2 md:translate-x-0 z-50 px-4 md:px-6 py-2 md:py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.5)] flex gap-4 md:gap-6 text-[9px] md:text-[10px] uppercase tracking-[0.1em] md:tracking-[0.2em] font-medium text-slate-400 w-max"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-full bg-slate-950/40 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.5)] flex gap-6 text-[10px] uppercase tracking-[0.2em] font-medium text-slate-400 w-max"
       >
-        {['About', 'Skills', 'Projects', 'Contact'].map(item => (
+        {['Hero', 'About', 'Skills', 'Projects', 'Contact'].map(item => (
           <a key={item} href={`#engineer-${item.toLowerCase()}`} className="hover:text-cyan-400 transition-colors relative group">
             {item}
             <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 transition-all duration-300 group-hover:w-full" />
           </a>
         ))}
+        <div className="w-px h-4 bg-white/10 mx-1" />
+        <button onClick={() => window.location.reload()} className="hover:text-white transition-colors flex items-center gap-2">
+          <Rocket size={14} className="text-cyan-500" />
+          <span>Reset</span>
+        </button>
       </motion.nav>
 
       <motion.div
@@ -86,32 +91,35 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
                 <span className="text-[10px] md:text-xs font-mono text-cyan-400 tracking-widest uppercase bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">System Architect</span>
               </div>
 
-              <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-bold uppercase tracking-tighter mb-2 md:mb-4 leading-[0.85] bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-500">
+              <h1 className="text-4xl sm:text-5xl md:text-[5rem] lg:text-[6.5rem] font-black uppercase tracking-[-0.05em] mb-4 leading-[0.9] bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-100 to-slate-500 relative">
                 <motion.span
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                  className="inline-block"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                  className="inline-block relative z-10"
                 >
                   SAMPANNA
                 </motion.span>
                 <br />
                 <motion.span
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
-                  className="inline-block"
+                  initial={{ x: 20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+                  className="inline-block relative z-10"
                 >
                   MAHAPATRA
                 </motion.span>
+                {/* Tech Glow Hinter */}
+                <div className="absolute top-0 -left-12 bottom-0 w-px bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent hidden lg:block" />
               </h1>
-              <h2 className="text-xl md:text-4xl font-light tracking-[0.2em] text-cyan-400 mb-4 md:mb-6">
+              <h2 className="text-lg md:text-2xl font-light tracking-[0.4em] text-cyan-400/80 mb-6 flex items-center gap-4">
+                <span className="w-8 h-px bg-cyan-500/30" />
                 SOFTWARE ENGINEER
               </h2>
 
-              <p className="text-sm md:text-base text-slate-400 font-light tracking-wide max-w-md border-l-0 border-t md:border-t-0 md:border-l border-cyan-500/50 pt-4 md:pt-0 pl-0 md:pl-6 leading-relaxed">
-                <span className="text-slate-200 font-medium">Building scalable solutions.</span><br />
-                Driven by minimalism, efficiency, and writing clean, maintainable code for the modern web.
+              <p className="text-sm md:text-base text-slate-400 font-light tracking-wide max-w-md border-l border-cyan-500/20 pl-6 leading-relaxed mb-8">
+                <span className="text-slate-200 font-medium">Architecting digital resilience.</span><br />
+                Fusing high-performance backend systems with precision-engineered UX.
               </p>
 
               <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 items-center w-full md:w-auto">
@@ -134,30 +142,40 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
               </div>
             </div>
 
+            {/* Right Image Content - Larger and X-AI style */}
             <div className="flex-1 w-full order-1 md:order-2 flex items-center justify-center relative mt-16 md:mt-0 px-4">
               <motion.div
-                variants={imageVariants}
-                animate={{
-                  y: [0, -20, 0],
-                  transition: {
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }
-                }}
-                className="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] aspect-[3/4] group"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full max-w-[320px] sm:max-w-[450px] md:max-w-[550px] aspect-[4/5] group"
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-500 rounded-2xl blur-[40px] md:blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
-                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-slate-900/50 backdrop-blur-sm p-1.5 md:p-2 shadow-2xl">
-                  <div className="w-full h-full rounded-xl overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent z-10 opacity-80" />
+                {/* Tech Scanning Effect */}
+                <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded-2xl">
+                  <motion.div
+                    animate={{ y: ["-100%", "200%"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    className="w-full h-1/2 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent opacity-50"
+                  />
+                </div>
+
+                <div className="absolute -inset-10 bg-cyan-500/10 blur-[120px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity duration-1000" />
+
+                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/5 bg-slate-900/40 backdrop-blur-sm p-2 md:p-3 shadow-[0_0_100px_rgba(0,0,0,0.8)]">
+                  <div className="w-full h-full rounded-xl overflow-hidden relative group-hover:border-cyan-500/30 transition-colors duration-700">
                     <img
                       src="/images/engineer-profile.png"
                       alt="Sampanna Mahapatra"
-                      className="w-full h-full object-cover object-top grayscale contrast-125 hover:grayscale-0 hover:scale-105 transition-all duration-700"
+                      className="w-full h-full object-cover object-top grayscale brightness-75 contrast-125 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1.5s] ease-out"
                     />
+                    <div className="absolute inset-0 bg-[#030712] mix-blend-overlay opacity-20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
                   </div>
                 </div>
+
+                {/* Cyberpunk Corners */}
+                <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-cyan-500/40" />
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-cyan-500/40" />
               </motion.div>
             </div>
           </div>

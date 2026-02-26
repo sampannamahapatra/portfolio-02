@@ -91,7 +91,7 @@ export default function Home() {
               transition={curtainTransition}
               className="w-full md:w-1/2 h-[50vh] md:h-full bg-[#0c0a09] flex items-center justify-center md:justify-start pl-0 md:pl-12 relative shadow-[-20px_0_50px_rgba(0,0,0,0.5)] z-20"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif italic text-stone-200" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.2em] uppercase text-stone-200">
                 Mahapatra
               </h1>
             </motion.div>

@@ -41,12 +41,12 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
             <div className="absolute inset-0 z-0 pointer-events-none opacity-40 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] mix-blend-overlay fixed" />
             <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-amber-900/10 via-transparent to-stone-950 fixed" />
 
-            {/* Elegant Top Navigation */}
+            {/* Elegant Top Navigation - Now Sticky */}
             <motion.nav
-                initial={{ y: -50, opacity: 0 }}
+                initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="absolute top-8 left-1/2 md:left-8 -translate-x-1/2 md:translate-x-0 z-50 flex gap-4 md:gap-8 text-[9px] md:text-[11px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium text-stone-400 group/nav w-max"
+                className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-6 px-6 py-3 rounded-full bg-stone-950/40 backdrop-blur-xl border border-stone-800 shadow-[0_4px_30px_rgba(0,0,0,0.5)] text-[10px] uppercase tracking-[0.3em] font-medium text-stone-400 w-max"
             >
                 {['Hero', 'Story', 'Work', 'Contact'].map(item => (
                     <a key={item} href={`#artist-${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors relative overflow-hidden group">
@@ -54,6 +54,11 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                         <span className="absolute -bottom-1 left-0 w-full h-px bg-amber-500 -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500" />
                     </a>
                 ))}
+                <div className="w-px h-4 bg-stone-800 mx-1" />
+                <button onClick={() => window.location.reload()} className="hover:text-amber-500 transition-colors flex items-center gap-2">
+                    <Hexagon size={14} className="text-amber-600 animate-spin-slow" />
+                    <span>Reset</span>
+                </button>
             </motion.nav>
 
             <motion.div
@@ -72,7 +77,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                         </div>
 
                         <div className="relative inline-block w-fit group self-center md:self-start">
-                            <h1 className="text-[5rem] sm:text-7xl md:text-[9rem] xl:text-[11rem] leading-[0.8] text-stone-200 font-serif italic pr-0 md:pr-4 text-center md:text-left overflow-hidden" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                            <h1 className="text-[4rem] sm:text-6xl md:text-[7rem] lg:text-[9rem] leading-[0.85] text-stone-200 font-serif italic pr-0 md:pr-4 text-center md:text-left overflow-hidden relative" style={{ fontFamily: 'var(--font-playfair), serif' }}>
                                 <motion.span
                                     initial={{ y: "100%", opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
@@ -81,6 +86,12 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                                 >
                                     Sampanna.
                                 </motion.span>
+                                {/* Artistic Scanline */}
+                                <motion.div
+                                    animate={{ x: ["-100%", "100%"] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-y-0 w-1/4 bg-gradient-to-r from-transparent via-amber-500/10 to-transparent pointer-events-none"
+                                />
                             </h1>
                             <div className="absolute -inset-x-8 -inset-y-4 bg-amber-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
                         </div>
@@ -101,28 +112,43 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                         </div>
                     </motion.div>
 
-                    {/* Center Editorial Image */}
-                    <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-[15%] -translate-y-1/2 md:-translate-y-[45%] w-[80%] max-w-[300px] sm:max-w-[400px] md:max-w-[500px] aspect-[1/1.5] z-10 pointer-events-none opacity-40 md:opacity-90 mix-blend-screen mix-blend-luminosity">
+                    {/* Center Editorial Image - Redesigned for Balance */}
+                    <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-[5%] -translate-y-1/2 md:-translate-y-[45%] w-[85%] max-w-[320px] sm:max-w-[450px] md:max-w-[600px] aspect-[4/5] z-10 pointer-events-none opacity-50 md:opacity-90 mix-blend-screen mix-blend-luminosity lg:mix-blend-normal">
                         <motion.div
-                            className="w-full h-full rounded-t-[150px] md:rounded-t-[250px] rounded-b-[20px] md:rounded-b-[40px] overflow-hidden relative border border-stone-800"
-                            variants={imageVariants}
+                            className="w-full h-full rounded-t-[180px] md:rounded-t-[300px] rounded-b-[30px] md:rounded-b-[60px] overflow-hidden relative border border-stone-800/50 shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+                            initial={{ opacity: 0, scale: 1.1 }}
                             animate={{
-                                y: [0, 20, 0],
-                                transition: {
-                                    duration: 8,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }
+                                opacity: 1,
+                                scale: 1,
+                                y: [0, 15, 0]
+                            }}
+                            transition={{
+                                opacity: { duration: 1.5 },
+                                scale: { duration: 1.5 },
+                                y: { duration: 8, repeat: Infinity, ease: "easeInOut" }
                             }}
                         >
                             <img
                                 src="/images/artist-profile.jpg"
                                 alt="Sampanna performing"
-                                className="w-full h-full object-cover grayscale-[30%] contrast-125 sepia-[20%] hover:scale-105 transition-transform duration-[2s]"
+                                className="w-full h-full object-cover grayscale-[20%] contrast-[1.1] sepia-[10%] hover:scale-110 transition-transform duration-[3s] ease-out"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-amber-900/40 mix-blend-overlay" />
-                            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0c0a09] to-transparent" />
+                            {/* X-AI Grain & Overlay */}
+                            <div className="absolute inset-0 bg-stone-900/10 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-stone-950/80 via-transparent to-amber-700/20 mix-blend-multiply opacity-60" />
+                            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0c0a09] via-[#0c0a09]/50 to-transparent" />
+
+                            {/* Scanning Pulse */}
+                            <motion.div
+                                animate={{ opacity: [0.1, 0.3, 0.1] }}
+                                transition={{ duration: 4, repeat: Infinity }}
+                                className="absolute inset-0 bg-amber-600/5"
+                            />
                         </motion.div>
+
+                        {/* Ornamental Corner Pieces */}
+                        <div className="absolute -top-4 -right-4 w-12 h-12 border-t border-r border-amber-600/30 rounded-tr-3xl" />
+                        <div className="absolute -bottom-4 -left-4 w-12 h-12 border-b border-l border-amber-600/30 rounded-bl-3xl" />
                     </div>
 
                 </section>
