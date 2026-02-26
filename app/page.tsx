@@ -108,7 +108,7 @@ export default function Home() {
             key={activeMobileSide}
             className="px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-widest text-white whitespace-nowrap"
           >
-            Switch to {activeMobileSide === "engineer" ? "Artist" : "Engineer"} mode
+            Switch to {activeMobileSide === "engineer" ? "Artist" : "Professional"} mode
           </motion.div>
           <motion.button
             initial={{ opacity: 0, scale: 0.8, y: 30 }}

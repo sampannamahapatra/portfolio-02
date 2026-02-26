@@ -87,7 +87,23 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
               </div>
 
               <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-bold uppercase tracking-tighter mb-2 md:mb-4 leading-[0.85] bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-500">
-                SAMPANNA<br />MAHAPATRA
+                <motion.span
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                  className="inline-block"
+                >
+                  SAMPANNA
+                </motion.span>
+                <br />
+                <motion.span
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+                  className="inline-block"
+                >
+                  MAHAPATRA
+                </motion.span>
               </h1>
               <h2 className="text-xl md:text-4xl font-light tracking-[0.2em] text-cyan-400 mb-4 md:mb-6">
                 SOFTWARE ENGINEER
@@ -118,9 +134,19 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
               </div>
             </div>
 
-            {/* Right Image Content */}
-            <div className="flex-1 w-full order-1 md:order-2 flex items-center justify-center relative mt-16 md:mt-0">
-              <motion.div variants={imageVariants} className="relative w-[250px] h-[320px] sm:w-[300px] sm:h-[400px] md:w-[450px] md:h-[600px] group">
+            <div className="flex-1 w-full order-1 md:order-2 flex items-center justify-center relative mt-16 md:mt-0 px-4">
+              <motion.div
+                variants={imageVariants}
+                animate={{
+                  y: [0, -20, 0],
+                  transition: {
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }
+                }}
+                className="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] aspect-[3/4] group"
+              >
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-500 rounded-2xl blur-[40px] md:blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
                 <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-slate-900/50 backdrop-blur-sm p-1.5 md:p-2 shadow-2xl">
                   <div className="w-full h-full rounded-xl overflow-hidden relative">

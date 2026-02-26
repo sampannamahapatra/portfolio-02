@@ -72,12 +72,26 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                         </div>
 
                         <div className="relative inline-block w-fit group self-center md:self-start">
-                            <h1 className="text-[5rem] sm:text-7xl md:text-[9rem] xl:text-[11rem] leading-[0.8] text-stone-200 font-serif italic pr-0 md:pr-4 text-center md:text-left" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-                                Sampanna.
+                            <h1 className="text-[5rem] sm:text-7xl md:text-[9rem] xl:text-[11rem] leading-[0.8] text-stone-200 font-serif italic pr-0 md:pr-4 text-center md:text-left overflow-hidden" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                                <motion.span
+                                    initial={{ y: "100%", opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                                    className="inline-block"
+                                >
+                                    Sampanna.
+                                </motion.span>
                             </h1>
                             <div className="absolute -inset-x-8 -inset-y-4 bg-amber-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
                         </div>
-                        <h2 className="text-3xl md:text-5xl text-amber-500/90 font-serif italic mt-6 text-center md:text-left">The Artist.</h2>
+                        <motion.h2
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.8 }}
+                            className="text-3xl md:text-5xl text-amber-500/90 font-serif italic mt-6 text-center md:text-left"
+                        >
+                            The Artist.
+                        </motion.h2>
 
                         <div className="mt-8 sm:mt-12 md:mt-24 max-w-lg mx-auto md:ml-auto md:mr-32 relative md:before:absolute before:-left-8 before:top-2 before:w-px before:h-full before:bg-gradient-to-b before:from-amber-500/50 before:to-transparent text-center md:text-left">
                             <p className="text-xs sm:text-sm md:text-lg font-light leading-relaxed text-stone-400">
@@ -88,8 +102,19 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                     </motion.div>
 
                     {/* Center Editorial Image */}
-                    <div className="absolute top-[40%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-[20%] -translate-y-1/2 md:-translate-y-[45%] w-[250px] h-[350px] sm:w-[350px] sm:h-[500px] md:w-[450px] md:h-[700px] z-10 pointer-events-none opacity-40 md:opacity-90 mix-blend-screen mix-blend-luminosity">
-                        <motion.div className="w-full h-full rounded-t-[150px] md:rounded-t-[200px] rounded-b-[20px] md:rounded-b-[40px] overflow-hidden relative border border-stone-800" variants={imageVariants}>
+                    <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-[15%] -translate-y-1/2 md:-translate-y-[45%] w-[80%] max-w-[300px] sm:max-w-[400px] md:max-w-[500px] aspect-[1/1.5] z-10 pointer-events-none opacity-40 md:opacity-90 mix-blend-screen mix-blend-luminosity">
+                        <motion.div
+                            className="w-full h-full rounded-t-[150px] md:rounded-t-[250px] rounded-b-[20px] md:rounded-b-[40px] overflow-hidden relative border border-stone-800"
+                            variants={imageVariants}
+                            animate={{
+                                y: [0, 20, 0],
+                                transition: {
+                                    duration: 8,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }
+                            }}
+                        >
                             <img
                                 src="/images/artist-profile.jpg"
                                 alt="Sampanna performing"
