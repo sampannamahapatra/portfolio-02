@@ -76,33 +76,15 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                             <span className="text-xs uppercase tracking-[0.4em] text-amber-600/80 font-medium">Bassist & Musician</span>
                         </div>
 
-                        <div className="relative inline-block w-fit group self-center md:self-start">
-                            <h1 className="text-[4rem] sm:text-6xl md:text-[7rem] lg:text-[9rem] leading-[0.85] text-stone-200 font-serif italic pr-0 md:pr-4 text-center md:text-left overflow-hidden relative" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-                                <motion.span
-                                    initial={{ y: "100%", opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                                    className="inline-block"
-                                >
-                                    Sampanna.
-                                </motion.span>
-                                {/* Artistic Scanline */}
-                                <motion.div
-                                    animate={{ x: ["-100%", "100%"] }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-y-0 w-1/4 bg-gradient-to-r from-transparent via-amber-500/10 to-transparent pointer-events-none"
-                                />
-                            </h1>
-                            <div className="absolute -inset-x-8 -inset-y-4 bg-amber-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
-                        </div>
-                        <motion.h2
+                        <motion.h1
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.8 }}
-                            className="text-3xl md:text-5xl text-amber-500/90 font-serif italic mt-6 text-center md:text-left"
+                            className="text-[4rem] sm:text-6xl md:text-[7rem] lg:text-[9rem] text-amber-500/90 font-serif italic mt-6 text-center md:text-left leading-none"
+                            style={{ fontFamily: 'var(--font-playfair), serif' }}
                         >
                             The Artist.
-                        </motion.h2>
+                        </motion.h1>
 
                         <div className="mt-8 sm:mt-12 md:mt-24 max-w-lg mx-auto md:ml-auto md:mr-32 relative md:before:absolute before:-left-8 before:top-2 before:w-px before:h-full before:bg-gradient-to-b before:from-amber-500/50 before:to-transparent text-center md:text-left">
                             <p className="text-xs sm:text-sm md:text-lg font-light leading-relaxed text-stone-400">
