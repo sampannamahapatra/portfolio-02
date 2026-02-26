@@ -50,7 +50,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
     >
       <AmbientBackground />
 
-      {/* Premium Glass Top Navigation - Now Sticky */ overlaying}
+      {/* Premium Glass Top Navigation - Now Sticky */}
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
