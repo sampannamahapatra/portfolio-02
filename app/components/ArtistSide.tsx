@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { Disc, Play, ArrowRight, Music, AudioLines, Hexagon } from "lucide-react";
 
 export default function ArtistSide({ isActive }: { isActive: boolean }) {
@@ -11,7 +11,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
     const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 150]);
     const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
-    const contentVariants = {
+    const contentVariants: Variants = {
         hidden: { opacity: 0, filter: "blur(20px)", scale: 1.05 },
         visible: {
             opacity: 1,
@@ -27,7 +27,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
         }
     };
 
-    const imageVariants = {
+    const imageVariants: Variants = {
         hidden: { opacity: 0, scale: 1.2, filter: "sepia(100%) blur(10px)" },
         visible: { opacity: 1, scale: 1, filter: "sepia(0%) blur(0px)", transition: { duration: 1.5, ease: "easeOut" } }
     };

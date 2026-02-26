@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { Terminal, Cpu, Database, Layout, Briefcase, GraduationCap, Code2, Layers, Rocket, Github, Mail, ExternalLink, ChevronRight } from "lucide-react";
 
 export default function EngineerSide({ isActive }: { isActive: boolean }) {
@@ -12,7 +12,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
   const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
-  const contentVariants = {
+  const contentVariants: Variants = {
     hidden: { opacity: 0, filter: "blur(10px)", scale: 0.95 },
     visible: {
       opacity: 1,
@@ -28,7 +28,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
     }
   };
 
-  const imageVariants = {
+  const imageVariants: Variants = {
     hidden: { opacity: 0, scale: 1.1 },
     visible: { opacity: 1, scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
   };
