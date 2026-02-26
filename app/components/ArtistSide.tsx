@@ -49,7 +49,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                 className="absolute top-8 left-1/2 md:left-8 -translate-x-1/2 md:translate-x-0 z-50 flex gap-4 md:gap-8 text-[9px] md:text-[11px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium text-stone-400 group/nav w-max"
             >
                 {['Hero', 'Story', 'Work', 'Contact'].map(item => (
-                    <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors relative overflow-hidden group">
+                    <a key={item} href={`#artist-${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors relative overflow-hidden group">
                         {item}
                         <span className="absolute -bottom-1 left-0 w-full h-px bg-amber-500 -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500" />
                     </a>
@@ -63,7 +63,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                 animate={isActive ? "visible" : "shrunk"}
             >
                 {/* Editorial Hero Section */}
-                <section id="hero" className="min-h-screen w-full flex flex-col justify-center px-6 md:px-16 lg:px-24 relative overflow-hidden">
+                <section id="artist-hero" className="min-h-screen w-full flex flex-col justify-center px-6 md:px-16 lg:px-24 relative overflow-hidden">
 
                     <motion.div className="relative z-20 flex flex-col h-full justify-center pt-20">
                         <div className="flex items-center gap-4 mb-4 md:mb-8 ml-2">
@@ -103,7 +103,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                 </section>
 
                 {/* Biography Section */}
-                <section id="story" className="w-full px-6 md:px-24 py-32 z-20 relative bg-[#0c0a09]">
+                <section id="artist-story" className="w-full px-6 md:px-24 py-32 z-20 relative bg-[#0c0a09]">
                     <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-center">
 
                         <div className="w-full md:w-1/3 flex justify-center">
@@ -147,7 +147,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                 </section>
 
                 {/* Discography Section - Vinyl Style */}
-                <section id="work" className="w-full px-6 md:px-24 py-32 z-20 relative bg-stone-950 border-t border-stone-900">
+                <section id="artist-work" className="w-full px-6 md:px-24 py-32 z-20 relative bg-stone-950 border-t border-stone-900">
                     <div className="max-w-6xl mx-auto">
                         <div className="flex flex-col md:flex-row justify-between items-baseline mb-20">
                             <h2 className="text-5xl md:text-7xl text-stone-200 font-serif italic" style={{ fontFamily: 'var(--font-playfair), serif' }}>Discography</h2>
@@ -201,7 +201,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                 </section>
 
                 {/* Cinematic Contact Footer */}
-                <section id="contact" className="w-full px-6 py-40 z-20 relative bg-[#0c0a09] flex flex-col items-center justify-center text-center overflow-hidden">
+                <section id="artist-contact" className="w-full px-6 py-40 z-20 relative bg-[#0c0a09] flex flex-col items-center justify-center text-center overflow-hidden">
                     <div className="absolute w-[600px] h-[600px] bg-amber-600/5 blur-[150px] rounded-full pointer-events-none" />
 
                     <h2 className="text-6xl md:text-9xl text-stone-200 mb-12 opacity-40 hover:opacity-100 transition-opacity duration-1000 cursor-pointer font-serif italic relative z-10" style={{ fontFamily: 'var(--font-playfair), serif' }}>

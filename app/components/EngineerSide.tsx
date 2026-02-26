@@ -58,7 +58,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
         className="absolute top-6 left-1/2 md:left-auto md:right-8 -translate-x-1/2 md:translate-x-0 z-50 px-4 md:px-6 py-2 md:py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.5)] flex gap-4 md:gap-6 text-[9px] md:text-[10px] uppercase tracking-[0.1em] md:tracking-[0.2em] font-medium text-slate-400 w-max"
       >
         {['About', 'Skills', 'Projects', 'Contact'].map(item => (
-          <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-cyan-400 transition-colors relative group">
+          <a key={item} href={`#engineer-${item.toLowerCase()}`} className="hover:text-cyan-400 transition-colors relative group">
             {item}
             <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 transition-all duration-300 group-hover:w-full" />
           </a>
@@ -73,7 +73,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
       >
         {/* Dynamic Hero Section */}
         <motion.section
-          id="hero"
+          id="engineer-hero"
           className="w-full min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20"
         >
           <div className="flex flex-col md:flex-row items-center justify-between h-full relative z-20">
@@ -138,7 +138,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
         </motion.section>
 
         {/* About Section - Glass Panel */}
-        <section id="about" className="w-full max-w-5xl px-6 md:px-20 py-24 relative z-20">
+        <section id="engineer-about" className="w-full max-w-5xl px-6 md:px-20 py-24 relative z-20">
           <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 md:p-12 backdrop-blur-xl relative overflow-hidden group hover:border-white/[0.1] transition-colors">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full" />
 
@@ -154,7 +154,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
         </section>
 
         {/* Education & Experience Split */}
-        <section id="education" className="w-full max-w-6xl px-6 md:px-20 py-16 relative z-20 flex flex-col lg:flex-row gap-12">
+        <section id="engineer-education" className="w-full max-w-6xl px-6 md:px-20 py-16 relative z-20 flex flex-col lg:flex-row gap-12">
 
           {/* Left Column - Education */}
           <div className="flex-1">
@@ -269,7 +269,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
         </section>
 
         {/* Technical Skills - Glowing Grid */}
-        <section id="skills" className="w-full max-w-6xl px-6 md:px-20 py-16 relative z-20">
+        <section id="engineer-skills" className="w-full max-w-6xl px-6 md:px-20 py-16 relative z-20">
           <div className="flex items-center gap-4 mb-12 justify-center text-center">
             <Layers className="text-cyan-500" />
             <h3 className="text-2xl font-bold uppercase tracking-widest text-slate-200">Tech Stack</h3>
@@ -301,7 +301,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
         </section>
 
         {/* Selected Works - Interactive Cards */}
-        <section id="projects" className="w-full max-w-5xl px-6 md:px-20 py-24 relative z-20">
+        <section id="engineer-projects" className="w-full max-w-5xl px-6 md:px-20 py-24 relative z-20">
           <div className="flex items-center gap-4 mb-16 border-b border-white/10 pb-6">
             <Rocket className="text-cyan-500" />
             <h3 className="text-2xl font-bold uppercase tracking-widest text-slate-200">Selected Works</h3>
@@ -351,7 +351,7 @@ export default function EngineerSide({ isActive }: { isActive: boolean }) {
         </section>
 
         {/* Contact Footer */}
-        <section id="contact" className="w-full px-6 py-32 mt-12 relative z-20 bg-gradient-to-t from-cyan-950/20 to-transparent">
+        <section id="engineer-contact" className="w-full px-6 py-32 mt-12 relative z-20 bg-gradient-to-t from-cyan-950/20 to-transparent">
           <div className="max-w-4xl mx-auto text-center border-t border-white/5 pt-20">
             <div className="inline-block p-4 rounded-full bg-cyan-500/10 mb-8 animate-bounce">
               <Mail className="text-cyan-400" size={32} />

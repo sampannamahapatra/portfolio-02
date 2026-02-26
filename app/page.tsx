@@ -101,19 +101,29 @@ export default function Home() {
 
       {/* Mobile Toggle Button */}
       {!isDesktop && isOpen && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.8, type: "spring" }}
-          onClick={toggleMobileSide}
-          className="fixed bottom-8 right-8 z-[60] p-4 rounded-full shadow-2xl backdrop-blur-xl border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 text-white"
-          style={{
-            background: activeMobileSide === "engineer" ? "linear-gradient(135deg, rgba(15,23,42,0.8), rgba(6,182,212,0.4))" : "linear-gradient(135deg, rgba(28,25,23,0.8), rgba(217,119,6,0.5))",
-            boxShadow: activeMobileSide === "engineer" ? "0 10px 30px -10px rgba(6,182,212,0.5)" : "0 10px 30px -10px rgba(245,158,11,0.5)"
-          }}
-        >
-          {activeMobileSide === "engineer" ? <Music size={24} /> : <Code2 size={24} />}
-        </motion.button>
+        <div className="fixed bottom-8 right-8 z-[60] flex flex-col items-end gap-3">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            key={activeMobileSide}
+            className="px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-widest text-white whitespace-nowrap"
+          >
+            Switch to {activeMobileSide === "engineer" ? "Artist" : "Engineer"} mode
+          </motion.div>
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.2, type: "spring" }}
+            onClick={toggleMobileSide}
+            className="p-4 rounded-full shadow-2xl backdrop-blur-xl border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 text-white"
+            style={{
+              background: activeMobileSide === "engineer" ? "linear-gradient(135deg, rgba(15,23,42,0.8), rgba(6,182,212,0.4))" : "linear-gradient(135deg, rgba(28,25,23,0.8), rgba(217,119,6,0.5))",
+              boxShadow: activeMobileSide === "engineer" ? "0 10px 30px -10px rgba(6,182,212,0.5)" : "0 10px 30px -10px rgba(245,158,11,0.5)"
+            }}
+          >
+            {activeMobileSide === "engineer" ? <Music size={24} /> : <Code2 size={24} />}
+          </motion.button>
+        </div>
       )}
 
       {/* Left Side (Engineer) */}
