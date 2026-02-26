@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
 import EngineerSide from "./components/EngineerSide";
 import ArtistSide from "./components/ArtistSide";
 import { Code2, Music } from "lucide-react";
@@ -20,17 +20,17 @@ export default function Home() {
   }, []);
 
   // Premium Apple-like spring physics
-  const transition = { type: "spring" as const, stiffness: 120, damping: 20, mass: 0.8 };
-  const curtainTransition = { duration: 1.8, ease: [0.16, 1, 0.3, 1] }; // Custom cubic-bezier for elegance
+  const transition: Transition = { type: "spring", stiffness: 120, damping: 20, mass: 0.8 };
+  const curtainTransition: Transition = { duration: 1.8, ease: [0.16, 1, 0.3, 1] }; // Custom cubic-bezier for elegance
 
-  const leftSideVariants = {
+  const leftSideVariants: Variants = {
     initial: { width: "50%", opacity: 0 },
     hoverLeft: { width: "65%" },
     hoverRight: { width: "35%" },
     default: { width: "50%", opacity: 1 },
   };
 
-  const rightSideVariants = {
+  const rightSideVariants: Variants = {
     initial: { width: "50%", opacity: 0 },
     hoverRight: { width: "65%" },
     hoverLeft: { width: "35%" },
