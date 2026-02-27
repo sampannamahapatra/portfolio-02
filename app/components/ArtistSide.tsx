@@ -41,23 +41,28 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
             <div className="absolute inset-0 z-0 pointer-events-none opacity-40 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] mix-blend-overlay fixed" />
             <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-amber-900/10 via-transparent to-stone-950 fixed" />
 
-            {/* Elegant Top Navigation - Now Sticky */}
+            {/* Elegant Top Navigation - Now Sticky & Accessible */}
             <motion.nav
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-6 px-6 py-3 rounded-full bg-stone-950/40 backdrop-blur-xl border border-stone-800 shadow-[0_4px_30px_rgba(0,0,0,0.5)] text-[10px] uppercase tracking-[0.3em] font-medium text-stone-400 w-max"
+                className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-6 px-6 py-2 rounded-full glass-nav shadow-[0_8px_32px_rgba(0,0,0,0.5)] text-[10px] uppercase tracking-[0.3em] font-semibold text-stone-300 w-max max-w-[90vw] overflow-x-auto no-scrollbar"
             >
-                {['Hero', 'Story', 'Work', 'Contact'].map(item => (
-                    <a key={item} href={`#artist-${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors relative overflow-hidden group">
-                        {item}
-                        <span className="absolute -bottom-1 left-0 w-full h-px bg-amber-500 -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500" />
-                    </a>
-                ))}
-                <div className="w-px h-4 bg-stone-800 mx-1" />
-                <button onClick={() => window.location.reload()} className="hover:text-amber-500 transition-colors flex items-center gap-2">
-                    <Hexagon size={14} className="text-amber-600 animate-spin-slow" />
-                    <span>Reset</span>
+                <div className="flex items-center gap-4">
+                    {['Hero', 'Story', 'Work', 'Contact'].map(item => (
+                        <a key={item} href={`#artist-${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors relative overflow-hidden group py-2">
+                            {item}
+                            <span className="absolute -bottom-1 left-0 w-full h-px bg-amber-500 -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500" />
+                        </a>
+                    ))}
+                </div>
+                <div className="w-px h-4 bg-stone-800 hidden sm:block" />
+                <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="hover:text-amber-500 transition-all flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded-full border border-amber-500/30 group"
+                >
+                    <Hexagon size={14} className="text-amber-600 group-hover:rotate-180 transition-transform duration-700" />
+                    <span className="hidden sm:inline">Back to Top</span>
                 </button>
             </motion.nav>
 
