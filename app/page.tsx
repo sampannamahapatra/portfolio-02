@@ -20,20 +20,27 @@ export default function Home() {
   }, []);
 
   // Premium Apple-like spring physics
-  const transition: Transition = { type: "spring", stiffness: 120, damping: 20, mass: 0.8 };
+  // Precise XAI-inspired motion physics
+  const transition: Transition = { 
+    type: "spring", 
+    stiffness: 180, 
+    damping: 24, 
+    mass: 1, 
+    restDelta: 0.001 
+  };
   const curtainTransition: Transition = { duration: 1.8, ease: [0.16, 1, 0.3, 1] }; // Custom cubic-bezier for elegance
 
   const leftSideVariants: Variants = {
     initial: { width: "50%", opacity: 0 },
-    hoverLeft: { width: "65%" },
-    hoverRight: { width: "35%" },
+    hoverLeft: { width: "80%" },
+    hoverRight: { width: "20%" },
     default: { width: "50%", opacity: 1 },
   };
 
   const rightSideVariants: Variants = {
     initial: { width: "50%", opacity: 0 },
-    hoverRight: { width: "65%" },
-    hoverLeft: { width: "35%" },
+    hoverRight: { width: "80%" },
+    hoverLeft: { width: "20%" },
     default: { width: "50%", opacity: 1 },
   };
 
@@ -47,24 +54,6 @@ export default function Home() {
       onMouseMove={() => !isOpen && setIsOpen(true)}
       onClick={() => !isOpen && setIsOpen(true)}
     >
-      {/* Interactive Central Divider */}
-      {isDesktop && isOpen && (
-        <motion.div
-          initial={{ opacity: 0, scaleY: 0 }}
-          animate={{ opacity: 1, scaleY: 1 }}
-          transition={{ delay: 0.5, duration: 1.5 }}
-          className="absolute left-1/2 top-0 bottom-0 w-[1px] -translate-x-1/2 z-40 bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none"
-        >
-          {/* Glowing Orb on Divider that follows active side */}
-          <motion.div
-            className="absolute top-1/2 -translate-y-1/2 w-full h-[30vh] blur-md transition-colors duration-700"
-            animate={{
-              backgroundColor: hoveredSide === "left" ? "rgba(34,211,238,0.5)" : hoveredSide === "right" ? "rgba(245,158,11,0.5)" : "rgba(255,255,255,0.1)",
-              opacity: hoveredSide ? 1 : 0.3
-            }}
-          />
-        </motion.div>
-      )}
 
       {/* Intro Curtain */}
       <AnimatePresence>
@@ -78,7 +67,7 @@ export default function Home() {
               transition={curtainTransition}
               className="w-full md:w-1/2 h-[50vh] md:h-full bg-[#030712] flex items-center justify-center md:justify-end pr-0 md:pr-12 md:border-r border-white/5 relative shadow-[20px_0_50px_rgba(0,0,0,0.5)] z-20"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.2em] uppercase bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-light tracking-[0.3em] uppercase text-white font-sans drop-shadow-lg">
                 Sampanna
               </h1>
             </motion.div>
@@ -91,7 +80,7 @@ export default function Home() {
               transition={curtainTransition}
               className="w-full md:w-1/2 h-[50vh] md:h-full bg-[#0c0a09] flex items-center justify-center md:justify-start pl-0 md:pl-12 relative shadow-[-20px_0_50px_rgba(0,0,0,0.5)] z-20"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.2em] uppercase text-stone-200">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-light tracking-[0.3em] uppercase text-white font-sans drop-shadow-lg">
                 Mahapatra
               </h1>
             </motion.div>
@@ -115,13 +104,13 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.2, type: "spring" }}
             onClick={toggleMobileSide}
-            className="p-4 rounded-full shadow-2xl backdrop-blur-xl border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 text-white"
+            className="p-5 rounded-full shadow-2xl glass-nav border border-white/20 flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-90 group relative"
             style={{
-              background: activeMobileSide === "engineer" ? "linear-gradient(135deg, rgba(15,23,42,0.8), rgba(6,182,212,0.4))" : "linear-gradient(135deg, rgba(28,25,23,0.8), rgba(217,119,6,0.5))",
-              boxShadow: activeMobileSide === "engineer" ? "0 10px 30px -10px rgba(6,182,212,0.5)" : "0 10px 30px -10px rgba(245,158,11,0.5)"
+              boxShadow: activeMobileSide === "engineer" ? "0 0 30px rgba(34,211,238,0.3)" : "0 0 30px rgba(245,158,11,0.3)"
             }}
           >
-            {activeMobileSide === "engineer" ? <Music size={24} /> : <Code2 size={24} />}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            {activeMobileSide === "engineer" ? <Music size={28} className="text-amber-500" /> : <Code2 size={28} className="text-cyan-400" />}
           </motion.button>
         </div>
       )}
@@ -135,7 +124,12 @@ export default function Home() {
         variants={isDesktop ? leftSideVariants : undefined}
         transition={transition}
       >
-        {isOpen && <EngineerSide isActive={!isDesktop || hoveredSide === "left" || hoveredSide === null} />}
+        {isOpen && (
+          <EngineerSide 
+            isActive={!isDesktop || hoveredSide === "left" || hoveredSide === null} 
+            isShrunk={isDesktop && hoveredSide === "right"}
+          />
+        )}
       </motion.div>
 
       {/* Right Side (Artist) */}
@@ -147,7 +141,12 @@ export default function Home() {
         variants={isDesktop ? rightSideVariants : undefined}
         transition={transition}
       >
-        {isOpen && <ArtistSide isActive={!isDesktop || hoveredSide === "right" || hoveredSide === null} />}
+        {isOpen && (
+          <ArtistSide 
+            isActive={!isDesktop || hoveredSide === "right" || hoveredSide === null} 
+            isShrunk={isDesktop && hoveredSide === "left"}
+          />
+        )}
       </motion.div>
 
     </main>

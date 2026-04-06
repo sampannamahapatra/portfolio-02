@@ -46,20 +46,103 @@ textarea {
   cursor: pointer;
 }
 
-/* Custom scrollbar if needed */
+/* X-AI Inspired Animations */
+@keyframes terminal-typing {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
+}
+
+@keyframes digital-glitch {
+  0% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+    text-shadow: 2px 0 #22d3ee, -2px 0 #f43f5e;
+  }
+
+  40% {
+    transform: translate(2px, -2px);
+    text-shadow: -2px 0 #22d3ee, 2px 0 #f43f5e;
+  }
+
+  60% {
+    transform: translate(-2px, 0);
+  }
+
+  80% {
+    transform: translate(2px, 2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-glitch {
+  animation: digital-glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  animation-play-state: paused;
+}
+
+.group:hover .animate-glitch {
+  animation-play-state: running;
+}
+
+.scanline-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.1), transparent);
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e1e1e;
+  background: #020203;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #777;
+  background: rgba(34, 211, 238, 0.3);
+}
+
+.glass-nav {
+  background: rgba(2, 2, 3, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
