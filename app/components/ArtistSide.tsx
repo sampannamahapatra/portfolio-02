@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
 import { Disc, Play, ArrowRight, Music, AudioLines, Hexagon } from "lucide-react";
 
-export default function ArtistSide({ isActive }: { isActive: boolean }) {
+export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ container: containerRef });
 
@@ -21,9 +21,16 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
         },
         shrunk: {
             opacity: 0.15,
-            filter: "blur(10px) grayscale(100%)",
+            filter: "blur(10px)",
             scale: 0.95,
             transition: { duration: 0.8, ease: "easeInOut" }
+        }
+    };
+
+    const scanLineVariants: Variants = {
+        animate: {
+            y: ["0%", "100%", "0%"],
+            transition: { duration: 8, repeat: Infinity, ease: "linear" as any }
         }
     };
 
@@ -34,73 +41,131 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
 
     return (
         <div
-            ref={containerRef}
-            className={`h-full w-full bg-[#0c0a09] text-[#f5f5f4] relative overflow-y-auto overflow-x-hidden flex flex-col font-sans transition-all duration-1000 ${isActive ? '' : 'pointer-events-none'}`}
+            className={`h-full w-full bg-[#0c0a09] text-[#f5f5f4] relative overflow-hidden flex flex-col font-sans transition-all duration-1000 ${isActive ? '' : 'pointer-events-none'}`}
         >
             {/* Cinematic Grain & Warmth */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-40 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] mix-blend-overlay fixed" />
-            <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-amber-900/10 via-transparent to-stone-950 fixed" />
+            <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] mix-blend-overlay fixed" />
+            <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-white/[0.02] via-transparent to-black fixed" />
+            
+            {/* XAI Inspired Scanning Grid Layer */}
+            <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
+            <motion.div 
+                variants={scanLineVariants}
+                animate="animate"
+                className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent z-[5] pointer-events-none"
+            />
 
-            {/* Elegant Top Navigation - Now Sticky & Accessible */}
-            <motion.nav
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8 }}
-                className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-6 px-6 py-2 rounded-full glass-nav shadow-[0_8px_32px_rgba(0,0,0,0.5)] text-[10px] uppercase tracking-[0.3em] font-semibold text-stone-300 w-max max-w-[90vw] overflow-x-auto no-scrollbar"
-            >
-                <div className="flex items-center gap-4">
-                    {['Hero', 'Story', 'Work', 'Contact'].map(item => (
-                        <a key={item} href={`#artist-${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors relative overflow-hidden group py-2">
-                            {item}
-                            <span className="absolute -bottom-1 left-0 w-full h-px bg-amber-500 -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500" />
-                        </a>
-                    ))}
-                </div>
+            {/* Elegant Top Navigation - Now Absolute & Centered in Section */}
+            {isActive && (
+                <motion.nav
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="absolute top-8 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-6 px-6 py-2 rounded-full glass-nav shadow-[0_8px_32px_rgba(0,0,0,0.5)] text-[10px] uppercase tracking-[0.3em] font-semibold text-stone-300 w-max max-w-[90%] overflow-x-auto no-scrollbar"
+                >
+                    <div className="flex items-center gap-4">
+                        {['Hero', 'Story', 'Gallery', 'Work', 'Contact'].map(item => (
+                            <a key={item} href={`#artist-${item.toLowerCase()}`} className="hover:text-white transition-colors relative overflow-hidden group py-2">
+                                {item}
+                                <span className="absolute -bottom-1 left-0 w-full h-px bg-white -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-500" />
+                            </a>
+                        ))}
+                    </div>
                 <div className="w-px h-4 bg-stone-800 hidden sm:block" />
                 <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="hover:text-amber-500 transition-all flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded-full border border-amber-500/30 group"
+                    onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="hover:text-white transition-all flex items-center gap-2 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/20 group"
                 >
-                    <Hexagon size={14} className="text-amber-600 group-hover:rotate-180 transition-transform duration-700" />
+                    <Hexagon size={14} className="text-white/60 group-hover:rotate-180 transition-transform duration-700" />
                     <span className="hidden sm:inline">Back to Top</span>
                 </button>
-            </motion.nav>
+                </motion.nav>
+            )}
 
-            <motion.div
-                className="relative z-10 w-full flex flex-col"
-                variants={contentVariants}
-                initial="hidden"
-                animate={isActive ? "visible" : "shrunk"}
+            <div
+                ref={containerRef}
+                className="h-full w-full overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10"
             >
+                <motion.div
+                    className="relative z-10 w-full flex flex-col"
+                    variants={contentVariants}
+                    initial="hidden"
+                    animate={isActive ? "visible" : "shrunk"}
+                >
                 {/* Editorial Hero Section */}
                 <section id="artist-hero" className="min-h-screen w-full flex flex-col justify-center px-6 md:px-16 lg:px-24 relative overflow-hidden">
 
                     <motion.div className="relative z-20 flex flex-col h-full justify-center pt-20">
                         <div className="flex items-center gap-4 mb-4 md:mb-8 ml-2">
-                            <AudioLines className="text-amber-600 animate-pulse" size={24} />
-                            <span className="text-xs uppercase tracking-[0.4em] text-amber-600/80 font-medium">Bassist & Musician</span>
+                            <AudioLines className="text-white animate-pulse" size={24} />
+                            <span className="text-xs uppercase tracking-[0.4em] text-white/50 font-medium">Bassist & Musician</span>
                         </div>
 
                         <motion.h1
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.8 }}
-                            className="text-[4rem] sm:text-6xl md:text-[7rem] lg:text-[9rem] text-amber-500/90 font-serif italic mt-6 text-center md:text-left leading-none"
+                            className="text-4xl sm:text-5xl md:text-[4rem] lg:text-[5rem] text-white font-serif italic mt-6 text-center md:text-left leading-none relative flex flex-col"
                             style={{ fontFamily: 'var(--font-playfair), serif' }}
                         >
-                            The Artist.
+                            <span className="relative z-10">The Artist.</span>
+                            <motion.span 
+                                className="absolute -inset-1 bg-white/5 blur-xl -z-10 rounded-full"
+                                animate={{ opacity: [0.2, 0.5, 0.2] }}
+                                transition={{ duration: 4, repeat: Infinity }}
+                            />
                         </motion.h1>
 
-                        <div className="mt-8 sm:mt-12 md:mt-24 max-w-lg mx-auto md:ml-auto md:mr-32 relative md:before:absolute before:-left-8 before:top-2 before:w-px before:h-full before:bg-gradient-to-b before:from-amber-500/50 before:to-transparent text-center md:text-left">
-                            <p className="text-xs sm:text-sm md:text-lg font-light leading-relaxed text-stone-400">
-                                <strong className="text-stone-200 font-normal">Bass Guitar</strong> is the art of grounding the melody and driving the rhythm.
-                                It's a visceral way to tell stories through low frequencies and <span className="text-amber-500/90 font-medium italic select-none">share heavy emotions</span> with the crowd.
-                            </p>
+                        <div className="flex flex-col md:flex-row items-center md:items-start gap-12 mt-12 md:mt-24">
+                            {/* Upcoming Track Widget - NEW */}
+                            {/* Rhythm Section Seal - NEW Design */}
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 1.2, duration: 0.8 }}
+                                className="flex-none relative group h-48 w-48 flex items-center justify-center"
+                            >
+                                {/* Central Hexagon */}
+                                <div className="absolute z-10 text-stone-400 group-hover:text-white transition-colors duration-500">
+                                    <Hexagon size={32} strokeWidth={1} />
+                                </div>
+
+                                {/* Rotating Text Seal */}
+                                <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                    className="w-full h-full"
+                                >
+                                    <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
+                                        <defs>
+                                            <path 
+                                                id="circlePath" 
+                                                d="M 100, 100 m -70, 0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" 
+                                            />
+                                        </defs>
+                                        <text className="fill-stone-500 text-[11px] font-mono uppercase tracking-[0.2em] font-medium scale-[1.05]">
+                                            <textPath href="#circlePath" textAnchor="middle" startOffset="50%">
+                                                The Rhythm Section • Underground
+                                            </textPath>
+                                        </text>
+                                    </svg>
+                                </motion.div>
+
+                                {/* Background Pulse */}
+                                <div className="absolute inset-0 bg-stone-500/5 blur-3xl rounded-full -z-10 group-hover:bg-stone-500/10 transition-colors duration-500" />
+                            </motion.div>
+
+                            <div className="flex-1 max-w-lg relative md:before:absolute before:-left-8 before:top-2 before:w-px before:h-full before:bg-gradient-to-b before:from-white/30 before:to-transparent text-center md:text-left">
+                                <p className="text-xs sm:text-sm md:text-lg font-light leading-relaxed text-stone-400">
+                                    <strong className="text-white font-normal">Bass Guitar</strong> is the art of grounding the melody and driving the rhythm.
+                                    It's a visceral way to tell stories through low frequencies and <span className="text-white/90 font-medium italic select-none">share heavy emotions</span> with the crowd.
+                                </p>
+                            </div>
                         </div>
                     </motion.div>
 
                     {/* Center Editorial Image - Redesigned for Balance */}
-                    <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-[5%] -translate-y-1/2 md:-translate-y-[45%] w-[85%] max-w-[320px] sm:max-w-[450px] md:max-w-[600px] aspect-[4/5] z-10 pointer-events-none opacity-50 md:opacity-90 mix-blend-screen mix-blend-luminosity lg:mix-blend-normal">
+                    <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-[5%] -translate-y-1/2 md:-translate-y-[45%] w-[90%] max-w-[380px] sm:max-w-[500px] md:max-w-[650px] lg:max-w-[750px] aspect-[4/5] z-10 pointer-events-none opacity-50 md:opacity-90">
                         <motion.div
                             className="w-full h-full rounded-t-[180px] md:rounded-t-[300px] rounded-b-[30px] md:rounded-b-[60px] overflow-hidden relative border border-stone-800/50 shadow-[0_0_100px_rgba(0,0,0,0.8)]"
                             initial={{ opacity: 0, scale: 1.1 }}
@@ -117,26 +182,56 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                         >
                             <img
                                 src="/images/artist-profile.jpg"
-                                alt="Sampanna performing"
-                                className="w-full h-full object-cover grayscale-[20%] contrast-[1.1] sepia-[10%] hover:scale-110 transition-transform duration-[3s] ease-out"
+                                alt="Artist performing"
+                                className="w-full h-full object-cover contrast-[1.2] hover:scale-110 transition-transform duration-[3s] ease-out"
                             />
                             {/* X-AI Grain & Overlay */}
                             <div className="absolute inset-0 bg-stone-900/10 pointer-events-none" />
-                            <div className="absolute inset-0 bg-gradient-to-tr from-stone-950/80 via-transparent to-amber-700/20 mix-blend-multiply opacity-60" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-white/10 mix-blend-screen opacity-60" />
                             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0c0a09] via-[#0c0a09]/50 to-transparent" />
 
                             {/* Scanning Pulse */}
                             <motion.div
-                                animate={{ opacity: [0.1, 0.3, 0.1] }}
+                                animate={{ opacity: [0.05, 0.15, 0.05] }}
                                 transition={{ duration: 4, repeat: Infinity }}
-                                className="absolute inset-0 bg-amber-600/5"
+                                className="absolute inset-0 bg-white/10"
                             />
                         </motion.div>
 
                         {/* Ornamental Corner Pieces */}
-                        <div className="absolute -top-4 -right-4 w-12 h-12 border-t border-r border-amber-600/30 rounded-tr-3xl" />
-                        <div className="absolute -bottom-4 -left-4 w-12 h-12 border-b border-l border-amber-600/30 rounded-bl-3xl" />
+                        <div className="absolute -top-4 -right-4 w-12 h-12 border-t border-r border-white/30 rounded-tr-3xl" />
+                        <div className="absolute -bottom-4 -left-4 w-12 h-12 border-b border-l border-white/30 rounded-bl-3xl" />
                     </div>
+
+                    {/* Collapsed Ribbon Mode - NEW */}
+                    <AnimatePresence>
+                        {isShrunk && (
+                            <motion.div 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0 z-50 bg-[#0c0a09]/95 backdrop-blur-xl flex flex-col items-center justify-between py-12 px-2 pointer-events-none"
+                            >
+                                <div className="flex flex-col items-center gap-8">
+                                    <div className="w-12 h-12 rounded-full border border-white/10 p-1">
+                                        <img src="/images/artist-profile.jpg" className="w-full h-full object-cover rounded-full grayscale brightness-75" />
+                                    </div>
+                                    <div className="h-32 w-px bg-gradient-to-b from-transparent via-stone-500/50 to-transparent" />
+                                </div>
+
+                                <div className="flex items-center justify-center h-full">
+                                    <h3 className="text-[10px] uppercase tracking-[1em] text-stone-400/50 font-bold [writing-mode:vertical-lr] rotate-180 whitespace-nowrap">
+                                        Rhythm_Poetry
+                                    </h3>
+                                </div>
+
+                                <div className="flex flex-col items-center gap-4 opacity-50">
+                                    <Music size={14} className="text-stone-400" />
+                                    <div className="w-2 h-2 rounded-full bg-white/20 animate-pulse" />
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                 </section>
 
@@ -152,12 +247,12 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                                         <textPath href="#circlePath" startOffset="0%">• The Rhythm Section • Underground Scene</textPath>
                                     </text>
                                 </svg>
-                                <Hexagon className="text-amber-600/50 group-hover:text-amber-500 transition-colors" size={32} />
+                                <Hexagon className="text-white/20 group-hover:text-white transition-colors" size={32} />
                             </div>
                         </div>
 
                         <div className="w-full md:w-2/3">
-                            <span className="text-[10px] tracking-[0.3em] uppercase text-amber-600/80 block mb-6 font-mono">Biography</span>
+                            <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 block mb-6 font-mono">Biography</span>
                             <h2 className="text-4xl md:text-5xl font-serif italic text-stone-200 mb-8" style={{ fontFamily: 'var(--font-playfair), serif' }}>A Tapestry of Sound</h2>
 
                             <div className="space-y-6 text-stone-400 font-light text-lg leading-loose">
@@ -174,7 +269,7 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
 
                             <div className="mt-12 flex flex-wrap gap-3">
                                 {['Warsite', 'Strive', 'Plasmic Knock', 'Nikhonj', 'Sindhur Pathyatri'].map((band) => (
-                                    <span key={band} className="px-4 py-2 border border-stone-800 rounded-full text-[10px] uppercase tracking-widest text-stone-500 hover:text-amber-400 hover:border-amber-900 transition-colors cursor-crosshair">
+                                    <span key={band} className="px-4 py-2 border border-stone-800 rounded-full text-[10px] uppercase tracking-widest text-stone-500 hover:text-white hover:border-white transition-colors cursor-crosshair">
                                         {band}
                                     </span>
                                 ))}
@@ -184,12 +279,88 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                     </div>
                 </section>
 
+                {/* Scanned Archives - NEW Gallery Section */}
+                <section id="artist-gallery" className="w-full px-6 md:px-24 py-32 z-20 relative bg-[#0c0a09] border-t border-white/5">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="flex items-center gap-4 mb-16">
+                            <span className="text-[10px] tracking-[0.4em] uppercase text-white font-mono">Archive_01</span>
+                            <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[1000px]">
+                            {/* Large Feature Item */}
+                            <motion.div 
+                                whileHover={{ scale: 0.99 }}
+                                className="md:col-span-8 md:row-span-2 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
+                            >
+                                <img 
+                                    src="/images/artist_showcase_1_1775469254138.png" 
+                                    className="w-full h-full object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:rotate-1 brightness-75 group-hover:brightness-100" 
+                                    alt="Live Performance"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                                <div className="absolute bottom-10 left-10">
+                                    <span className="text-[10px] font-mono text-white/50 block mb-2 tracking-[0.2em]">01_Performance</span>
+                                    <h3 className="text-2xl text-white font-serif italic">The Visceral Response</h3>
+                                </div>
+                                <motion.div className="absolute top-0 right-0 w-32 h-32 border-t border-r border-white/20 m-4" />
+                            </motion.div>
+
+                            {/* Detail Item 1 */}
+                            <motion.div 
+                                whileHover={{ scale: 0.99 }}
+                                className="md:col-span-4 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
+                            >
+                                <img 
+                                    src="/images/artist_showcase_2_1775469270702.png" 
+                                    className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s]" 
+                                    alt="Instrument Detail"
+                                />
+                                <div className="absolute inset-0 bg-red-900/10 mix-blend-overlay" />
+                                <div className="absolute top-6 left-6">
+                                    <span className="text-[8px] font-mono text-white/40 tracking-[0.4em]">Detail_02</span>
+                                </div>
+                            </motion.div>
+
+                            {/* Detail Item 2 */}
+                            <motion.div 
+                                whileHover={{ scale: 0.99 }}
+                                className="md:col-span-4 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
+                            >
+                                <img 
+                                    src="/images/artist_showcase_3_1775469288323.png" 
+                                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" 
+                                    alt="Studio Session"
+                                />
+                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 group-hover:ring-white/30 transition-all" />
+                            </motion.div>
+
+                            {/* Medium Feature Item */}
+                            <motion.div 
+                                whileHover={{ scale: 0.99 }}
+                                className="md:col-span-4 md:row-span-1 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
+                            >
+                                <img 
+                                    src="/images/artist_showcase_4_1775469303104.png" 
+                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700" 
+                                    alt="Concert Energy"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:scale-125 group-hover:border-white/50 transition-all duration-500">
+                                        <div className="w-1 h-1 bg-white rounded-full" />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Discography Section - Vinyl Style */}
                 <section id="artist-work" className="w-full px-6 md:px-24 py-32 z-20 relative bg-stone-950 border-t border-stone-900">
                     <div className="max-w-6xl mx-auto">
                         <div className="flex flex-col md:flex-row justify-between items-baseline mb-20">
                             <h2 className="text-5xl md:text-7xl text-stone-200 font-serif italic" style={{ fontFamily: 'var(--font-playfair), serif' }}>Discography</h2>
-                            <div className="flex items-center gap-2 text-amber-600 mt-6 md:mt-0">
+                            <div className="flex items-center gap-2 text-white/50 mt-6 md:mt-0">
                                 <Music size={16} />
                                 <span className="text-[10px] tracking-[0.2em] uppercase font-mono">Latest Releases</span>
                             </div>
@@ -198,13 +369,19 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                             {[
-                                { title: "Bikkhob", artist: "Strive", status: "Upcoming", color: "from-red-950/40" },
-                                { title: "Punorutthan", artist: "Warsite", status: "Upcoming", color: "from-amber-950/40" },
-                                { title: "Amar Cokher Paane", artist: "Sindhur Pathyatri", status: "Released", color: "from-blue-950/40" },
-                                { title: "Bishorjon", artist: "Nikhonj", status: "Released", color: "from-stone-800/40" }
+                                { title: "Bikkhob", artist: "Strive", status: "Upcoming", color: "from-stone-900/80" },
+                                { title: "Punorutthan", artist: "Warsite", status: "Upcoming", color: "from-stone-800/80" },
+                                { title: "Amar Cokher Paane", artist: "Sindhur Pathyatri", status: "Released", color: "from-stone-700/80" },
+                                { title: "Bishorjon", artist: "Nikhonj", status: "Released", color: "from-stone-900/80" }
                             ].map((album, i) => (
                                 <div key={i} className="group cursor-pointer">
-                                    <div className={`aspect-square bg-gradient-to-br ${album.color} to-stone-900 border border-stone-800 mb-6 relative overflow-hidden rounded-sm group-hover:border-stone-600 transition-colors duration-500 shadow-2xl`}>
+                                    <div className={`aspect-square bg-gradient-to-br ${album.color} to-stone-950 border border-stone-800 mb-6 relative overflow-hidden rounded-sm group-hover:border-stone-500 transition-colors duration-500 shadow-2xl`}>
+                                        {/* XAI Style Scanline for Vinyl */}
+                                        <motion.div 
+                                            animate={{ y: ["-100%", "200%"] }}
+                                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                            className="absolute inset-x-0 h-px bg-white/10 z-20"
+                                        />
 
                                         {/* Vinyl Record Hover Animation */}
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] rounded-full bg-[#0a0a0a] border border-stone-800 shadow-2xl flex items-center justify-center group-hover:translate-x-[10%] group-hover:rotate-180 transition-all duration-700 ease-out">
@@ -240,20 +417,21 @@ export default function ArtistSide({ isActive }: { isActive: boolean }) {
 
                 {/* Cinematic Contact Footer */}
                 <section id="artist-contact" className="w-full px-6 py-40 z-20 relative bg-[#0c0a09] flex flex-col items-center justify-center text-center overflow-hidden">
-                    <div className="absolute w-[600px] h-[600px] bg-amber-600/5 blur-[150px] rounded-full pointer-events-none" />
+                    <div className="absolute w-[600px] h-[600px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none" />
 
                     <h2 className="text-6xl md:text-9xl text-stone-200 mb-12 opacity-40 hover:opacity-100 transition-opacity duration-1000 cursor-pointer font-serif italic relative z-10" style={{ fontFamily: 'var(--font-playfair), serif' }}>
                         Let's Create.
                     </h2>
 
-                    <a href="mailto:contact@sampanna.com" className="group relative inline-flex items-center gap-4 text-stone-400 hover:text-amber-500 transition-colors z-10">
+                    <a href="mailto:booking@theartist.com" className="group relative inline-flex items-center gap-4 text-stone-400 hover:text-white transition-colors z-10">
                         <span className="uppercase tracking-[0.3em] text-xs font-medium">Send Transmission</span>
-                        <span className="w-12 h-px bg-stone-700 group-hover:bg-amber-500 group-hover:w-20 transition-all duration-500" />
+                        <span className="w-12 h-px bg-stone-700 group-hover:bg-white group-hover:w-20 transition-all duration-500" />
                         <ArrowRight size={16} className="-ml-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-3 transition-all duration-500" />
                     </a>
                 </section>
 
-            </motion.div>
+                </motion.div>
+            </div>
         </div>
     );
 }
