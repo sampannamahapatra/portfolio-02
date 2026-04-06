@@ -249,72 +249,100 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
 
                         <div className="w-full md:w-1/3 flex justify-center">
                             <div className="w-32 h-32 md:w-56 md:h-56 rounded-full flex items-center justify-center relative group">
-                                {/* Base Static Ring */}
-                                <div className="absolute inset-0 rounded-full border border-stone-800/20" />
-                                
-                                {/* Core Hexagon - Static but interactive */}
-                                <Hexagon className="text-white/10 group-hover:text-white transition-all duration-1000 relative z-20 scale-75 md:scale-100" size={32} />
+                                {/* Trace Glow Layers */}
+                                <motion.div 
+                                    animate={{ 
+                                        scale: [1, 1.1, 1],
+                                        opacity: [0.03, 0.08, 0.03]
+                                    }}
+                                    transition={{ duration: 3, repeat: Infinity }}
+                                    className="absolute inset-0 rounded-full bg-amber-500/20 blur-[40px] -z-10 group-hover:opacity-20 transition-opacity"
+                                />
 
-                                {/* Layer 1: Slow Clockwise Ring */}
+                                {/* Base Static Ring */}
+                                <div className="absolute inset-0 rounded-full border border-stone-800/40" />
+                                
+                                {/* Core Hexagon - Now with Amber highlight */}
+                                <div className="relative z-20 flex items-center justify-center">
+                                    <Hexagon className="text-stone-500 group-hover:text-amber-500 transition-all duration-700 scale-75 md:scale-100" size={32} />
+                                    <motion.div 
+                                        animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.3, 0, 0.3] }}
+                                        transition={{ duration: 4, repeat: Infinity }}
+                                        className="absolute inset-0 bg-amber-500/20 blur-md rounded-full -z-10"
+                                    />
+                                </div>
+
+                                {/* Layer 1: Slow Clockwise Ring with Gradient Trace */}
                                 <motion.div 
                                     animate={{ rotate: 360 }}
-                                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-0 rounded-full border border-white/[0.03]"
+                                    transition={{ duration: isActive ? 20 : 40, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-0 rounded-full border border-white/[0.05] group-hover:border-amber-500/20 transition-all"
                                 />
 
-                                {/* Layer 2: Fast Counter-Clockwise Dash */}
+                                {/* Layer 2: Fast Counter-Clockwise Dash - Amber Highlights */}
                                 <motion.div 
                                     animate={{ rotate: -360 }}
-                                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-4 rounded-full border border-dashed border-stone-600/30 group-hover:border-stone-400/30 transition-colors"
+                                    transition={{ duration: isActive ? 12 : 25, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-4 rounded-full border border-dashed border-stone-700/40 group-hover:border-amber-900/40 transition-all"
                                 />
 
-                                {/* Layer 3: Scanning Arcs (2 segments) */}
-                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                                    {/* Arc 1 */}
+                                {/* Layer 2.5: NEW Electric Cyan Precision Ring (Inner) */}
+                                <motion.div 
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: isActive ? 5 : 10, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-8 rounded-full border border-cyan-500/10 group-hover:border-cyan-400/30 transition-all opacity-0 group-hover:opacity-100"
+                                />
+
+                                {/* Layer 3: Energy Scanning Arcs (Amber) */}
+                                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                                    {/* Tracking Glow Arc 1 - Amber */}
                                     <motion.circle
                                         cx="50"
                                         cy="50"
                                         r="49.5"
-                                        stroke="currentColor"
-                                        strokeWidth="0.5"
-                                        strokeDasharray="40 270"
+                                        stroke="url(#amberGradient)"
+                                        strokeWidth="1.5"
+                                        strokeDasharray="60 250"
+                                        strokeLinecap="round"
                                         fill="transparent"
-                                        className="text-white/20"
+                                        className="opacity-40 group-hover:opacity-80 transition-opacity"
                                         animate={{ rotate: 360 }}
-                                        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                                     />
-                                    {/* Arc 2 - Offset & Different Speed */}
+                                    {/* Counter Tracking Arc 2 - White/Stone */}
                                     <motion.circle
                                         cx="50"
                                         cy="50"
-                                        r="47"
+                                        r="46"
                                         stroke="currentColor"
-                                        strokeWidth="1"
-                                        strokeDasharray="15 300"
+                                        strokeWidth="0.5"
+                                        strokeDasharray="20 300"
                                         fill="transparent"
-                                        className="text-white/40"
+                                        className="text-stone-400 opacity-20"
                                         animate={{ rotate: -360 }}
-                                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                                     />
+                                    {/* Gradient Definition */}
+                                    <defs>
+                                        <linearGradient id="amberGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0" />
+                                            <stop offset="100%" stopColor="#f59e0b" stopOpacity="1" />
+                                        </linearGradient>
+                                    </defs>
                                 </svg>
 
-                                {/* Layer 4: Orbiting Dots */}
+                                {/* Layer 4: Orbiting Energy Dots (Amber) */}
                                 <motion.div 
                                     animate={{ rotate: 360 }}
-                                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                                     className="absolute inset-0"
                                 >
-                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-white/20 rounded-full blur-[1px]" />
-                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white/40 rounded-full blur-[2px] animate-pulse" />
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-amber-500 rounded-full shadow-[0_0_10px_#f59e0b]" />
                                 </motion.div>
 
-                                {/* Subtle Pulse Glow */}
-                                <motion.div 
-                                    animate={{ scale: [1, 1.05, 1], opacity: [0.05, 0.1, 0.05] }}
-                                    transition={{ duration: 4, repeat: Infinity }}
-                                    className="absolute inset-0 rounded-full bg-white/5 blur-2xl -z-10"
-                                />
+                                {/* Background Ambient Particles */}
+                                <div className="absolute top-1/4 left-1/4 w-0.5 h-0.5 bg-amber-500/40 rounded-full animate-ping" />
+                                <div className="absolute bottom-1/4 right-1/4 w-0.5 h-0.5 bg-stone-500/40 rounded-full animate-ping [animation-delay:2s]" />
                             </div>
                         </div>
 
