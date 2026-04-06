@@ -1,15 +1,11 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
-import { Disc, Play, ArrowRight, Music, AudioLines, Hexagon } from "lucide-react";
+import { motion, AnimatePresence, useScroll, Variants } from "framer-motion";
+import { Music, AudioLines, Hexagon, ExternalLink, Play, ArrowRight } from "lucide-react";
 
 export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({ container: containerRef });
-
-    const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 150]);
-    const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
     const contentVariants: Variants = {
         hidden: { opacity: 0, filter: "blur(20px)", scale: 1.05 },
@@ -30,13 +26,8 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
     const scanLineVariants: Variants = {
         animate: {
             y: ["0%", "100%", "0%"],
-            transition: { duration: 8, repeat: Infinity, ease: "linear" as any }
+            transition: { duration: 8, repeat: Infinity, ease: "linear" }
         }
-    };
-
-    const imageVariants: Variants = {
-        hidden: { opacity: 0, scale: 1.2, filter: "sepia(100%) blur(10px)" },
-        visible: { opacity: 1, scale: 1, filter: "sepia(0%) blur(0px)", transition: { duration: 1.5, ease: "easeOut" } }
     };
 
     return (
@@ -117,48 +108,65 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                         </motion.h1>
 
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-12 mt-12 md:mt-24">
-                            {/* Upcoming Track Widget - NEW */}
-                            {/* Rhythm Section Seal - NEW Design */}
-                            <motion.div 
+                            {/* Rhythm Section Vinyl Disc - NEW Redesigned */}
+                            <motion.a 
+                                href="#artist-work"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 1.2, duration: 0.8 }}
-                                className="flex-none relative group h-48 w-48 flex items-center justify-center"
+                                className="flex-none relative group w-[65vw] max-w-[190px] md:max-w-[170px] aspect-square flex items-center justify-center cursor-pointer"
                             >
-                                {/* Central Hexagon */}
-                                <div className="absolute z-10 text-stone-400 group-hover:text-white transition-colors duration-500">
-                                    <Hexagon size={32} strokeWidth={1} />
+                                {/* Vinyl Body */}
+                                <div className="absolute inset-0 rounded-full bg-[#0a0a0a] shadow-[0_0_40px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] border border-stone-800/50 overflow-hidden">
+                                    {/* Grooves */}
+                                    {[...Array(12)].map((_, i) => (
+                                        <div 
+                                            key={i} 
+                                            className="absolute inset-0 rounded-full border border-white/[0.03]" 
+                                            style={{ margin: `${(i + 1) * 4}%` }} 
+                                        />
+                                    ))}
+                                    {/* Reflection */}
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.02] to-transparent rotate-45" />
                                 </div>
 
-                                {/* Rotating Text Seal */}
-                                <motion.div
+                                {/* Central Red Label */}
+                                <motion.div 
+                                    className="absolute z-10 w-[40%] h-[40%] rounded-full bg-[#dc2626] flex items-center justify-center shadow-inner relative"
                                     animate={{ rotate: 360 }}
-                                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                                    className="w-full h-full"
+                                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                                 >
-                                    <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
+                                    {/* Hole */}
+                                    <div className="w-2 h-2 rounded-full bg-[#0c0a09] shadow-xl" />
+                                    
+                                    {/* Link Icon Overlay */}
+                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 rounded-full">
+                                        <ExternalLink size={14} className="text-white" />
+                                    </div>
+
+                                    {/* Circular Text on Label */}
+                                    <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full p-2 overflow-visible">
                                         <defs>
-                                            <path 
-                                                id="circlePath" 
-                                                d="M 100, 100 m -70, 0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" 
-                                            />
+                                            <path id="labelPath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
                                         </defs>
-                                        <text className="fill-stone-500 text-[11px] font-mono uppercase tracking-[0.2em] font-medium scale-[1.05]">
-                                            <textPath href="#circlePath" textAnchor="middle" startOffset="50%">
+                                        <text className="fill-white/80 text-[7px] font-mono uppercase tracking-[0.2em] font-bold">
+                                            <textPath href="#labelPath" textAnchor="middle" startOffset="50%">
                                                 The Rhythm Section • Underground
                                             </textPath>
                                         </text>
                                     </svg>
                                 </motion.div>
 
-                                {/* Background Pulse */}
-                                <div className="absolute inset-0 bg-stone-500/5 blur-3xl rounded-full -z-10 group-hover:bg-stone-500/10 transition-colors duration-500" />
-                            </motion.div>
+                                {/* Hover tooltip */}
+                                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                    <span className="text-[8px] font-mono text-white/40 uppercase tracking-widest">Listen to Latest release</span>
+                                </div>
+                            </motion.a>
 
                             <div className="flex-1 max-w-lg relative md:before:absolute before:-left-8 before:top-2 before:w-px before:h-full before:bg-gradient-to-b before:from-white/30 before:to-transparent text-center md:text-left">
                                 <p className="text-xs sm:text-sm md:text-lg font-light leading-relaxed text-stone-400">
                                     <strong className="text-white font-normal">Bass Guitar</strong> is the art of grounding the melody and driving the rhythm.
-                                    It's a visceral way to tell stories through low frequencies and <span className="text-white/90 font-medium italic select-none">share heavy emotions</span> with the crowd.
+                                    It&apos;s a visceral way to tell stories through low frequencies and <span className="text-white/90 font-medium italic select-none">share heavy emotions</span> with the crowd.
                                 </p>
                             </div>
                         </div>
@@ -214,7 +222,7 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                             >
                                 <div className="flex flex-col items-center gap-8">
                                     <div className="w-12 h-12 rounded-full border border-white/10 p-1">
-                                        <img src="/images/artist-profile.jpg" className="w-full h-full object-cover rounded-full grayscale brightness-75" />
+                                        <img src="/images/artist-profile.jpg" alt="Artist Profile Icon" className="w-full h-full object-cover rounded-full grayscale brightness-75" />
                                     </div>
                                     <div className="h-32 w-px bg-gradient-to-b from-transparent via-stone-500/50 to-transparent" />
                                 </div>
@@ -240,14 +248,9 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                     <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-center">
 
                         <div className="w-full md:w-1/3 flex justify-center">
-                            <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border border-stone-800 flex items-center justify-center relative spin-slow relative group">
-                                <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
-                                    <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
-                                    <text className="text-[10px] uppercase tracking-widest fill-stone-500 font-mono">
-                                        <textPath href="#circlePath" startOffset="0%">• The Rhythm Section • Underground Scene</textPath>
-                                    </text>
-                                </svg>
+                            <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border border-stone-800 flex items-center justify-center relative group">
                                 <Hexagon className="text-white/20 group-hover:text-white transition-colors" size={32} />
+                                <div className="absolute inset-0 rounded-full border border-white/5 scale-90 group-hover:scale-100 transition-transform duration-700" />
                             </div>
                         </div>
 
@@ -420,7 +423,7 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                     <div className="absolute w-[600px] h-[600px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none" />
 
                     <h2 className="text-6xl md:text-9xl text-stone-200 mb-12 opacity-40 hover:opacity-100 transition-opacity duration-1000 cursor-pointer font-serif italic relative z-10" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-                        Let's Create.
+                        Let&apos;s Create.
                     </h2>
 
                     <a href="mailto:booking@theartist.com" className="group relative inline-flex items-center gap-4 text-stone-400 hover:text-white transition-colors z-10">

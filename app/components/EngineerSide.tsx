@@ -1,16 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
+import { motion, AnimatePresence, useScroll, Variants } from "framer-motion";
 import { Terminal, Cpu, Database, Layout, Briefcase, GraduationCap, Code2, Layers, Rocket, Github, Mail, ExternalLink, ChevronRight } from "lucide-react";
 
 export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: containerRef });
 
-  // Parallax effects
-  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   const contentVariants: Variants = {
     hidden: { opacity: 0, filter: "blur(10px)", scale: 0.95 },
@@ -35,18 +31,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
     }
   };
 
-  const imageVariants: Variants = {
-    hidden: { opacity: 0, scale: 1.1 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
-  };
 
-  // xAI Inspired Minimalist Background
-  const AmbientBackground = () => (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-white opacity-[0.03] blur-[100px]" />
-    </div>
-  );
 
   return (
     <div
@@ -224,7 +209,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   >
                     <div className="flex flex-col items-center gap-8">
                        <div className="w-12 h-12 rounded-full border border-cyan-500/30 p-1">
-                          <img src="/images/engineer-profile.png" className="w-full h-full object-cover rounded-full grayscale" />
+                          <img src="/images/engineer-profile.png" alt="Engineer Profile Icon" className="w-full h-full object-cover rounded-full grayscale" />
                        </div>
                        <div className="h-32 w-px bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent" />
                     </div>
@@ -465,7 +450,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             <div className="inline-block p-4 rounded-full bg-cyan-500/10 mb-8 animate-bounce">
               <Mail className="text-cyan-400" size={32} />
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">Let's build together.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">Let&apos;s build together.</h2>
             <p className="text-slate-400 mb-10 max-w-lg mx-auto">Open for new opportunities, scalable architecture challenges, and coffee chats.</p>
 
             <a href="mailto:contact@sampanna.dev" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform rounded-full shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)]">
@@ -479,3 +464,10 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
     </div>
   );
 }
+
+const AmbientBackground = () => (
+  <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+    <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-white opacity-[0.03] blur-[100px]" />
+  </div>
+);
