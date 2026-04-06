@@ -248,9 +248,73 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                     <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-center">
 
                         <div className="w-full md:w-1/3 flex justify-center">
-                            <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border border-stone-800 flex items-center justify-center relative group">
-                                <Hexagon className="text-white/20 group-hover:text-white transition-colors" size={32} />
-                                <div className="absolute inset-0 rounded-full border border-white/5 scale-90 group-hover:scale-100 transition-transform duration-700" />
+                            <div className="w-32 h-32 md:w-56 md:h-56 rounded-full flex items-center justify-center relative group">
+                                {/* Base Static Ring */}
+                                <div className="absolute inset-0 rounded-full border border-stone-800/20" />
+                                
+                                {/* Core Hexagon - Static but interactive */}
+                                <Hexagon className="text-white/10 group-hover:text-white transition-all duration-1000 relative z-20 scale-75 md:scale-100" size={32} />
+
+                                {/* Layer 1: Slow Clockwise Ring */}
+                                <motion.div 
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-0 rounded-full border border-white/[0.03]"
+                                />
+
+                                {/* Layer 2: Fast Counter-Clockwise Dash */}
+                                <motion.div 
+                                    animate={{ rotate: -360 }}
+                                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-4 rounded-full border border-dashed border-stone-600/30 group-hover:border-stone-400/30 transition-colors"
+                                />
+
+                                {/* Layer 3: Scanning Arcs (2 segments) */}
+                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+                                    {/* Arc 1 */}
+                                    <motion.circle
+                                        cx="50"
+                                        cy="50"
+                                        r="49.5"
+                                        stroke="currentColor"
+                                        strokeWidth="0.5"
+                                        strokeDasharray="40 270"
+                                        fill="transparent"
+                                        className="text-white/20"
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                                    />
+                                    {/* Arc 2 - Offset & Different Speed */}
+                                    <motion.circle
+                                        cx="50"
+                                        cy="50"
+                                        r="47"
+                                        stroke="currentColor"
+                                        strokeWidth="1"
+                                        strokeDasharray="15 300"
+                                        fill="transparent"
+                                        className="text-white/40"
+                                        animate={{ rotate: -360 }}
+                                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                    />
+                                </svg>
+
+                                {/* Layer 4: Orbiting Dots */}
+                                <motion.div 
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                                    className="absolute inset-0"
+                                >
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-white/20 rounded-full blur-[1px]" />
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white/40 rounded-full blur-[2px] animate-pulse" />
+                                </motion.div>
+
+                                {/* Subtle Pulse Glow */}
+                                <motion.div 
+                                    animate={{ scale: [1, 1.05, 1], opacity: [0.05, 0.1, 0.05] }}
+                                    transition={{ duration: 4, repeat: Infinity }}
+                                    className="absolute inset-0 rounded-full bg-white/5 blur-2xl -z-10"
+                                />
                             </div>
                         </div>
 
