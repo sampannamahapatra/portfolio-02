@@ -363,10 +363,22 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                             </div>
 
                             <div className="mt-12 flex flex-wrap gap-3">
-                                {['Warsite', 'Strive', 'Plasmic Knock', 'Nikhonj', 'Sindhur Pathyatri'].map((band) => (
-                                    <span key={band} className="px-4 py-2 border border-stone-800 rounded-full text-[10px] uppercase tracking-widest text-stone-500 hover:text-white hover:border-white transition-colors cursor-crosshair">
-                                        {band}
-                                    </span>
+                                {[
+                                    { name: 'Warsite', href: 'https://www.facebook.com/warsitebd' },
+                                    { name: 'Strive', href: 'https://www.facebook.com/profile.php?id=61556223094139' },
+                                    { name: 'Plasmic Knock', href: 'https://www.facebook.com/PlasmicKnock' },
+                                    { name: 'Nikhonj', href: 'https://www.facebook.com/weare6ds' },
+                                    { name: 'Sindhur Pathyatri', href: 'https://www.facebook.com/profile.php?id=100076567860427' },
+                                ].map((band) => (
+                                    <a
+                                        key={band.name}
+                                        href={band.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-4 py-2 border border-stone-800 rounded-full text-[10px] uppercase tracking-widest text-stone-500 hover:text-white hover:border-white transition-colors cursor-pointer"
+                                    >
+                                        {band.name}
+                                    </a>
                                 ))}
                             </div>
                         </div>
@@ -464,12 +476,19 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                             {[
-                                { title: "Bikkhob", artist: "Strive", status: "Upcoming", color: "from-stone-900/80" },
-                                { title: "Punorutthan", artist: "Warsite", status: "Upcoming", color: "from-stone-800/80" },
-                                { title: "Amar Cokher Paane", artist: "Sindhur Pathyatri", status: "Released", color: "from-stone-700/80" },
-                                { title: "Bishorjon", artist: "Nikhonj", status: "Released", color: "from-stone-900/80" }
-                            ].map((album, i) => (
-                                <div key={i} className="group cursor-pointer">
+                                { title: "Bikkhob", artist: "Strive", status: "Released", color: "from-stone-900/80", link: "https://youtu.be/p-0fFCdOKmw?si=7ZBHo1a0lYwgl6P7" },
+                                { title: "Punorutthan", artist: "Warsite", status: "Upcoming", color: "from-stone-800/80", link: "" },
+                                { title: "Amar Cokher Paane", artist: "Sindhur Pathyatri", status: "Released", color: "from-stone-700/80", link: "https://youtu.be/_x5HyPwO37M?si=2-p2UZdaRxjCOYFS" },
+                                { title: "Bishorjon", artist: "Nikhonj", status: "Released", color: "from-stone-900/80", link: "https://youtu.be/gIAck51vVK0?si=EYw5MyB2Q30LTZQL" },
+                                { title: "Ashokiyota", artist: "", status: "Upcoming", color: "from-stone-800/80", link: "" }
+                            ].map((album, i) => {
+                                const CardTag = album.link ? 'a' : 'div';
+                                return (
+                                <CardTag
+                                    key={i}
+                                    {...(album.link ? { href: album.link, target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    className="group cursor-pointer block"
+                                >
                                     <div className={`aspect-square bg-gradient-to-br ${album.color} to-stone-950 border border-stone-800 mb-6 relative overflow-hidden rounded-sm group-hover:border-stone-500 transition-colors duration-500 shadow-2xl`}>
                                         {/* XAI Style Scanline for Vinyl */}
                                         <motion.div 
@@ -503,8 +522,9 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                                         <p className="text-[10px] uppercase tracking-widest text-stone-500">{album.artist}</p>
                                         <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 border border-stone-800 text-stone-600 rounded-full">{album.status}</span>
                                     </div>
-                                </div>
-                            ))}
+                                </CardTag>
+                                );
+                            })}
 
                         </div>
                     </div>
@@ -518,7 +538,7 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                         Let&apos;s Create.
                     </h2>
 
-                    <a href="mailto:booking@theartist.com" className="group relative inline-flex items-center gap-4 text-stone-400 hover:text-white transition-colors z-10">
+                    <a href="mailto:sampannamahapatra6@gmail.com" className="group relative inline-flex items-center gap-4 text-stone-400 hover:text-white transition-colors z-10">
                         <span className="uppercase tracking-[0.3em] text-xs font-medium">Send Transmission</span>
                         <span className="w-12 h-px bg-stone-700 group-hover:bg-white group-hover:w-20 transition-all duration-500" />
                         <ArrowRight size={16} className="-ml-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-3 transition-all duration-500" />

@@ -453,7 +453,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">Let&apos;s build together.</h2>
             <p className="text-slate-400 mb-10 max-w-lg mx-auto">Open for new opportunities, scalable architecture challenges, and coffee chats.</p>
 
-            <a href="mailto:contact@sampanna.dev" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform rounded-full shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)]">
+            <a href="mailto:sampannamahapatra6@gmail.com" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform rounded-full shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)]">
               Send Transmission <ChevronRight size={16} />
             </a>
           </div>
