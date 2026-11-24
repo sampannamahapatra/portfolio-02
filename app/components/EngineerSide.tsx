@@ -275,7 +275,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
         >
           {/* Hero */}
           <section id="engineer-hero" className="relative flex min-h-screen w-full items-center px-6 pb-16 pt-28 @3xl:px-14">
-            <div className="absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_75%)]">
+            <div className="absolute inset-0 opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_95%)]">
               <ParticleField />
             </div>
 
