@@ -116,7 +116,6 @@ const OTHER_PROJECTS: Project[] = [
     award: "Winner — HaorGrix front-end website design competition",
     body: "A musical instrument storefront I designed and built alone.",
     highlights: ["Storefront, cart isolation and polished auth flows", "Producer pages and mobile-first UX"],
-    repo: "https://github.com/HaorGrix/Musical-shop_sampanna-",
   },
   {
     title: "ExamForge AI",
@@ -128,7 +127,6 @@ const OTHER_PROJECTS: Project[] = [
       "Geometry-anchored question segmenter with hybrid text/image rendering",
       "Math digitizer with continuous learning and admin review",
     ],
-    repo: "https://github.com/HaorGrix/pdf_to_digital-test",
   },
   {
     title: "HaorGrix Office",
