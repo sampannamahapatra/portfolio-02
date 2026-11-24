@@ -29,13 +29,21 @@ import ParticleField from "./engineer/ParticleField";
 import ProjectCard, { type Project } from "./engineer/ProjectCard";
 import { card, gradientText, mono, sora } from "./engineer/styles";
 import ScrollLight, { ScrollContainerContext } from "./engineer/ScrollLight";
+import SectionCursor from "./engineer/SectionCursor";
 
 const EMAIL = "sampannamahapatra6@gmail.com";
 const GITHUB = "https://github.com/sampannamahapatra";
+const HAORGRIX_PROFILE = "https://haorgrix.com/team/sampanna-mahapatra";
+
+const HAORGRIX_LINKS = [
+  { label: "My profile", display: "haorgrix.com/team/sampanna-mahapatra", href: HAORGRIX_PROFILE },
+  { label: "Meet the team", display: "haorgrix.com/team", href: "https://haorgrix.com/team" },
+  { label: "Visit HaorGrix", display: "haorgrix.com", href: "https://haorgrix.com" },
+];
 
 const NAV = [
   { label: "About", id: "engineer-about" },
-  { label: "Journey", id: "engineer-education" },
+  { label: "HaorGrix", id: "engineer-haorgrix" },
   { label: "Stack", id: "engineer-skills" },
   { label: "Work", id: "engineer-projects" },
   { label: "Contact", id: "engineer-contact" },
@@ -237,6 +245,7 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
 
 export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   const contentVariants: Variants = {
     hidden: { opacity: 0, scale: 0.98 },
@@ -246,6 +255,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
 
   return (
     <div
+      ref={rootRef}
       className={`relative flex h-full w-full flex-col overflow-hidden bg-[#0F111A] font-[family-name:var(--font-inter)] text-slate-200 ${isActive ? "" : "pointer-events-none"}`}
     >
 
@@ -276,6 +286,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
         </motion.nav>
       )}
 
+      <SectionCursor scope={rootRef} enabled={isActive && !isShrunk} />
       <ScrollContainerContext.Provider value={containerRef}>
       <div ref={containerRef} className="h-full w-full overflow-y-auto overflow-x-hidden scroll-smooth">
         <motion.div
@@ -285,7 +296,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           animate={isActive ? "visible" : "shrunk"}
         >
           {/* Hero */}
-          <section id="engineer-hero" className="relative flex min-h-screen w-full items-center px-6 pb-16 pt-28 @3xl:px-14">
+          <section id="engineer-hero" data-cursor="spot" className="relative flex min-h-screen w-full items-center px-6 pb-16 pt-28 @3xl:px-14">
             <div className="absolute inset-0 opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_95%)]">
               <ParticleField />
             </div>
@@ -393,7 +404,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           </section>
 
           {/* About */}
-          <section id="engineer-about" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+          <section id="engineer-about" data-cursor="lens" className="mx-auto w-full max-w-6xl px-6 pb-12 pt-24 @3xl:px-14">
             <Reveal>
               <div className="mb-12">
                 <ScrollLight direction="right" dim={0.12}>
@@ -401,7 +412,17 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                     About<span className="text-[#4A94BA]">.</span>
                   </h2>
                 </ScrollLight>
-                <Eyebrow>The Person Behind the Code</Eyebrow>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Eyebrow>The Person Behind the Code</Eyebrow>
+                  <nav aria-label="About pages" className={`${mono} flex items-center gap-1 rounded-full border border-white/[0.08] p-1 text-[11px] uppercase tracking-[0.2em]`}>
+                    <a href="#engineer-about" className="rounded-full bg-white/[0.08] px-3 py-1.5 text-white">
+                      Profile
+                    </a>
+                    <a href="#engineer-education" className="rounded-full px-3 py-1.5 text-slate-400 transition-colors hover:text-white">
+                      Journey
+                    </a>
+                  </nav>
+                </div>
               </div>
               <ScrollLight>
               <p className={`${sora} max-w-4xl text-[clamp(1.25rem,2.8cqw,2.1rem)] font-light leading-[1.4] tracking-[-0.02em] text-slate-300`}>
@@ -423,10 +444,11 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           </section>
 
           {/* Education & leadership */}
-          <section id="engineer-education" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+          <section id="engineer-education" className="mx-auto w-full max-w-6xl px-6 pb-24 pt-12 @3xl:px-14">
+            <div className="mb-14 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             <Reveal>
               <SectionHeading
-                eyebrow="Journey"
+                eyebrow="About · Journey"
                 title="Education &"
                 accent="Leadership."
                 intro="Computer Science at Northern University Bangladesh, with a focus on data science and years of community leadership alongside it."
@@ -501,8 +523,93 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             </div>
           </section>
 
+          {/* HaorGrix */}
+          <section id="engineer-haorgrix" data-cursor="diamond" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+            <Reveal>
+              <ScrollLight direction="right" dim={0.12}>
+                <h2 className={`${sora} mb-5 text-[clamp(3rem,10cqw,7.5rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white`}>
+                  HaorGrix<span className="text-[#4A94BA]">.</span>
+                </h2>
+              </ScrollLight>
+              <Eyebrow>Co-Founder &amp; Chief Operating Officer</Eyebrow>
+            </Reveal>
+
+            <div className="mt-14 grid items-center gap-10 @4xl:grid-cols-[1.05fr_0.95fr]">
+              <Reveal>
+                <a
+                  href={HAORGRIX_PROFILE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0b0d14] shadow-[0_30px_80px_rgba(0,0,0,0.5)] transition-colors hover:border-[#4A94BA]/40"
+                >
+                  <div className="flex items-center gap-2 border-b border-white/[0.06] px-4 py-2.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/80" />
+                    <span className={`${mono} ml-3 truncate rounded bg-white/[0.04] px-3 py-1 text-[10px] text-slate-400`}>
+                      haorgrix.com/team/sampanna-mahapatra
+                    </span>
+                    <ArrowUpRight
+                      size={14}
+                      className="ml-auto text-slate-500 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+                    />
+                  </div>
+                  <div className="relative aspect-[1100/686] overflow-hidden">
+                    <Image
+                      src="/images/work/haorgrix-profile.jpg"
+                      alt="Sampanna Mahapatra on the HaorGrix team page"
+                      fill
+                      sizes="(min-width: 1024px) 40vw, 90vw"
+                      className="object-cover object-top transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
+                    />
+                  </div>
+                </a>
+              </Reveal>
+
+              <div className="space-y-6">
+                <ScrollLight>
+                  <p className={`${sora} text-[clamp(1.2rem,2.3cqw,1.75rem)] font-light leading-[1.45] tracking-[-0.01em] text-slate-300`}>
+                    I co-founded <span className="font-semibold text-white">HaorGrix</span> and lead its operations as{" "}
+                    <span className={`italic ${gradientText}`}>Chief Operating Officer</span>: a firm building software and AI systems for
+                    global enterprises.
+                  </p>
+                </ScrollLight>
+                <ScrollLight>
+                  <p className="text-base leading-relaxed text-slate-400">
+                    Alongside running operations, I build. The client products, internal platforms and tools in my work below were shipped
+                    with the HaorGrix team.
+                  </p>
+                </ScrollLight>
+              </div>
+            </div>
+
+            <div className="mt-16 border-t border-white/[0.08]">
+              {HAORGRIX_LINKS.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between gap-6 border-b border-white/[0.08] py-7"
+                >
+                  <span
+                    className={`${sora} text-[clamp(1.75rem,4.5cqw,3.25rem)] font-semibold tracking-[-0.03em] text-slate-300 transition-all duration-500 group-hover:translate-x-3 group-hover:text-white`}
+                  >
+                    {l.label}
+                  </span>
+                  <span
+                    className={`${mono} flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-slate-500 transition-colors group-hover:text-[#7cc4e4]`}
+                  >
+                    <span className="hidden @xl:inline">{l.display}</span>
+                    <ArrowUpRight size={16} className="transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+
           {/* Stack */}
-          <section id="engineer-skills" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+          <section id="engineer-skills" data-cursor="cross" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
             <Reveal>
               <SectionHeading eyebrow="Toolkit" title="The Stack" accent="I Build With." intro="From data notebooks to containers to design files: one toolkit, end to end." />
             </Reveal>
@@ -584,7 +691,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           </section>
 
           {/* Contact */}
-          <section id="engineer-contact" className="relative w-full overflow-hidden px-6 py-32 @3xl:px-14">
+          <section id="engineer-contact" data-cursor="hello" className="relative w-full overflow-hidden px-6 py-32 @3xl:px-14">
             <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A94BA]/10 blur-[120px]" />
             <Reveal className="relative mx-auto max-w-3xl text-center">
               <Eyebrow>Contact</Eyebrow>

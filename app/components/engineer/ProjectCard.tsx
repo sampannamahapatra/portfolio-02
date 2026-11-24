@@ -98,6 +98,7 @@ export default function ProjectCard({ project, featured = false }: { project: Pr
 
   return (
     <motion.article
+      data-cursor="view"
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
