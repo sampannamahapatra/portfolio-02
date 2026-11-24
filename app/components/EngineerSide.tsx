@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Terminal, Cpu, Database, Layout, Briefcase, GraduationCap, Code2, Layers, Rocket, Github, Mail, ExternalLink, ChevronRight } from "lucide-react";
 
@@ -87,7 +88,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
         {/* Dynamic Hero Section */}
         <motion.section
           id="engineer-hero"
-          className="w-full min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20"
+          className="@container w-full min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20"
         >
           <div className="flex flex-col md:flex-row items-center justify-between h-full relative z-20">
             {/* Left Content */}
@@ -95,7 +96,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
               <div className="absolute -inset-4 pointer-events-none bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
 
-              <h1 className="text-3xl sm:text-5xl md:text-[4rem] lg:text-[5rem] font-medium uppercase tracking-[0.1em] mb-4 leading-tight text-white relative group cursor-default">
+              <h1 className="text-[clamp(2rem,7.5cqw,5rem)] font-medium uppercase tracking-[0.1em] mb-4 leading-tight text-white relative group cursor-default">
                 <motion.span
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -117,7 +118,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                 {/* Tech Glow Hinter */}
                 <div className="absolute top-0 -left-12 bottom-0 w-px bg-gradient-to-b from-transparent via-cyan-500/40 to-transparent hidden lg:block" />
               </h1>
-              <h2 className="text-sm md:text-2xl font-light tracking-[0.4em] text-cyan-400/80 mb-6 flex items-center gap-4 overflow-hidden uppercase">
+              <h2 className="text-[clamp(0.8rem,2.4cqw,1.5rem)] font-light tracking-[0.35em] text-cyan-400/80 mb-6 flex items-center gap-4 overflow-hidden uppercase">
                 <span className="w-8 h-px bg-cyan-500/30 hidden sm:block" />
                 <motion.span
                   initial={{ width: 0 }}
@@ -175,10 +176,13 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
 
                 <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/5 bg-slate-900/40 backdrop-blur-sm p-1.5 md:p-3 shadow-[0_0_100px_rgba(0,0,0,0.8)] scanline-effect">
                   <div className="w-full h-full rounded-xl overflow-hidden relative group-hover:border-cyan-500/30 transition-colors duration-700">
-                    <img
+                    <Image
                       src="/images/engineer-profile.png"
                       alt="Sampanna Mahapatra"
-                      className="w-full h-full object-cover object-top grayscale brightness-75 contrast-125 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1.5s] ease-out rounded-xl"
+                      fill
+                      priority
+                      sizes="(min-width: 768px) 40vw, 90vw"
+                      className="object-cover object-top grayscale brightness-75 contrast-125 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1.5s] ease-out rounded-xl"
                     />
                     <div className="absolute inset-0 bg-[#030712] mix-blend-overlay opacity-20" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
@@ -209,7 +213,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   >
                     <div className="flex flex-col items-center gap-8">
                        <div className="w-12 h-12 rounded-full border border-cyan-500/30 p-1">
-                          <img src="/images/engineer-profile.png" alt="Engineer Profile Icon" className="w-full h-full object-cover rounded-full grayscale" />
+                          <Image src="/images/engineer-profile.png" alt="" width={48} height={48} className="w-full h-full object-cover rounded-full grayscale" />
                        </div>
                        <div className="h-32 w-px bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent" />
                     </div>

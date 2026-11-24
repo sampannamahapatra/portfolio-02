@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Music, AudioLines, Hexagon, ExternalLink, Play, ArrowRight } from "lucide-react";
 
@@ -188,10 +189,13 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                                 y: { duration: 8, repeat: Infinity, ease: "easeInOut" }
                             }}
                         >
-                            <img
+                            <Image
                                 src="/images/artist-profile.jpg"
-                                alt="Artist performing"
-                                className="w-full h-full object-cover contrast-[1.2] hover:scale-110 transition-transform duration-[3s] ease-out"
+                                alt="Sampanna Mahapatra playing bass on stage"
+                                fill
+                                priority
+                                sizes="(min-width: 768px) 45vw, 90vw"
+                                className="object-cover contrast-[1.2] hover:scale-110 transition-transform duration-[3s] ease-out"
                             />
                             {/* X-AI Grain & Overlay */}
                             <div className="absolute inset-0 bg-stone-900/10 pointer-events-none" />
@@ -222,7 +226,7 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                             >
                                 <div className="flex flex-col items-center gap-8">
                                     <div className="w-12 h-12 rounded-full border border-white/10 p-1">
-                                        <img src="/images/artist-profile.jpg" alt="Artist Profile Icon" className="w-full h-full object-cover rounded-full grayscale brightness-75" />
+                                        <Image src="/images/artist-profile.jpg" alt="" width={48} height={48} className="w-full h-full object-cover rounded-full grayscale brightness-75" />
                                     </div>
                                     <div className="h-32 w-px bg-gradient-to-b from-transparent via-stone-500/50 to-transparent" />
                                 </div>
@@ -400,9 +404,11 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                                 whileHover={{ scale: 0.99 }}
                                 className="md:col-span-8 md:row-span-2 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
                             >
-                                <img 
+                                <Image 
                                     src="/images/artist_showcase_1_1775469254138.png" 
-                                    className="w-full h-full object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:rotate-1 brightness-75 group-hover:brightness-100" 
+                                    fill
+                                    sizes="(min-width: 768px) 60vw, 100vw"
+                                    className="object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:rotate-1 brightness-75 group-hover:brightness-100" 
                                     alt="Live Performance"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
@@ -418,9 +424,11 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                                 whileHover={{ scale: 0.99 }}
                                 className="md:col-span-4 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
                             >
-                                <img 
+                                <Image 
                                     src="/images/artist_showcase_2_1775469270702.png" 
-                                    className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s]" 
+                                    fill
+                                    sizes="(min-width: 768px) 30vw, 100vw"
+                                    className="object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s]" 
                                     alt="Instrument Detail"
                                 />
                                 <div className="absolute inset-0 bg-red-900/10 mix-blend-overlay" />
@@ -434,9 +442,11 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                                 whileHover={{ scale: 0.99 }}
                                 className="md:col-span-4 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
                             >
-                                <img 
+                                <Image 
                                     src="/images/artist_showcase_3_1775469288323.png" 
-                                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" 
+                                    fill
+                                    sizes="(min-width: 768px) 30vw, 100vw"
+                                    className="object-cover transition-all duration-1000 group-hover:scale-105" 
                                     alt="Studio Session"
                                 />
                                 <div className="absolute inset-0 ring-1 ring-inset ring-white/10 group-hover:ring-white/30 transition-all" />
@@ -447,9 +457,11 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
                                 whileHover={{ scale: 0.99 }}
                                 className="md:col-span-4 md:row-span-1 relative overflow-hidden group cursor-pointer rounded-sm border border-white/5"
                             >
-                                <img 
+                                <Image 
                                     src="/images/artist_showcase_4_1775469303104.png" 
-                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700" 
+                                    fill
+                                    sizes="(min-width: 768px) 30vw, 100vw"
+                                    className="object-cover opacity-60 group-hover:opacity-100 transition-all duration-700" 
                                     alt="Concert Energy"
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center">
