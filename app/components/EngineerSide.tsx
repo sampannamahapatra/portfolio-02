@@ -28,6 +28,7 @@ import {
 import ParticleField from "./engineer/ParticleField";
 import ProjectCard, { type Project } from "./engineer/ProjectCard";
 import { card, gradientText, mono, sora } from "./engineer/styles";
+import ScrollLight, { ScrollContainerContext } from "./engineer/ScrollLight";
 
 const EMAIL = "sampannamahapatra6@gmail.com";
 const GITHUB = "https://github.com/sampannamahapatra";
@@ -203,13 +204,19 @@ function SectionHeading({
     <div className="mb-12 flex flex-col gap-6 @3xl:flex-row @3xl:items-end @3xl:justify-between">
       <div>
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className={`${sora} mt-5 text-[clamp(2rem,5.5cqw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white`}>
-          {title}
-          <br />
-          <span className={`italic font-light ${gradientText}`}>{accent}</span>
-        </h2>
+        <ScrollLight direction="right" dim={0.12}>
+          <h2 className={`${sora} mt-5 text-[clamp(2rem,5.5cqw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white`}>
+            {title}
+            <br />
+            <span className={`italic font-light ${gradientText}`}>{accent}</span>
+          </h2>
+        </ScrollLight>
       </div>
-      {intro && <p className="max-w-sm text-sm leading-relaxed text-slate-400 @3xl:text-right">{intro}</p>}
+      {intro && (
+        <ScrollLight className="max-w-sm">
+          <p className="text-sm leading-relaxed text-slate-400 @3xl:text-right">{intro}</p>
+        </ScrollLight>
+      )}
     </div>
   );
 }
@@ -269,6 +276,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
         </motion.nav>
       )}
 
+      <ScrollContainerContext.Provider value={containerRef}>
       <div ref={containerRef} className="h-full w-full overflow-y-auto overflow-x-hidden scroll-smooth">
         <motion.div
           className="@container relative z-10 w-full"
@@ -388,23 +396,29 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           <section id="engineer-about" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
             <Reveal>
               <div className="mb-12">
-                <h2 className={`${sora} mb-5 text-[clamp(2.5rem,7cqw,5rem)] font-bold leading-[1] tracking-[-0.04em] text-white`}>
-                  About<span className="text-[#4A94BA]">.</span>
-                </h2>
+                <ScrollLight direction="right" dim={0.12}>
+                  <h2 className={`${sora} mb-5 text-[clamp(2.5rem,7cqw,5rem)] font-bold leading-[1] tracking-[-0.04em] text-white`}>
+                    About<span className="text-[#4A94BA]">.</span>
+                  </h2>
+                </ScrollLight>
                 <Eyebrow>The Person Behind the Code</Eyebrow>
               </div>
+              <ScrollLight>
               <p className={`${sora} max-w-4xl text-[clamp(1.25rem,2.8cqw,2.1rem)] font-light leading-[1.4] tracking-[-0.02em] text-slate-300`}>
                 I&apos;m <span className="font-semibold text-white">Sampanna Mahapatra</span>, a full-stack and machine learning engineer, visual
                 designer, and <span className={`italic ${gradientText}`}>Co-Founder &amp; COO at HaorGrix</span>. I specialize in building{" "}
                 <span className="font-semibold text-white">resilient software</span>, intelligent data pipelines, and high-contrast interfaces
                 that turn complex workflows into intuitive experiences.
               </p>
+              </ScrollLight>
+              <ScrollLight>
               <p className="mt-8 max-w-3xl text-base leading-relaxed text-slate-400 @3xl:text-lg">
                 From shipping production web and enterprise systems to researching audio-driven generative AI, I build with a simple standard:{" "}
                 <span className="text-slate-200">engineer for scale, design with restraint, and leave zero unnecessary complexity behind.</span>{" "}
                 When I&apos;m off the clock, I&apos;m usually writing heavy music on guitar and bass or crafting risograph-inspired visuals in
                 Dhaka.
               </p>
+              </ScrollLight>
             </Reveal>
           </section>
 
@@ -574,14 +588,18 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A94BA]/10 blur-[120px]" />
             <Reveal className="relative mx-auto max-w-3xl text-center">
               <Eyebrow>Contact</Eyebrow>
-              <h2 className={`${sora} mt-6 text-[clamp(2.25rem,6.5cqw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white`}>
-                Let&apos;s build
-                <br />
-                <span className={`italic font-light ${gradientText}`}>something together.</span>
-              </h2>
-              <p className="mx-auto mt-6 max-w-md text-slate-400">
-                Open to new opportunities, scalable architecture challenges and coffee chats.
-              </p>
+              <ScrollLight direction="right" dim={0.12} end={0.95}>
+                <h2 className={`${sora} mt-6 text-[clamp(2.25rem,6.5cqw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white`}>
+                  Let&apos;s build
+                  <br />
+                  <span className={`italic font-light ${gradientText}`}>something together.</span>
+                </h2>
+              </ScrollLight>
+              <ScrollLight end={0.95}>
+                <p className="mx-auto mt-6 max-w-md text-slate-400">
+                  Open to new opportunities, scalable architecture challenges and coffee chats.
+                </p>
+              </ScrollLight>
               <div className="mt-10 flex flex-wrap justify-center gap-3">
                 <a
                   href={`mailto:${EMAIL}`}
@@ -602,6 +620,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           </section>
         </motion.div>
       </div>
+      </ScrollContainerContext.Provider>
     </div>
   );
 }
