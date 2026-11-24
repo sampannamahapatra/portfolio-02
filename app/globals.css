@@ -50,7 +50,7 @@ body {
   stroke-dasharray: 18 220;
   stroke-dashoffset: 238;
   animation: trace-flow 3.2s linear infinite;
-  filter: drop-shadow(0 0 3px #7cc4e4);
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
 }
 
 @keyframes trace-flow {
