@@ -16,6 +16,7 @@ export type Project = {
   live?: string;
   repo?: string;
   image?: string;
+  imagePosition?: string;
   award?: string;
 };
 
@@ -49,7 +50,8 @@ function Preview({ project }: { project: Project }) {
             alt={`${project.title} homepage`}
             fill
             sizes="(min-width: 1024px) 30vw, 90vw"
-            className="object-cover object-top transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
+            style={{ objectPosition: project.imagePosition ?? "top" }}
+            className="object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14]/60 via-transparent to-transparent" />
         </div>

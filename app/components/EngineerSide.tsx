@@ -91,6 +91,8 @@ const CLIENT_PROJECTS: Project[] = [
       "Searchable, filterable, exportable tables and A4 print-ready reports",
     ],
     live: "https://hira.haorgrix.com",
+    image: "/images/work/hira-erp.jpg",
+    imagePosition: "center 45%",
   },
   {
     title: "Bangladesh Theatre Caravan 2026",
@@ -104,6 +106,8 @@ const CLIENT_PROJECTS: Project[] = [
       "Social card fix so WhatsApp shows link previews; ongoing content updates",
     ],
     live: "https://bangladeshtheatrecaravan2026.com",
+    image: "/images/work/theatre-caravan.jpg",
+    imagePosition: "left top",
   },
 ];
 
@@ -140,6 +144,8 @@ const OTHER_PROJECTS: Project[] = [
       "Office and personal file drive, finance Books tab, notice-board polls",
     ],
     live: "https://office.haorgrix.com",
+    image: "/images/work/haorgrix-office.jpg",
+    imagePosition: "center 62%",
   },
   {
     title: "haorgrix.com Tools",
@@ -153,6 +159,7 @@ const OTHER_PROJECTS: Project[] = [
       "Layout-shift fixes, structured data and the tools sitemap",
     ],
     live: "https://haorgrix.com/tools",
+    image: "/images/work/haorgrix-tools.jpg",
   },
   {
     title: "MCP Servers",
