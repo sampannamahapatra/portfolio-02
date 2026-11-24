@@ -135,7 +135,6 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
     <div
       className={`relative flex h-full w-full flex-col overflow-hidden bg-[#0F111A] font-[family-name:var(--font-inter)] text-slate-200 ${isActive ? "" : "pointer-events-none"}`}
     >
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:56px_56px]" />
 
       {isActive && (
         <motion.nav
@@ -143,13 +142,13 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
           aria-label="Engineer sections"
-          className="absolute left-1/2 top-5 z-[100] flex w-max max-w-[92%] -translate-x-1/2 items-center gap-5 overflow-x-auto rounded-full border border-white/[0.06] bg-[#0F111A]/80 px-5 py-2 backdrop-blur-md"
+          className="absolute left-1/2 top-5 z-[100] flex w-max max-w-[94%] -translate-x-1/2 items-center gap-3.5 overflow-x-auto [scrollbar-width:none] rounded-full sm:gap-5 border border-white/[0.06] bg-[#0F111A]/80 px-5 py-2 backdrop-blur-md"
         >
           {NAV.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className={`${sora} py-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-400 transition-colors hover:text-white`}
+              className={`${sora} shrink-0 py-1.5 text-[10px] font-medium uppercase tracking-[0.06em] text-slate-400 sm:text-[11px] sm:tracking-[0.12em] transition-colors hover:text-white`}
             >
               {item.label}
             </a>
@@ -157,7 +156,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           <button
             onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" })}
             aria-label="Back to top"
-            className="rounded-full bg-[#4A94BA] p-1.5 text-white shadow-[0_0_20px_rgba(74,148,186,0.35)] transition-transform hover:-translate-y-0.5"
+            className="hidden shrink-0 rounded-full bg-[#4A94BA] p-1.5 text-white sm:block shadow-[0_0_20px_rgba(74,148,186,0.35)] transition-transform hover:-translate-y-0.5"
           >
             <ArrowUp size={14} />
           </button>
@@ -322,15 +321,15 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                 </div>
                 <h3 className={`${sora} text-xl font-semibold text-white`}>B.Sc. in Computer Science & Engineering</h3>
                 <p className="mt-1 text-sm text-slate-400">Northern University Bangladesh</p>
-                <div className="mt-6 grid grid-cols-3 gap-3">
+                <div className="mt-6 grid grid-cols-2 gap-3 @md:grid-cols-3">
                   {[
                     ["CGPA", "3.25 / 4.00"],
                     ["Credits", "140 / 152"],
                     ["Focus", "Data Science"],
                   ].map(([k, v]) => (
-                    <div key={k} className="rounded-xl border border-white/[0.06] bg-black/20 p-3">
+                    <div key={k} className="rounded-xl border border-white/[0.06] bg-black/20 p-3 last:col-span-2 @md:last:col-span-1">
                       <p className={`${mono} text-[9px] uppercase tracking-[0.2em] text-slate-500`}>{k}</p>
-                      <p className={`${mono} mt-1 text-xs text-slate-200`}>{v}</p>
+                      <p className={`${mono} mt-1 whitespace-nowrap text-xs text-slate-200`}>{v}</p>
                     </div>
                   ))}
                 </div>

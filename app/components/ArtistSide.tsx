@@ -39,8 +39,6 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
             <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-noise mix-blend-overlay fixed" />
             <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-white/[0.02] via-transparent to-black fixed" />
             
-            {/* XAI Inspired Scanning Grid Layer */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
             <motion.div 
                 variants={scanLineVariants}
                 animate="animate"

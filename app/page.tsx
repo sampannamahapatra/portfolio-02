@@ -19,6 +19,18 @@ export default function Home() {
     return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
+  const [hintSide, setHintSide] = useState<"engineer" | "artist" | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const shown = setTimeout(() => setHintSide(activeMobileSide), 0);
+    const hidden = setTimeout(() => setHintSide(null), 3000);
+    return () => {
+      clearTimeout(shown);
+      clearTimeout(hidden);
+    };
+  }, [isOpen, activeMobileSide]);
+
   // Premium Apple-like spring physics
   // Precise XAI-inspired motion physics
   const transition: Transition = { 
@@ -97,14 +109,19 @@ export default function Home() {
       {/* Mobile Toggle Button */}
       {!isDesktop && isOpen && (
         <div className="fixed bottom-8 right-8 z-[60] flex flex-col items-end gap-3">
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            key={activeMobileSide}
-            className="px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-widest text-white whitespace-nowrap"
-          >
-            Switch to {activeMobileSide === "engineer" ? "Artist" : "Professional"} mode
-          </motion.div>
+          <AnimatePresence>
+            {hintSide === activeMobileSide && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                key={activeMobileSide}
+                className="px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-widest text-white whitespace-nowrap"
+              >
+                Switch to {activeMobileSide === "engineer" ? "Artist" : "Professional"} mode
+              </motion.div>
+            )}
+          </AnimatePresence>
           <motion.button
             initial={{ opacity: 0, scale: 0.8, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
