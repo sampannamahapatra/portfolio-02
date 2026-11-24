@@ -388,10 +388,10 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           <section id="engineer-about" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
             <Reveal>
               <div className="mb-12">
-                <Eyebrow>The Person Behind the Code</Eyebrow>
-                <h2 className={`${sora} mt-5 text-[clamp(2.5rem,7cqw,5rem)] font-bold leading-[1] tracking-[-0.04em] text-white`}>
+                <h2 className={`${sora} mb-5 text-[clamp(2.5rem,7cqw,5rem)] font-bold leading-[1] tracking-[-0.04em] text-white`}>
                   About<span className="text-[#4A94BA]">.</span>
                 </h2>
+                <Eyebrow>The Person Behind the Code</Eyebrow>
               </div>
               <p className={`${sora} max-w-4xl text-[clamp(1.25rem,2.8cqw,2.1rem)] font-light leading-[1.4] tracking-[-0.02em] text-slate-300`}>
                 I&apos;m <span className="font-semibold text-white">Sampanna Mahapatra</span>, a full-stack and machine learning engineer, visual
