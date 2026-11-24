@@ -179,7 +179,10 @@ const EARLIER_PROJECTS = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className={`${mono} inline-block border-l border-[#4A94BA]/50 pl-3 text-[11px] uppercase tracking-[0.3em] text-[#4A94BA]`}>
+    <span
+      className={`${mono} inline-flex items-center gap-2.5 rounded-full border border-[#4A94BA]/35 bg-[#4A94BA]/10 px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.28em] text-[#a5dcf3] shadow-[0_0_24px_rgba(74,148,186,0.15)]`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-[#7cc4e4] shadow-[0_0_8px_#7cc4e4]" />
       {children}
     </span>
   );
@@ -384,11 +387,18 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           {/* About */}
           <section id="engineer-about" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
             <Reveal>
-              <Eyebrow>About</Eyebrow>
-              <p className={`${sora} mt-8 max-w-4xl text-[clamp(1.4rem,3.4cqw,2.5rem)] font-light leading-[1.35] tracking-[-0.02em] text-slate-300`}>
-                A self-motivated software engineer bridging{" "}
-                <span className="font-semibold text-white">complex backend architecture</span> and{" "}
-                <span className={`italic ${gradientText}`}>pixel-perfect interfaces</span>. Adaptability and clean code are my core tenets.
+              <SectionHeading eyebrow="About" title="The Person" accent="Behind the Code." />
+              <p className={`${sora} max-w-4xl text-[clamp(1.25rem,2.8cqw,2.1rem)] font-light leading-[1.4] tracking-[-0.02em] text-slate-300`}>
+                I&apos;m <span className="font-semibold text-white">Sampanna Mahapatra</span>, a full-stack and machine learning engineer, visual
+                designer, and <span className={`italic ${gradientText}`}>Co-Founder &amp; COO at HaorGrix</span>. I specialize in building{" "}
+                <span className="font-semibold text-white">resilient software</span>, intelligent data pipelines, and high-contrast interfaces
+                that turn complex workflows into intuitive experiences.
+              </p>
+              <p className="mt-8 max-w-3xl text-base leading-relaxed text-slate-400 @3xl:text-lg">
+                From shipping production web and enterprise systems to researching audio-driven generative AI, I build with a simple standard:{" "}
+                <span className="text-slate-200">engineer for scale, design with restraint, and leave zero unnecessary complexity behind.</span>{" "}
+                When I&apos;m off the clock, I&apos;m usually writing heavy music on guitar and bass or crafting risograph-inspired visuals in
+                Dhaka.
               </p>
             </Reveal>
           </section>
