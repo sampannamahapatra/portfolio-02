@@ -116,6 +116,7 @@ const OTHER_PROJECTS: Project[] = [
     award: "Winner — HaorGrix front-end website design competition",
     body: "A musical instrument storefront I designed and built alone.",
     highlights: ["Storefront, cart isolation and polished auth flows", "Producer pages and mobile-first UX"],
+    repo: "https://github.com/HaorGrix/Musical-shop_sampanna-",
   },
   {
     title: "ExamForge AI",
@@ -127,6 +128,7 @@ const OTHER_PROJECTS: Project[] = [
       "Geometry-anchored question segmenter with hybrid text/image rendering",
       "Math digitizer with continuous learning and admin review",
     ],
+    repo: "https://github.com/HaorGrix/pdf_to_digital-test",
   },
   {
     title: "HaorGrix Office",
@@ -536,7 +538,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             </div>
 
             <Reveal>
-              <h3 className={`${mono} mb-5 mt-16 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>Earlier work</h3>
+              <h3 className={`${mono} mb-5 mt-16 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>University course projects</h3>
             </Reveal>
             <div className="grid gap-4 @3xl:grid-cols-2">
               {EARLIER_PROJECTS.map((p) => (

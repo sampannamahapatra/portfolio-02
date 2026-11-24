@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Trophy, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Github, Trophy, type LucideIcon } from "lucide-react";
 import type { MouseEvent } from "react";
 import { card, mono, sora } from "./styles";
 
@@ -14,11 +14,14 @@ export type Project = {
   highlights: string[];
   icon: LucideIcon;
   live?: string;
+  repo?: string;
   image?: string;
   award?: string;
 };
 
 const MAX_TILT = 6;
+
+const linkButton = `${sora} group/link inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-slate-200 transition-colors hover:border-[#4A94BA] hover:bg-[#4A94BA] hover:text-white`;
 
 function hostOf(url: string) {
   return new URL(url).host.replace(/^www\./, "");
@@ -143,18 +146,23 @@ export default function ProjectCard({ project, featured = false }: { project: Pr
           ))}
         </ul>
 
-        {project.live && (
+        {(project.live || project.repo) && (
           <>
             <div className="mt-auto pt-6" />
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${sora} group/link inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-slate-200 transition-colors hover:border-[#4A94BA] hover:bg-[#4A94BA] hover:text-white`}
-            >
-              Visit site
-              <ArrowUpRight size={13} className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
-            </a>
+            <div className="flex flex-wrap gap-2">
+              {project.live && (
+                <a href={project.live} target="_blank" rel="noopener noreferrer" className={linkButton}>
+                  Visit site
+                  <ArrowUpRight size={13} className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+                </a>
+              )}
+              {project.repo && (
+                <a href={project.repo} target="_blank" rel="noopener noreferrer" className={linkButton}>
+                  <Github size={13} />
+                  View code
+                </a>
+              )}
+            </div>
           </>
         )}
       </div>
