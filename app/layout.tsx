@@ -32,7 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const title = "Sampanna Mahapatra — Software Engineer & Bassist";
+const title = "Sampanna Mahapatra | Software Engineer & Bassist";
 const description =
   "Portfolio of Sampanna Mahapatra: software engineer building backend systems and interfaces, and bassist in the Bangladeshi underground music scene.";
 

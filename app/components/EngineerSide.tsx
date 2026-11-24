@@ -48,12 +48,12 @@ const STACK: { title: string; icon: LucideIcon; items: string[] }[] = [
 ];
 
 const EDUCATION = [
-  { title: "HSC (Higher Secondary)", place: "Jalalabad Cant. Public School", years: "2019 — 2021", score: "GPA 5.00" },
-  { title: "SSC (Secondary)", place: "Habiganj Govt High School", years: "2011 — 2019", score: "GPA 5.00" },
+  { title: "HSC (Higher Secondary)", place: "Jalalabad Cant. Public School", years: "2019-2021", score: "GPA 5.00" },
+  { title: "SSC (Secondary)", place: "Habiganj Govt High School", years: "2011-2019", score: "GPA 5.00" },
 ];
 
 const LEADERSHIP: { role: string; org: string; years: string; icon: LucideIcon; notes?: string[] }[] = [
-  { role: "Founder & VP", org: "Muktanchal Lit. Club", years: "2020 — Present", icon: Users },
+  { role: "Founder & VP", org: "Muktanchal Lit. Club", years: "2020-Present", icon: Users },
   { role: "Executive Member", org: "Northern University Computer Club", years: "2023", icon: Users },
   {
     role: "Humanitarian Work",
@@ -70,7 +70,7 @@ const CLIENT_PROJECTS: Project[] = [
     kind: "E-commerce · Beauty",
     role: "Project lead",
     icon: ShoppingBag,
-    body: "I led this skincare brand's online store and built the major part of it — from shopper accounts to analytics to running it on our own servers.",
+    body: "I led this skincare brand's online store and built the major part of it, from shopper accounts to analytics to running it on our own servers.",
     highlights: [
       "Shopper accounts, code-based password reset, order history",
       "Real reviews with admin moderation, private coupons, combo deals",
@@ -84,7 +84,7 @@ const CLIENT_PROJECTS: Project[] = [
     kind: "Factory management",
     role: "Built end to end",
     icon: Factory,
-    body: "I designed and built this operations system on my own — sales, approvals, records and reports for a multi-factory bakery.",
+    body: "I designed and built this operations system on my own: sales, approvals, records and reports for a multi-factory bakery.",
     highlights: [
       "Role-based permissions, login lockout, finance-only cost data",
       "Manager approvals for discounts and credit overrides",
@@ -99,7 +99,7 @@ const CLIENT_PROJECTS: Project[] = [
     kind: "Festival website",
     role: "Ongoing contributor",
     icon: Drama,
-    body: "I contribute continuously to this international theatre festival's site — keeping it secure, fast and up to date.",
+    body: "I contribute continuously to this international theatre festival's site, keeping it secure, fast and up to date.",
     highlights: [
       "Closed security audit findings: RCE patch, privacy, atomic deploys",
       "CI audit gate that keeps working as npm retires its audit endpoint",
@@ -117,7 +117,7 @@ const OTHER_PROJECTS: Project[] = [
     kind: "E-commerce · Instruments",
     role: "Built solo",
     icon: Guitar,
-    award: "Winner — HaorGrix front-end website design competition",
+    award: "Winner, HaorGrix front-end website design competition",
     body: "A musical instrument storefront I designed and built alone.",
     highlights: ["Storefront, cart isolation and polished auth flows", "Producer pages and mobile-first UX"],
   },
@@ -126,7 +126,7 @@ const OTHER_PROJECTS: Project[] = [
     kind: "AI · Document engine",
     role: "Built solo",
     icon: ScanText,
-    body: "An engine that turns exam PDFs into digital tests — built alone, end to end.",
+    body: "An engine that turns exam PDFs into digital tests, built alone end to end.",
     highlights: [
       "Geometry-anchored question segmenter with hybrid text/image rendering",
       "Math digitizer with continuous learning and admin review",
@@ -137,7 +137,7 @@ const OTHER_PROJECTS: Project[] = [
     kind: "Internal platform",
     role: "Contributor",
     icon: Building2,
-    body: "The company's virtual office — attendance, chat, files, finance and notices.",
+    body: "The company's virtual office: attendance, chat, files, finance and notices.",
     highlights: [
       "Multi-session attendance with a 6 AM Bangladesh workday boundary",
       "Chat replies, reactions, channel membership and admins",
@@ -166,7 +166,7 @@ const OTHER_PROJECTS: Project[] = [
     kind: "AI tooling",
     role: "Contributor · in progress",
     icon: Plug,
-    body: "Model Context Protocol servers the team's AI agents use — my work here is early and ongoing.",
+    body: "Model Context Protocol servers the team's AI agents use. My work here is early and ongoing.",
     highlights: ["SEO technical baseline and KPI data-pull diagnostics"],
   },
 ];
@@ -298,7 +298,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   transition={{ delay: 0.6, duration: 0.8 }}
                   className="mt-8 max-w-md text-base leading-relaxed text-slate-300"
                 >
-                  Full-stack and machine learning engineer building disciplined backends, applied AI, and sharp interfaces —{" "}
+                  Full-stack and machine learning engineer building disciplined backends, applied AI, and sharp interfaces,{" "}
                   <span className="text-[#7cc4e4]">designed to scale without compounding debt.</span>
                 </motion.p>
 
@@ -410,7 +410,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA]">
                     <GraduationCap size={18} />
                   </div>
-                  <span className={`${mono} text-[10px] uppercase tracking-[0.25em] text-slate-500`}>2022 — Present</span>
+                  <span className={`${mono} text-[10px] uppercase tracking-[0.25em] text-slate-500`}>2022-Present</span>
                 </div>
                 <h3 className={`${sora} text-xl font-semibold text-white`}>B.Sc. in Computer Science & Engineering</h3>
                 <p className="mt-1 text-sm text-slate-400">Northern University Bangladesh</p>
@@ -461,7 +461,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                       {l.notes && (
                         <ul className="mt-2 space-y-1 text-xs text-slate-400">
                           {l.notes.map((n) => (
-                            <li key={n}>— {n}</li>
+                            <li key={n}>{n}</li>
                           ))}
                         </ul>
                       )}
@@ -475,7 +475,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           {/* Stack */}
           <section id="engineer-skills" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
             <Reveal>
-              <SectionHeading eyebrow="Toolkit" title="The Stack" accent="I Build With." intro="From data notebooks to containers to design files — one toolkit, end to end." />
+              <SectionHeading eyebrow="Toolkit" title="The Stack" accent="I Build With." intro="From data notebooks to containers to design files: one toolkit, end to end." />
             </Reveal>
             <div className="grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
               {STACK.map((s, i) => (
@@ -506,7 +506,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                 eyebrow="Selected work"
                 title="Things I've"
                 accent="Shipped."
-                intro="Production work at HaorGrix — client products in the wild, internal platforms and independent builds."
+                intro="Production work at HaorGrix: client products in the wild, internal platforms and independent builds."
               />
             </Reveal>
 
