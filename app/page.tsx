@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig, Variants, Transition } from "framer-motion";
 import EngineerSide from "./components/EngineerSide";
 import ArtistSide from "./components/ArtistSide";
 import { Code2, Music } from "lucide-react";
@@ -49,6 +49,7 @@ export default function Home() {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <main
       className="flex h-[100dvh] md:h-screen flex-col md:flex-row overflow-hidden bg-black text-[var(--foreground)] relative"
       onMouseMove={() => !isOpen && setIsOpen(true)}
@@ -58,7 +59,12 @@ export default function Home() {
       {/* Intro Curtain */}
       <AnimatePresence>
         {!isOpen && (
-          <div className="absolute inset-0 z-50 flex flex-col md:flex-row pointer-events-none">
+          <motion.div
+            key="curtain"
+            exit={{ opacity: 1 }}
+            transition={curtainTransition}
+            className="absolute inset-0 z-50 flex flex-col md:flex-row pointer-events-none"
+          >
             {/* Left Curtain */}
             <motion.div
               initial={{ x: "0%", filter: "blur(0px)" }}
@@ -84,7 +90,7 @@ export default function Home() {
                 Mahapatra
               </h1>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -104,6 +110,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.2, type: "spring" }}
             onClick={toggleMobileSide}
+            aria-label={`Switch to ${activeMobileSide === "engineer" ? "artist" : "professional"} mode`}
             className="p-5 rounded-full shadow-2xl glass-nav border border-white/20 flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-90 group relative"
             style={{
               boxShadow: activeMobileSide === "engineer" ? "0 0 30px rgba(34,211,238,0.3)" : "0 0 30px rgba(245,158,11,0.3)"
@@ -150,5 +157,6 @@ export default function Home() {
       </motion.div>
 
     </main>
+    </MotionConfig>
   );
 }

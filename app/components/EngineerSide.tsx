@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, AnimatePresence, useScroll, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Terminal, Cpu, Database, Layout, Briefcase, GraduationCap, Code2, Layers, Rocket, Github, Mail, ExternalLink, ChevronRight } from "lucide-react";
 
 export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
@@ -92,7 +92,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           <div className="flex flex-col md:flex-row items-center justify-between h-full relative z-20">
             {/* Left Content */}
             <div className="flex-1 w-full order-2 md:order-1 flex flex-col justify-center mt-8 md:mt-0 relative group text-center md:text-left items-center md:items-start">
-              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="absolute -inset-4 pointer-events-none bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
 
               <h1 className="text-3xl sm:text-5xl md:text-[4rem] lg:text-[5rem] font-medium uppercase tracking-[0.1em] mb-4 leading-tight text-white relative group cursor-default">
@@ -136,7 +136,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
 
               <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 items-center w-full md:w-auto">
                 <motion.a
-                  href="#projects"
+                  href="#engineer-projects"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full sm:w-auto text-center px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-cyan-50 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] rounded-sm"
@@ -144,10 +144,10 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   View Systems
                 </motion.a>
                 <div className="flex gap-4 md:ml-4">
-                  <a href="https://github.com/Sampanna-M" className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all backdrop-blur-sm">
+                  <a href="https://github.com/sampannamahapatra" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all backdrop-blur-sm">
                     <Github size={18} />
                   </a>
-                  <a href="mailto:contact@sampanna.dev" className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all backdrop-blur-sm">
+                  <a href="mailto:sampannamahapatra6@gmail.com" aria-label="Send email" className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all backdrop-blur-sm">
                     <Mail size={18} />
                   </a>
                 </div>

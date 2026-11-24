@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, AnimatePresence, useScroll, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Music, AudioLines, Hexagon, ExternalLink, Play, ArrowRight } from "lucide-react";
 
 export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
@@ -35,7 +35,7 @@ export default function ArtistSide({ isActive, isShrunk }: { isActive: boolean; 
             className={`h-full w-full bg-[#0c0a09] text-[#f5f5f4] relative overflow-hidden flex flex-col font-sans transition-all duration-1000 ${isActive ? '' : 'pointer-events-none'}`}
         >
             {/* Cinematic Grain & Warmth */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] mix-blend-overlay fixed" />
+            <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-noise mix-blend-overlay fixed" />
             <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-white/[0.02] via-transparent to-black fixed" />
             
             {/* XAI Inspired Scanning Grid Layer */}

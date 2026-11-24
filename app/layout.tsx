@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Metal_Mania, Playfair_Display } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,20 +12,36 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const metalMania = Metal_Mania({
-  weight: "400",
-  variable: "--font-metal",
-  subsets: ["latin"],
-});
-
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
 });
 
+const title = "Sampanna Mahapatra — Software Engineer & Bassist";
+const description =
+  "Portfolio of Sampanna Mahapatra: software engineer building backend systems and interfaces, and bassist in the Bangladeshi underground music scene.";
+
 export const metadata: Metadata = {
-  title: "Sampanna Mahapatra | Dual Portfolio",
-  description: "Engineer & Artist Portfolio",
+  title,
+  description,
+  authors: [{ name: "Sampanna Mahapatra" }],
+  keywords: ["Sampanna Mahapatra", "software engineer", "bassist", "portfolio", "Bangladesh"],
+  openGraph: {
+    title,
+    description,
+    type: "profile",
+    images: [{ url: "/images/engineer-profile.png", alt: "Sampanna Mahapatra" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/images/engineer-profile.png"],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#020203",
 };
 
 export default function RootLayout({
@@ -36,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${metalMania.variable} ${playfair.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
         {children}
       </body>
