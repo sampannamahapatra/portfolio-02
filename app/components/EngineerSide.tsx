@@ -54,19 +54,125 @@ const LEADERSHIP: { role: string; org: string; years: string; icon: LucideIcon; 
   },
 ];
 
-const PROJECTS = [
+type Project = {
+  title: string;
+  kind: string;
+  body: string;
+  highlights: string[];
+  stack: string[];
+  commits: number;
+  period: string;
+  live?: string;
+};
+
+const CLIENT_PROJECTS: Project[] = [
   {
-    title: "TFT Game Concept",
-    status: "Design",
-    body: "Graphics design project covering visual elements, UI/UX concepts and game asset integration patterns.",
-    tags: ["UI/UX", "Design"],
+    title: "Skin Theory BD",
+    kind: "E-commerce · Beauty",
+    body: "Full online store for a skincare brand — I led most of the product build, from accounts to analytics to self-hosting.",
+    highlights: [
+      "Shopper accounts, code-based password reset, server order history",
+      "Real reviews with admin moderation, private coupons, combo products",
+      "GTM ecommerce tracking, WebP image pipeline, self-hosted backend",
+    ],
+    stack: ["React", "Vite", "Supabase", "Tailwind"],
+    commits: 101,
+    period: "Sep — Nov 2026",
+    live: "https://www.skintheorybd.shop",
   },
   {
-    title: "C++ Phonebook",
-    status: "Console app",
-    body: "Console application with full CRUD for contacts, built on file management and core data structures in C++.",
-    tags: ["C++", "Algorithms"],
+    title: "Hira Bakery ERP",
+    kind: "Factory management",
+    body: "Operations system for a multi-factory bakery — sales, approvals, records and reports in one app.",
+    highlights: [
+      "Role-based permissions, login lockout, finance-only cost data",
+      "Manager approvals for discounts and credit overrides",
+      "Server-side tables with search, filters, export; A4 print reports",
+    ],
+    stack: ["Next.js", "TypeScript", "Prisma", "Zod", "Vitest"],
+    commits: 32,
+    period: "Oct — Nov 2026",
+    live: "https://hira.haorgrix.com",
   },
+  {
+    title: "Bangladesh Theatre Caravan 2026",
+    kind: "Festival website",
+    body: "Public site for an international theatre festival — I hardened it for launch and kept content current.",
+    highlights: [
+      "Closed security audit findings: RCE patch, privacy, atomic deploys",
+      "CI audit gate that survives npm's retiring audit endpoint",
+      "Social card fix so WhatsApp shows link previews",
+    ],
+    stack: ["Next.js", "TypeScript", "Tailwind"],
+    commits: 15,
+    period: "Sep 2026",
+    live: "https://bangladeshtheatrecaravan2026.com",
+  },
+];
+
+const OTHER_PROJECTS: Project[] = [
+  {
+    title: "HaorGrix Office",
+    kind: "Internal platform",
+    body: "The company's virtual office — attendance, chat, files, finance and notices.",
+    highlights: [
+      "Multi-session attendance with a 6 AM Bangladesh workday boundary",
+      "Chat replies, reactions, channel membership and admins",
+      "Drive for office and personal files; finance Books tab; notice polls",
+    ],
+    stack: ["Node.js", "Express"],
+    commits: 43,
+    period: "Jul — Aug 2026",
+    live: "https://office.haorgrix.com",
+  },
+  {
+    title: "ExamForge AI",
+    kind: "AI · Document engine",
+    body: "Turns exam PDFs into digital tests — built end to end.",
+    highlights: [
+      "Geometry-anchored question segmenter with hybrid text/image rendering",
+      "Math digitizer with continuous learning and admin review",
+    ],
+    stack: ["Python", "FastAPI", "PyMuPDF", "OpenCV", "Next.js"],
+    commits: 3,
+    period: "Jul 2026",
+  },
+  {
+    title: "MONOLITH",
+    kind: "E-commerce · Instruments",
+    body: "Musical instrument storefront — designed and shipped solo.",
+    highlights: ["Storefront, cart isolation and auth flows", "Producer pages and mobile-first UX"],
+    stack: ["Next.js", "TypeScript", "Tailwind", "Zod"],
+    commits: 6,
+    period: "Jun — Jul 2026",
+  },
+  {
+    title: "haorgrix.com — SEO & Tools",
+    kind: "Performance",
+    body: "Speed and search work on the company website and its tools suite.",
+    highlights: [
+      "Server-rendered hero and faster LCP path",
+      "CLS fixes, SoftwareApplication schema, tools sitemap",
+    ],
+    stack: ["Next.js", "TypeScript"],
+    commits: 6,
+    period: "Jul — Aug 2026",
+    live: "https://haorgrix.com/tools",
+  },
+  {
+    title: "MCP Servers",
+    kind: "AI tooling",
+    body: "Internal Model Context Protocol servers used by the team's AI agents.",
+    highlights: ["SEO technical baseline and KPI data-pull diagnostics"],
+    stack: ["TypeScript", "MCP"],
+    commits: 2,
+    period: "Aug — Oct 2026",
+  },
+];
+
+const EARLIER_PROJECTS = [
+  { title: "TFT Game Concept", body: "Graphics and UI/UX concept for a game, with asset integration patterns.", tags: ["UI/UX", "Design"] },
+  { title: "C++ Phonebook", body: "Console app with full contact CRUD on file storage and core data structures.", tags: ["C++", "Algorithms"] },
 ];
 
 const sora = "font-[family-name:var(--font-sora)]";
@@ -121,6 +227,60 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
 }
 
 const card = "rounded-2xl border border-white/[0.06] bg-[rgba(20,22,34,0.7)] backdrop-blur-sm";
+
+function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+  return (
+    <Reveal className={`${card} group relative flex h-full flex-col overflow-hidden p-7 transition-colors hover:border-[#4A94BA]/30`}>
+      <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#4A94BA]/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <span className={`${mono} rounded border border-white/10 px-2 py-1 text-[9px] uppercase tracking-[0.25em] text-slate-400`}>
+          {project.kind}
+        </span>
+        {project.live && (
+          <span className={`${mono} flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-emerald-400`}>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
+          </span>
+        )}
+      </div>
+      <h3 className={`${sora} mt-5 font-bold tracking-[-0.02em] text-white ${featured ? "text-2xl @3xl:text-3xl" : "text-xl"}`}>
+        {project.title}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-slate-400">{project.body}</p>
+      <ul className="mt-5 space-y-2 text-[13px] leading-snug text-slate-300">
+        {project.highlights.map((h) => (
+          <li key={h} className="flex gap-2.5">
+            <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#4A94BA]" />
+            {h}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-6 flex flex-wrap gap-1.5">
+        {project.stack.map((t) => (
+          <span key={t} className={`${mono} rounded-full bg-[#4A94BA]/10 px-2.5 py-1 text-[10px] text-[#7cc4e4]`}>
+            {t}
+          </span>
+        ))}
+      </div>
+      <div className="mt-auto pt-6" />
+      <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] pt-5">
+        <span className={`${mono} flex flex-col gap-0.5 text-[10px] uppercase tracking-[0.15em] text-slate-500`}>
+          <span>{project.commits} commits</span>
+          <span>{project.period}</span>
+        </span>
+        {project.live && (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${sora} inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.1em] text-[#7cc4e4] transition-colors hover:text-white`}
+          >
+            View live <ArrowUpRight size={13} />
+          </a>
+        )}
+      </div>
+    </Reveal>
+  );
+}
 
 export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -409,20 +569,49 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
           {/* Work */}
           <section id="engineer-projects" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
             <Reveal>
-              <SectionHeading eyebrow="Selected work" title="Things I've" accent="Shipped." />
+              <SectionHeading
+                eyebrow="Selected work"
+                title="Things I've"
+                accent="Shipped."
+                intro="Production work at HaorGrix — client products in the wild, internal platforms and independent builds."
+              />
             </Reveal>
-            <div className="grid gap-5 @3xl:grid-cols-2">
-              {PROJECTS.map((p) => (
-                <Reveal key={p.title} className={`${card} group relative overflow-hidden p-8 transition-colors hover:border-[#4A94BA]/30`}>
-                  <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#4A94BA]/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
-                  <span className={`${mono} rounded border border-white/10 px-2 py-1 text-[9px] uppercase tracking-[0.25em] text-slate-400`}>
-                    {p.status}
-                  </span>
-                  <h3 className={`${sora} mt-6 text-3xl font-bold tracking-[-0.02em] text-white`}>{p.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-slate-400">{p.body}</p>
-                  <div className="mt-8 flex gap-2">
+
+            <Reveal>
+              <h3 className={`${mono} mb-5 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>
+                Client products <span className="text-slate-700">/ 0{CLIENT_PROJECTS.length}</span>
+              </h3>
+            </Reveal>
+            <div className="grid gap-5 @3xl:grid-cols-2 @6xl:grid-cols-3">
+              {CLIENT_PROJECTS.map((p) => (
+                <ProjectCard key={p.title} project={p} featured />
+              ))}
+            </div>
+
+            <Reveal>
+              <h3 className={`${mono} mb-5 mt-16 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>
+                HaorGrix & independent builds <span className="text-slate-700">/ 0{OTHER_PROJECTS.length}</span>
+              </h3>
+            </Reveal>
+            <div className="grid gap-5 @3xl:grid-cols-2 @6xl:grid-cols-3">
+              {OTHER_PROJECTS.map((p) => (
+                <ProjectCard key={p.title} project={p} />
+              ))}
+            </div>
+
+            <Reveal>
+              <h3 className={`${mono} mb-5 mt-16 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>Earlier work</h3>
+            </Reveal>
+            <div className="grid gap-4 @3xl:grid-cols-2">
+              {EARLIER_PROJECTS.map((p) => (
+                <Reveal key={p.title} className={`${card} flex items-start justify-between gap-4 p-5`}>
+                  <div>
+                    <h4 className={`${sora} font-semibold text-white`}>{p.title}</h4>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-400">{p.body}</p>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-end gap-1.5">
                     {p.tags.map((t) => (
-                      <span key={t} className={`${mono} rounded-full bg-[#4A94BA]/10 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-[#7cc4e4]`}>
+                      <span key={t} className={`${mono} text-[9px] uppercase tracking-[0.2em] text-slate-500`}>
                         {t}
                       </span>
                     ))}
