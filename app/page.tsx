@@ -5,6 +5,7 @@ import { motion, AnimatePresence, MotionConfig, Variants, Transition } from "fra
 import EngineerSide from "./components/EngineerSide";
 import ArtistSide from "./components/ArtistSide";
 import EngineerAmbient from "./components/engineer/EngineerAmbient";
+import ArtistAmbient from "./components/ArtistAmbient";
 import { Code2, Music } from "lucide-react";
 
 export default function Home() {
@@ -155,6 +156,7 @@ export default function Home() {
             isShrunk={isDesktop && hoveredSide === "right"}
           />
         )}
+        <AnimatePresence>{isOpen && isDesktop && hoveredSide === "right" && <EngineerAmbient key="engineer-ambient" />}</AnimatePresence>
       </motion.div>
 
       {/* Right Side (Artist) */}
@@ -172,7 +174,7 @@ export default function Home() {
             isShrunk={isDesktop && hoveredSide === "left"}
           />
         )}
-        <AnimatePresence>{isOpen && isDesktop && hoveredSide === "left" && <EngineerAmbient key="engineer-ambient" />}</AnimatePresence>
+        <AnimatePresence>{isOpen && isDesktop && hoveredSide === "left" && <ArtistAmbient key="artist-ambient" />}</AnimatePresence>
       </motion.div>
 
     </main>

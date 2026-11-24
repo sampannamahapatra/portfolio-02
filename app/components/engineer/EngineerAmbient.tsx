@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { mono, sora } from "./styles";
 
@@ -131,10 +131,10 @@ export default function EngineerAmbient() {
 
       <motion.div
         className={`${mono} absolute inset-x-0 bottom-10 flex items-center justify-center gap-2 text-[10px] uppercase tracking-[0.35em] text-slate-400`}
-        animate={{ x: [0, 6, 0] }}
+        animate={{ x: [0, -6, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
-        Artist <ArrowRight size={12} />
+        <ArrowLeft size={12} /> Engineer
       </motion.div>
     </motion.div>
   );
