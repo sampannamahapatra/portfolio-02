@@ -15,9 +15,19 @@ import {
   Mail,
   Terminal,
   Users,
+  AudioWaveform,
+  Building2,
+  Drama,
+  Factory,
+  Guitar,
+  Plug,
+  ScanText,
+  ShoppingBag,
   type LucideIcon,
 } from "lucide-react";
 import ParticleField from "./engineer/ParticleField";
+import ProjectCard, { type Project } from "./engineer/ProjectCard";
+import { card, gradientText, mono, sora } from "./engineer/styles";
 
 const EMAIL = "sampannamahapatra6@gmail.com";
 const GITHUB = "https://github.com/sampannamahapatra";
@@ -54,119 +64,103 @@ const LEADERSHIP: { role: string; org: string; years: string; icon: LucideIcon; 
   },
 ];
 
-type Project = {
-  title: string;
-  kind: string;
-  body: string;
-  highlights: string[];
-  stack: string[];
-  commits: number;
-  period: string;
-  live?: string;
-};
-
 const CLIENT_PROJECTS: Project[] = [
   {
     title: "Skin Theory BD",
     kind: "E-commerce · Beauty",
-    body: "Full online store for a skincare brand — I led most of the product build, from accounts to analytics to self-hosting.",
+    role: "Project lead",
+    icon: ShoppingBag,
+    body: "I led this skincare brand's online store and built the major part of it — from shopper accounts to analytics to running it on our own servers.",
     highlights: [
-      "Shopper accounts, code-based password reset, server order history",
-      "Real reviews with admin moderation, private coupons, combo products",
-      "GTM ecommerce tracking, WebP image pipeline, self-hosted backend",
+      "Shopper accounts, code-based password reset, order history",
+      "Real reviews with admin moderation, private coupons, combo deals",
+      "Google Tag Manager ecommerce tracking, WebP image pipeline, self-hosted backend",
     ],
-    stack: ["React", "Vite", "Supabase", "Tailwind"],
-    commits: 101,
-    period: "Sep — Nov 2026",
     live: "https://www.skintheorybd.shop",
+    image: "/images/work/skin-theory.jpg",
   },
   {
     title: "Hira Bakery ERP",
     kind: "Factory management",
-    body: "Operations system for a multi-factory bakery — sales, approvals, records and reports in one app.",
+    role: "Built end to end",
+    icon: Factory,
+    body: "I designed and built this operations system on my own — sales, approvals, records and reports for a multi-factory bakery.",
     highlights: [
       "Role-based permissions, login lockout, finance-only cost data",
       "Manager approvals for discounts and credit overrides",
-      "Server-side tables with search, filters, export; A4 print reports",
+      "Searchable, filterable, exportable tables and A4 print-ready reports",
     ],
-    stack: ["Next.js", "TypeScript", "Prisma", "Zod", "Vitest"],
-    commits: 32,
-    period: "Oct — Nov 2026",
     live: "https://hira.haorgrix.com",
   },
   {
     title: "Bangladesh Theatre Caravan 2026",
     kind: "Festival website",
-    body: "Public site for an international theatre festival — I hardened it for launch and kept content current.",
+    role: "Ongoing contributor",
+    icon: Drama,
+    body: "I contribute continuously to this international theatre festival's site — keeping it secure, fast and up to date.",
     highlights: [
       "Closed security audit findings: RCE patch, privacy, atomic deploys",
-      "CI audit gate that survives npm's retiring audit endpoint",
-      "Social card fix so WhatsApp shows link previews",
+      "CI audit gate that keeps working as npm retires its audit endpoint",
+      "Social card fix so WhatsApp shows link previews; ongoing content updates",
     ],
-    stack: ["Next.js", "TypeScript", "Tailwind"],
-    commits: 15,
-    period: "Sep 2026",
     live: "https://bangladeshtheatrecaravan2026.com",
   },
 ];
 
 const OTHER_PROJECTS: Project[] = [
   {
-    title: "HaorGrix Office",
-    kind: "Internal platform",
-    body: "The company's virtual office — attendance, chat, files, finance and notices.",
-    highlights: [
-      "Multi-session attendance with a 6 AM Bangladesh workday boundary",
-      "Chat replies, reactions, channel membership and admins",
-      "Drive for office and personal files; finance Books tab; notice polls",
-    ],
-    stack: ["Node.js", "Express"],
-    commits: 43,
-    period: "Jul — Aug 2026",
-    live: "https://office.haorgrix.com",
+    title: "MONOLITH",
+    kind: "E-commerce · Instruments",
+    role: "Built solo",
+    icon: Guitar,
+    award: "Winner — HaorGrix front-end website design competition",
+    body: "A musical instrument storefront I designed and built alone.",
+    highlights: ["Storefront, cart isolation and polished auth flows", "Producer pages and mobile-first UX"],
   },
   {
     title: "ExamForge AI",
     kind: "AI · Document engine",
-    body: "Turns exam PDFs into digital tests — built end to end.",
+    role: "Built solo",
+    icon: ScanText,
+    body: "An engine that turns exam PDFs into digital tests — built alone, end to end.",
     highlights: [
       "Geometry-anchored question segmenter with hybrid text/image rendering",
       "Math digitizer with continuous learning and admin review",
     ],
-    stack: ["Python", "FastAPI", "PyMuPDF", "OpenCV", "Next.js"],
-    commits: 3,
-    period: "Jul 2026",
   },
   {
-    title: "MONOLITH",
-    kind: "E-commerce · Instruments",
-    body: "Musical instrument storefront — designed and shipped solo.",
-    highlights: ["Storefront, cart isolation and auth flows", "Producer pages and mobile-first UX"],
-    stack: ["Next.js", "TypeScript", "Tailwind", "Zod"],
-    commits: 6,
-    period: "Jun — Jul 2026",
-  },
-  {
-    title: "haorgrix.com — SEO & Tools",
-    kind: "Performance",
-    body: "Speed and search work on the company website and its tools suite.",
+    title: "HaorGrix Office",
+    kind: "Internal platform",
+    role: "Contributor",
+    icon: Building2,
+    body: "The company's virtual office — attendance, chat, files, finance and notices.",
     highlights: [
-      "Server-rendered hero and faster LCP path",
-      "CLS fixes, SoftwareApplication schema, tools sitemap",
+      "Multi-session attendance with a 6 AM Bangladesh workday boundary",
+      "Chat replies, reactions, channel membership and admins",
+      "Office and personal file drive, finance Books tab, notice-board polls",
     ],
-    stack: ["Next.js", "TypeScript"],
-    commits: 6,
-    period: "Jul — Aug 2026",
+    live: "https://office.haorgrix.com",
+  },
+  {
+    title: "haorgrix.com Tools",
+    kind: "Web tools",
+    role: "Contributor",
+    icon: AudioWaveform,
+    body: "Work on the company's free in-browser tools suite, including the Audio & Video tool.",
+    highlights: [
+      "Contributions to the Audio & Video tool",
+      "Server-rendered hero and a faster largest-paint path",
+      "Layout-shift fixes, structured data and the tools sitemap",
+    ],
     live: "https://haorgrix.com/tools",
   },
   {
     title: "MCP Servers",
     kind: "AI tooling",
-    body: "Internal Model Context Protocol servers used by the team's AI agents.",
+    role: "Contributor · in progress",
+    icon: Plug,
+    body: "Model Context Protocol servers the team's AI agents use — my work here is early and ongoing.",
     highlights: ["SEO technical baseline and KPI data-pull diagnostics"],
-    stack: ["TypeScript", "MCP"],
-    commits: 2,
-    period: "Aug — Oct 2026",
   },
 ];
 
@@ -175,9 +169,6 @@ const EARLIER_PROJECTS = [
   { title: "C++ Phonebook", body: "Console app with full contact CRUD on file storage and core data structures.", tags: ["C++", "Algorithms"] },
 ];
 
-const sora = "font-[family-name:var(--font-sora)]";
-const mono = "font-[family-name:var(--font-jetbrains)]";
-const gradientText = "text-transparent bg-clip-text bg-gradient-to-r from-[#7cc4e4] to-[#4A94BA]";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -226,61 +217,6 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
   );
 }
 
-const card = "rounded-2xl border border-white/[0.06] bg-[rgba(20,22,34,0.7)] backdrop-blur-sm";
-
-function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
-  return (
-    <Reveal className={`${card} group relative flex h-full flex-col overflow-hidden p-7 transition-colors hover:border-[#4A94BA]/30`}>
-      <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#4A94BA]/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className={`${mono} rounded border border-white/10 px-2 py-1 text-[9px] uppercase tracking-[0.25em] text-slate-400`}>
-          {project.kind}
-        </span>
-        {project.live && (
-          <span className={`${mono} flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-emerald-400`}>
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
-          </span>
-        )}
-      </div>
-      <h3 className={`${sora} mt-5 font-bold tracking-[-0.02em] text-white ${featured ? "text-2xl @3xl:text-3xl" : "text-xl"}`}>
-        {project.title}
-      </h3>
-      <p className="mt-3 text-sm leading-relaxed text-slate-400">{project.body}</p>
-      <ul className="mt-5 space-y-2 text-[13px] leading-snug text-slate-300">
-        {project.highlights.map((h) => (
-          <li key={h} className="flex gap-2.5">
-            <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#4A94BA]" />
-            {h}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-6 flex flex-wrap gap-1.5">
-        {project.stack.map((t) => (
-          <span key={t} className={`${mono} rounded-full bg-[#4A94BA]/10 px-2.5 py-1 text-[10px] text-[#7cc4e4]`}>
-            {t}
-          </span>
-        ))}
-      </div>
-      <div className="mt-auto pt-6" />
-      <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] pt-5">
-        <span className={`${mono} flex flex-col gap-0.5 text-[10px] uppercase tracking-[0.15em] text-slate-500`}>
-          <span>{project.commits} commits</span>
-          <span>{project.period}</span>
-        </span>
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${sora} inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.1em] text-[#7cc4e4] transition-colors hover:text-white`}
-          >
-            View live <ArrowUpRight size={13} />
-          </a>
-        )}
-      </div>
-    </Reveal>
-  );
-}
 
 export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
