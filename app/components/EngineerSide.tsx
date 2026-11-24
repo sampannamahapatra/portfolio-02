@@ -281,16 +281,6 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
 
             <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 @3xl:grid-cols-[1.15fr_0.85fr]">
               <div className="flex flex-col items-center text-center @3xl:items-start @3xl:text-left">
-                <motion.span
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className={`${mono} mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-slate-300`}
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#4A94BA] shadow-[0_0_8px_#4A94BA]" />
-                  Software • AI • Data • Design
-                </motion.span>
-
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -299,7 +289,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                 >
                   Sampanna
                   <br />
-                  <span className={`italic font-light ${gradientText}`}>Mahapatra.</span>
+                  Mahapatra<span className="text-[#4A94BA]">.</span>
                 </motion.h1>
 
                 <motion.p
@@ -308,8 +298,8 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   transition={{ delay: 0.6, duration: 0.8 }}
                   className="mt-8 max-w-md text-base leading-relaxed text-slate-300"
                 >
-                  Software engineer fusing backend systems with precision-engineered UX —{" "}
-                  <span className="text-[#7cc4e4]">built to stay clean as it grows.</span>
+                  Full-stack and machine learning engineer building disciplined backends, applied AI, and sharp interfaces —{" "}
+                  <span className="text-[#7cc4e4]">designed to scale without compounding debt.</span>
                 </motion.p>
 
                 <motion.div

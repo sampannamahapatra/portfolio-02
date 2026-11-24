@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, MotionConfig, Variants, Transition } from "framer-motion";
 import EngineerSide from "./components/EngineerSide";
 import ArtistSide from "./components/ArtistSide";
+import EngineerAmbient from "./components/engineer/EngineerAmbient";
 import { Code2, Music } from "lucide-react";
 
 export default function Home() {
@@ -171,6 +172,7 @@ export default function Home() {
             isShrunk={isDesktop && hoveredSide === "left"}
           />
         )}
+        <AnimatePresence>{isOpen && isDesktop && hoveredSide === "left" && <EngineerAmbient key="engineer-ambient" />}</AnimatePresence>
       </motion.div>
 
     </main>
