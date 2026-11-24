@@ -3,475 +3,469 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { Terminal, Cpu, Database, Layout, Briefcase, GraduationCap, Code2, Layers, Rocket, Github, Mail, ExternalLink, ChevronRight } from "lucide-react";
+import {
+  ArrowUp,
+  ArrowUpRight,
+  Code2,
+  Database,
+  Github,
+  GraduationCap,
+  HeartHandshake,
+  Layout,
+  Mail,
+  Terminal,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
+import ParticleField from "./engineer/ParticleField";
+
+const EMAIL = "sampannamahapatra6@gmail.com";
+const GITHUB = "https://github.com/sampannamahapatra";
+
+const NAV = [
+  { label: "About", id: "engineer-about" },
+  { label: "Journey", id: "engineer-education" },
+  { label: "Stack", id: "engineer-skills" },
+  { label: "Work", id: "engineer-projects" },
+  { label: "Contact", id: "engineer-contact" },
+];
+
+const STACK: { title: string; icon: LucideIcon; items: string[] }[] = [
+  { title: "Languages", icon: Code2, items: ["Python", "Java", "C++", "JavaScript", "SQL"] },
+  { title: "Platforms", icon: Terminal, items: ["Linux", "Git", "Docker", "Oracle"] },
+  { title: "AI / Data", icon: Database, items: ["Colab", "Roboflow", "Pandas", "Jupyter"] },
+  { title: "Design", icon: Layout, items: ["Figma", "Illustrator", "Canva"] },
+];
+
+const EDUCATION = [
+  { title: "HSC (Higher Secondary)", place: "Jalalabad Cant. Public School", years: "2019 — 2021", score: "GPA 5.00" },
+  { title: "SSC (Secondary)", place: "Habiganj Govt High School", years: "2011 — 2019", score: "GPA 5.00" },
+];
+
+const LEADERSHIP: { role: string; org: string; years: string; icon: LucideIcon; notes?: string[] }[] = [
+  { role: "Founder & VP", org: "Muktanchal Lit. Club", years: "2020 — Present", icon: Users },
+  { role: "Executive Member", org: "Northern University Computer Club", years: "2023", icon: Users },
+  {
+    role: "Humanitarian Work",
+    org: "Volunteer",
+    years: "",
+    icon: HeartHandshake,
+    notes: ["Organizer, COVID-19 Charity", "Flood Relief Volunteer (Sunamganj)"],
+  },
+];
+
+const PROJECTS = [
+  {
+    title: "TFT Game Concept",
+    status: "Design",
+    body: "Graphics design project covering visual elements, UI/UX concepts and game asset integration patterns.",
+    tags: ["UI/UX", "Design"],
+  },
+  {
+    title: "C++ Phonebook",
+    status: "Console app",
+    body: "Console application with full CRUD for contacts, built on file management and core data structures in C++.",
+    tags: ["C++", "Algorithms"],
+  },
+];
+
+const sora = "font-[family-name:var(--font-sora)]";
+const mono = "font-[family-name:var(--font-jetbrains)]";
+const gradientText = "text-transparent bg-clip-text bg-gradient-to-r from-[#7cc4e4] to-[#4A94BA]";
+
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <span className={`${mono} inline-block border-l border-[#4A94BA]/50 pl-3 text-[11px] uppercase tracking-[0.3em] text-[#4A94BA]`}>
+      {children}
+    </span>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  accent,
+  intro,
+}: {
+  eyebrow: string;
+  title: string;
+  accent: string;
+  intro?: string;
+}) {
+  return (
+    <div className="mb-12 flex flex-col gap-6 @3xl:flex-row @3xl:items-end @3xl:justify-between">
+      <div>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 className={`${sora} mt-5 text-[clamp(2rem,5.5cqw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white`}>
+          {title}
+          <br />
+          <span className={`italic font-light ${gradientText}`}>{accent}</span>
+        </h2>
+      </div>
+      {intro && <p className="max-w-sm text-sm leading-relaxed text-slate-400 @3xl:text-right">{intro}</p>}
+    </div>
+  );
+}
+
+const reveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+};
+
+function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className={className}>
+      {children}
+    </motion.div>
+  );
+}
+
+const card = "rounded-2xl border border-white/[0.06] bg-[rgba(20,22,34,0.7)] backdrop-blur-sm";
 
 export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean; isShrunk?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-
   const contentVariants: Variants = {
-    hidden: { opacity: 0, filter: "blur(10px)", scale: 0.95 },
-    visible: {
-      opacity: 1,
-      filter: "blur(0px)",
-      scale: 1,
-      transition: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }
-    },
-    shrunk: {
-      opacity: 0.3,
-      filter: "blur(4px)",
-      scale: 0.9,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+    hidden: { opacity: 0, scale: 0.98 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] } },
+    shrunk: { opacity: 0.3, scale: 0.97, transition: { duration: 0.6, ease: "easeOut" } },
   };
-
-  const scanLineVariants: Variants = {
-    animate: {
-      y: ["0%", "100%", "0%"],
-      transition: { duration: 10, repeat: Infinity, ease: "linear" }
-    }
-  };
-
-
 
   return (
     <div
-      className={`h-full w-full bg-[#030712] text-slate-200 relative overflow-hidden flex flex-col font-sans transition-all duration-700 ${isActive ? '' : 'pointer-events-none'}`}
+      className={`relative flex h-full w-full flex-col overflow-hidden bg-[#0F111A] font-[family-name:var(--font-inter)] text-slate-200 ${isActive ? "" : "pointer-events-none"}`}
     >
-      <AmbientBackground />
-      
-      {/* XAI Inspired Scanning Grid Layer - Engineer Side */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#00f2ff_1px,transparent_1px),linear-gradient(to_bottom,#00f2ff_1px,transparent_1px)] bg-[size:40px_40px]" />
-      <motion.div 
-        variants={scanLineVariants}
-        animate="animate"
-        className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent z-[5] pointer-events-none"
-      />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:56px_56px]" />
 
-      {/* Premium Glass Top Navigation - Now Absolute & Centered in Section */}
       {isActive && (
         <motion.nav
-          initial={{ y: -100, opacity: 0 }}
+          initial={{ y: -40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] px-6 py-2 rounded-full glass-nav shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center gap-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-300 w-max max-w-[90%] overflow-x-auto no-scrollbar"
+          transition={{ delay: 0.8, duration: 0.6 }}
+          aria-label="Engineer sections"
+          className="absolute left-1/2 top-5 z-[100] flex w-max max-w-[92%] -translate-x-1/2 items-center gap-5 overflow-x-auto rounded-full border border-white/[0.06] bg-[#0F111A]/80 px-5 py-2 backdrop-blur-md"
         >
-          <div className="flex items-center gap-4">
-            {['Hero', 'About', 'Skills', 'Projects', 'Contact'].map(item => (
-              <a key={item} href={`#engineer-${item.toLowerCase()}`} className="hover:text-cyan-400 transition-colors relative group py-2">
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-          </div>
-          <div className="w-px h-4 bg-white/10 hidden sm:block" />
+          {NAV.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={`${sora} py-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-400 transition-colors hover:text-white`}
+            >
+              {item.label}
+            </a>
+          ))}
           <button
-            onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="hover:text-white transition-all flex items-center gap-2 bg-cyan-500/10 hover:bg-cyan-500/20 px-3 py-1.5 rounded-full border border-cyan-500/30 group"
+            onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Back to top"
+            className="rounded-full bg-[#4A94BA] p-1.5 text-white shadow-[0_0_20px_rgba(74,148,186,0.35)] transition-transform hover:-translate-y-0.5"
           >
-            <Rocket size={14} className="text-cyan-400 group-hover:-translate-y-1 transition-transform" />
-            <span className="hidden sm:inline">Back to Top</span>
+            <ArrowUp size={14} />
           </button>
         </motion.nav>
       )}
 
-      <div
-        ref={containerRef}
-        className="h-full w-full overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10"
-      >
+      <div ref={containerRef} className="h-full w-full overflow-y-auto overflow-x-hidden scroll-smooth">
         <motion.div
-          className="relative z-10 w-full flex flex-col items-center justify-between"
+          className="@container relative z-10 w-full"
           variants={contentVariants}
           initial="hidden"
           animate={isActive ? "visible" : "shrunk"}
         >
-        {/* Dynamic Hero Section */}
-        <motion.section
-          id="engineer-hero"
-          className="@container w-full min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between h-full relative z-20">
-            {/* Left Content */}
-            <div className="flex-1 w-full order-2 md:order-1 flex flex-col justify-center mt-8 md:mt-0 relative group text-center md:text-left items-center md:items-start">
-              <div className="absolute -inset-4 pointer-events-none bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-
-              <h1 className="text-[clamp(2rem,7.5cqw,5rem)] font-medium uppercase tracking-[0.1em] mb-4 leading-tight text-white relative group cursor-default">
-                <motion.span
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                  className="inline-block relative z-10 animate-glitch"
-                >
-                  SAMPANNA
-                </motion.span>
-                <br className="sm:hidden" />
-                <motion.span
-                  initial={{ x: 20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
-                  className="inline-block relative z-10 animate-glitch sm:ml-0"
-                  style={{ animationDelay: "0.1s" }}
-                >
-                  MAHAPATRA
-                </motion.span>
-                {/* Tech Glow Hinter */}
-                <div className="absolute top-0 -left-12 bottom-0 w-px bg-gradient-to-b from-transparent via-cyan-500/40 to-transparent hidden lg:block" />
-              </h1>
-              <h2 className="text-[clamp(0.8rem,2.4cqw,1.5rem)] font-light tracking-[0.35em] text-cyan-400/80 mb-6 flex items-center gap-4 overflow-hidden uppercase">
-                <span className="w-8 h-px bg-cyan-500/30 hidden sm:block" />
-                <motion.span
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "auto" }}
-                  transition={{ duration: 1.5, ease: "linear" }}
-                  className="whitespace-nowrap inline-block"
-                >
-                  SOFTWARE ENGINEER
-                </motion.span>
-              </h2>
-
-              <p className="text-sm md:text-base text-slate-400 font-light tracking-wide max-w-md border-l border-cyan-500/20 pl-6 leading-relaxed mb-8">
-                <span className="text-slate-200 font-medium">Architecting digital resilience.</span><br />
-                Fusing high-performance backend systems with precision-engineered UX.
-              </p>
-
-              <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 items-center w-full md:w-auto">
-                <motion.a
-                  href="#engineer-projects"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto text-center px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-cyan-50 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] rounded-sm"
-                >
-                  View Systems
-                </motion.a>
-                <div className="flex gap-4 md:ml-4">
-                  <a href="https://github.com/sampannamahapatra" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all backdrop-blur-sm">
-                    <Github size={18} />
-                  </a>
-                  <a href="mailto:sampannamahapatra6@gmail.com" aria-label="Send email" className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all backdrop-blur-sm">
-                    <Mail size={18} />
-                  </a>
-                </div>
-              </div>
+          {/* Hero */}
+          <section id="engineer-hero" className="relative flex min-h-screen w-full items-center px-6 pb-16 pt-28 @3xl:px-14">
+            <div className="absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_75%)]">
+              <ParticleField />
             </div>
 
-            {/* Right Image Content - Larger and X-AI style */}
-            <div className="flex-1 w-full order-1 md:order-2 flex items-center justify-center relative mt-16 md:mt-0 px-4">
+            <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 @3xl:grid-cols-[1.15fr_0.85fr]">
+              <div className="flex flex-col items-center text-center @3xl:items-start @3xl:text-left">
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  className={`${mono} mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-slate-300`}
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#4A94BA] shadow-[0_0_8px_#4A94BA]" />
+                  Software • AI • Data • Design
+                </motion.span>
+
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className={`${sora} text-[clamp(2.5rem,8cqw,5.5rem)] font-bold leading-[1] tracking-[-0.04em] text-white`}
+                >
+                  Sampanna
+                  <br />
+                  <span className={`italic font-light ${gradientText}`}>Mahapatra.</span>
+                </motion.h1>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="mt-8 max-w-md text-base leading-relaxed text-slate-300"
+                >
+                  Software engineer fusing backend systems with precision-engineered UX —{" "}
+                  <span className="text-[#7cc4e4]">built to stay clean as it grows.</span>
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.75, duration: 0.8 }}
+                  className="mt-10 flex flex-wrap items-center justify-center gap-3 @3xl:justify-start"
+                >
+                  <a
+                    href="#engineer-projects"
+                    className={`${sora} rounded-full bg-[#4A94BA] px-7 py-3.5 text-xs font-medium uppercase tracking-[0.08em] text-white shadow-[0_0_30px_rgba(74,148,186,0.3)] transition hover:bg-[#5aa5cb]`}
+                  >
+                    View my work
+                  </a>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className={`${sora} rounded-full border border-white/15 px-7 py-3.5 text-xs font-medium uppercase tracking-[0.08em] text-white transition hover:border-white/40`}
+                  >
+                    Let&apos;s talk
+                  </a>
+                  <a
+                    href={GITHUB}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub profile"
+                    className="rounded-full border border-white/15 p-3 text-slate-300 transition hover:border-white/40 hover:text-white"
+                  >
+                    <Github size={16} />
+                  </a>
+                </motion.div>
+              </div>
+
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full max-w-[380px] sm:max-w-[500px] md:max-w-[650px] lg:max-w-[700px] xl:max-w-[800px] aspect-[4/5] group"
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="relative mx-auto aspect-[4/5] w-full max-w-[420px]"
               >
-                {/* Tech Scanning Effect */}
-                <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded-2xl">
-                  <motion.div
-                    animate={{ y: ["-100%", "200%"] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    className="w-full h-1/2 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent opacity-50"
-                  />
-                </div>
-
-                <div className="absolute -inset-10 bg-cyan-500/10 blur-[120px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity duration-1000" />
-
-                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/5 bg-slate-900/40 backdrop-blur-sm p-1.5 md:p-3 shadow-[0_0_100px_rgba(0,0,0,0.8)] scanline-effect">
-                  <div className="w-full h-full rounded-xl overflow-hidden relative group-hover:border-cyan-500/30 transition-colors duration-700">
+                <div className="absolute -inset-8 rounded-full bg-[#4A94BA]/15 blur-[90px]" />
+                <div className={`${card} group relative h-full w-full overflow-hidden p-2`}>
+                  <div className="relative h-full w-full overflow-hidden rounded-xl">
                     <Image
                       src="/images/engineer-profile.png"
                       alt="Sampanna Mahapatra"
                       fill
                       priority
-                      sizes="(min-width: 768px) 40vw, 90vw"
-                      className="object-cover object-top grayscale brightness-75 contrast-125 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1.5s] ease-out rounded-xl"
+                      sizes="(min-width: 768px) 35vw, 90vw"
+                      className="object-cover object-top grayscale-[60%] transition duration-1000 group-hover:scale-[1.03] group-hover:grayscale-0"
                     />
-                    <div className="absolute inset-0 bg-[#030712] mix-blend-overlay opacity-20" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F111A] via-transparent to-transparent" />
+                    <div className={`${mono} absolute bottom-4 left-4 right-4 flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-slate-300`}>
+                      <span className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                        Open to work
+                      </span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Cyberpunk Corners - Animated */}
-                <motion.div
-                  animate={{ opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute -top-2 -left-2 w-12 h-12 border-t-2 border-l-2 border-cyan-500/60"
-                />
-                <motion.div
-                  animate={{ opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                  className="absolute -bottom-2 -right-2 w-12 h-12 border-b-2 border-r-2 border-cyan-500/60"
-                />
               </motion.div>
+            </div>
 
-              {/* Collapsed Ribbon Mode - NEW */}
-              <AnimatePresence>
-                {isShrunk && (
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0 z-50 bg-[#030712]/95 backdrop-blur-xl flex flex-col items-center justify-between py-12 px-2 pointer-events-none"
-                  >
-                    <div className="flex flex-col items-center gap-8">
-                       <div className="w-12 h-12 rounded-full border border-cyan-500/30 p-1">
-                          <Image src="/images/engineer-profile.png" alt="" width={48} height={48} className="w-full h-full object-cover rounded-full grayscale" />
-                       </div>
-                       <div className="h-32 w-px bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent" />
+            <AnimatePresence>
+              {isShrunk && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="pointer-events-none absolute inset-0 z-50 flex flex-col items-center justify-between bg-[#0F111A]/95 px-2 py-12 backdrop-blur-xl"
+                >
+                  <div className="h-12 w-12 rounded-full border border-[#4A94BA]/40 p-1">
+                    <Image src="/images/engineer-profile.png" alt="" width={48} height={48} className="h-full w-full rounded-full object-cover grayscale" />
+                  </div>
+                  <h3 className={`${mono} rotate-180 whitespace-nowrap text-[10px] font-bold uppercase tracking-[1em] text-[#4A94BA]/70 [writing-mode:vertical-lr]`}>
+                    Engineer
+                  </h3>
+                  <Terminal size={14} className="text-[#4A94BA]" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </section>
+
+          {/* About */}
+          <section id="engineer-about" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+            <Reveal>
+              <Eyebrow>About</Eyebrow>
+              <p className={`${sora} mt-8 max-w-4xl text-[clamp(1.4rem,3.4cqw,2.5rem)] font-light leading-[1.35] tracking-[-0.02em] text-slate-300`}>
+                A self-motivated software engineer bridging{" "}
+                <span className="font-semibold text-white">complex backend architecture</span> and{" "}
+                <span className={`italic ${gradientText}`}>pixel-perfect interfaces</span>. Adaptability and clean code are my core tenets.
+              </p>
+            </Reveal>
+          </section>
+
+          {/* Education & leadership */}
+          <section id="engineer-education" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+            <Reveal>
+              <SectionHeading
+                eyebrow="Journey"
+                title="Education &"
+                accent="Leadership."
+                intro="Computer Science at Northern University Bangladesh, with a focus on data science and years of community leadership alongside it."
+              />
+            </Reveal>
+
+            <div className="grid gap-5 @3xl:grid-cols-2">
+              <Reveal className={`${card} p-7`}>
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA]">
+                    <GraduationCap size={18} />
+                  </div>
+                  <span className={`${mono} text-[10px] uppercase tracking-[0.25em] text-slate-500`}>2022 — Present</span>
+                </div>
+                <h3 className={`${sora} text-xl font-semibold text-white`}>B.Sc. in Computer Science & Engineering</h3>
+                <p className="mt-1 text-sm text-slate-400">Northern University Bangladesh</p>
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  {[
+                    ["CGPA", "3.25 / 4.00"],
+                    ["Credits", "140 / 152"],
+                    ["Focus", "Data Science"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="rounded-xl border border-white/[0.06] bg-black/20 p-3">
+                      <p className={`${mono} text-[9px] uppercase tracking-[0.2em] text-slate-500`}>{k}</p>
+                      <p className={`${mono} mt-1 text-xs text-slate-200`}>{v}</p>
                     </div>
-
-                    <div className="flex items-center justify-center h-full">
-                       <h3 className="text-[10px] uppercase tracking-[1em] text-cyan-400/50 font-bold [writing-mode:vertical-lr] rotate-180 whitespace-nowrap">
-                         Engineer_Architect
-                       </h3>
-                    </div>
-
-                    <div className="flex flex-col items-center gap-4 opacity-50">
-                       <Terminal size={14} className="text-cyan-500" />
-                       <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* About Section - Glass Panel */}
-        <section id="engineer-about" className="w-full max-w-5xl px-6 md:px-20 py-24 relative z-20">
-          <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 md:p-12 backdrop-blur-xl relative overflow-hidden group hover:border-white/[0.1] transition-colors">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full" />
-
-            <div className="flex items-center gap-4 mb-8">
-              <Cpu className="text-cyan-500" />
-              <h3 className="text-sm font-mono uppercase tracking-[0.2em] text-cyan-500">About System</h3>
-            </div>
-
-            <p className="text-xl md:text-3xl text-slate-300 leading-[1.6] font-light max-w-4xl">
-              I am an enthusiastic, self-motivated software engineer bridging the gap between <span className="text-cyan-400 font-medium">complex backend architecture</span> and <span className="text-blue-400 font-medium">pixel-perfect frontend interfaces</span>. Adaptability and clean code are my core tenets.
-            </p>
-          </div>
-        </section>
-
-        {/* Education & Experience Split */}
-        <section id="engineer-education" className="w-full max-w-6xl px-6 md:px-20 py-16 relative z-20 flex flex-col lg:flex-row gap-12">
-
-          {/* Left Column - Education */}
-          <div className="flex-1">
-            <div className="flex items-center gap-4 mb-10 border-b border-white/10 pb-6">
-              <GraduationCap className="text-cyan-500" />
-              <h3 className="text-xl font-bold uppercase tracking-widest text-slate-200">Education</h3>
-            </div>
-
-            <div className="space-y-6">
-              {/* University Card */}
-              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-cyan-500/30 transition-colors group relative overflow-hidden">
-                <div className="absolute left-0 top-0 w-1 h-full bg-cyan-500 opacity-50 group-hover:opacity-100 transition-opacity" />
-                <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
-                  <h4 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">B.Sc. in Computer Science & Eng.</h4>
-                  <span className="text-xs font-mono text-cyan-500/70 bg-cyan-500/10 px-2 py-1 rounded">2022 — Present</span>
-                </div>
-                <div className="text-slate-400 text-sm mb-4">Northern University Bangladesh</div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                  <div className="bg-black/20 rounded-lg p-3 border border-white/5">
-                    <p className="text-[10px] uppercase text-slate-500 mb-1">CGPA</p>
-                    <p className="font-mono text-cyan-400 text-sm">3.25 / 4.00</p>
-                  </div>
-                  <div className="bg-black/20 rounded-lg p-3 border border-white/5">
-                    <p className="text-[10px] uppercase text-slate-500 mb-1">Credits</p>
-                    <p className="font-mono text-slate-300 text-sm">140 / 152</p>
-                  </div>
-                  <div className="bg-black/20 rounded-lg p-3 border border-white/5 col-span-2 md:col-span-1">
-                    <p className="text-[10px] uppercase text-slate-500 mb-1">Focus</p>
-                    <p className="font-mono text-slate-300 text-sm">Data Science</p>
-                  </div>
-                </div>
-
-                <div className="text-xs text-slate-500 leading-relaxed font-mono">
-                  <span className="text-slate-400">Coursework:</span> Machine Learning, OS, Web Programming, AI, Deep Learning, DBMS.
-                </div>
-              </div>
-
-              {/* HSC Card */}
-              <div className="flex items-center justify-between p-5 rounded-xl border border-white/[0.05] bg-transparent hover:bg-white/[0.02] transition-colors">
-                <div>
-                  <h4 className="text-sm font-bold text-slate-200">HSC (Higher Secondary)</h4>
-                  <p className="text-xs text-slate-500 mt-1">Jalalabad Cant. Public School</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-[10px] font-mono text-cyan-500/70 mb-1">2019-2021</p>
-                  <p className="text-xs font-mono text-slate-300">GPA: 5.00</p>
-                </div>
-              </div>
-
-              {/* SSC Card */}
-              <div className="flex items-center justify-between p-5 rounded-xl border border-white/[0.05] bg-transparent hover:bg-white/[0.02] transition-colors">
-                <div>
-                  <h4 className="text-sm font-bold text-slate-200">SSC (Secondary)</h4>
-                  <p className="text-xs text-slate-500 mt-1">Habiganj Govt High School</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-[10px] font-mono text-cyan-500/70 mb-1">2011-2019</p>
-                  <p className="text-xs font-mono text-slate-300">GPA: 5.00</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Leadership */}
-          <div className="flex-1 mt-12 lg:mt-0">
-            <div className="flex items-center gap-4 mb-10 border-b border-white/10 pb-6">
-              <Briefcase className="text-blue-500" />
-              <h3 className="text-xl font-bold uppercase tracking-widest text-slate-200">Leadership & Impact</h3>
-            </div>
-
-            <div className="space-y-4 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-px before:bg-gradient-to-b before:from-transparent before:via-slate-800 before:to-transparent">
-
-              {/* Timeline Item 1 */}
-              <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-slate-900 bg-blue-500 group-hover:bg-cyan-400 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] transition-all shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2" />
-                <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-colors">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-bold text-slate-200 text-sm">Founder & VP</span>
-                    <span className="text-[10px] font-mono text-cyan-500">2020-Present</span>
-                  </div>
-                  <div className="text-xs text-slate-400">Muktanchal Lit. Club</div>
-                </div>
-              </div>
-
-              {/* Timeline Item 2 */}
-              <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-slate-900 bg-slate-700 group-hover:bg-cyan-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all" />
-                <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1] transition-colors">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-bold text-slate-200 text-sm">Exec. Member</span>
-                    <span className="text-[10px] font-mono text-slate-500">2023</span>
-                  </div>
-                  <div className="text-xs text-slate-400">Northern Univ Computer Club</div>
-                </div>
-              </div>
-
-              {/* Timeline Volunteers */}
-              <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-slate-900 bg-emerald-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all" />
-                <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                  <span className="font-bold text-emerald-100 text-sm block mb-1">Humanitarian Works</span>
-                  <ul className="text-xs text-emerald-400/70 space-y-1">
-                    <li>• Organizer, COVID-19 Charity</li>
-                    <li>• Flood Relief Vol. (Sunamganj)</li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* Technical Skills - Glowing Grid */}
-        <section id="engineer-skills" className="w-full max-w-6xl px-6 md:px-20 py-16 relative z-20">
-          <div className="flex items-center gap-4 mb-12 justify-center text-center">
-            <Layers className="text-cyan-500" />
-            <h3 className="text-2xl font-bold uppercase tracking-widest text-slate-200">Tech Stack</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-
-            {[
-              { title: "Languages", icon: <Code2 size={16} />, color: "from-cyan-500/20 to-transparent", border: "border-cyan-500/20", items: ['Python', 'Java', 'C++', 'JavaScript', 'SQL'] },
-              { title: "Platforms", icon: <Terminal size={16} />, color: "from-blue-500/20 to-transparent", border: "border-blue-500/20", items: ['Linux', 'Git', 'Docker', 'Oracle'] },
-              { title: "AI / Data", icon: <Database size={16} />, color: "from-emerald-500/20 to-transparent", border: "border-emerald-500/20", items: ['Colab', 'Roboflow', 'Pandas', 'Jupyter'] },
-              { title: "Design", icon: <Layout size={16} />, color: "from-purple-500/20 to-transparent", border: "border-purple-500/20", items: ['Figma', 'Illustrator', 'Canva'] }
-            ].map((cat, i) => (
-              <div key={i} className={`p-6 rounded-2xl bg-gradient-to-b ${cat.color} border ${cat.border} backdrop-blur-md relative overflow-hidden group hover:-translate-y-1 transition-all duration-300`}>
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="p-2 bg-white/10 rounded-lg text-white group-hover:scale-110 transition-transform">{cat.icon}</div>
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-slate-200">{cat.title}</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {cat.items.map(s => (
-                    <span key={s} className="px-3 py-1 bg-black/40 border border-white/10 rounded-full text-slate-300 text-xs font-mono shadow-inner hover:text-white hover:border-white/30 transition-colors cursor-default">
-                      {s}
-                    </span>
                   ))}
                 </div>
+                <p className="mt-6 text-xs leading-relaxed text-slate-500">
+                  Coursework: Machine Learning, Operating Systems, Web Programming, AI, Deep Learning, DBMS.
+                </p>
+                <div className="mt-6 space-y-3 border-t border-white/[0.06] pt-6">
+                  {EDUCATION.map((e) => (
+                    <div key={e.title} className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-medium text-slate-200">{e.title}</p>
+                        <p className="text-xs text-slate-500">{e.place}</p>
+                      </div>
+                      <div className={`${mono} text-right text-[10px] uppercase tracking-[0.15em]`}>
+                        <p className="text-slate-500">{e.years}</p>
+                        <p className="text-[#7cc4e4]">{e.score}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+
+              <div className="flex flex-col gap-5">
+                {LEADERSHIP.map((l, i) => (
+                  <Reveal key={l.role} className={`${card} group flex gap-5 p-6 transition-colors hover:border-[#4A94BA]/30`}>
+                    <div className="h-fit rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA]">
+                      <l.icon size={18} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-baseline justify-between gap-3">
+                        <h3 className={`${sora} font-semibold text-white`}>{l.role}</h3>
+                        <span className={`${mono} text-[10px] text-slate-500`}>{String(i + 1).padStart(2, "0")}</span>
+                      </div>
+                      <p className="text-sm text-slate-400">{l.org}</p>
+                      {l.years && <p className={`${mono} mt-2 text-[10px] uppercase tracking-[0.2em] text-[#4A94BA]`}>{l.years}</p>}
+                      {l.notes && (
+                        <ul className="mt-2 space-y-1 text-xs text-slate-400">
+                          {l.notes.map((n) => (
+                            <li key={n}>— {n}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </Reveal>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        {/* Selected Works - Interactive Cards */}
-        <section id="engineer-projects" className="w-full max-w-5xl px-6 md:px-20 py-24 relative z-20">
-          <div className="flex items-center gap-4 mb-16 border-b border-white/10 pb-6">
-            <Rocket className="text-cyan-500" />
-            <h3 className="text-2xl font-bold uppercase tracking-widest text-slate-200">Selected Works</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Project 1 */}
-            <div className="group relative rounded-3xl border border-white/10 bg-white/[0.01] overflow-hidden hover:border-cyan-500/50 transition-all duration-500 flex flex-col h-full">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="p-8 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <h4 className="text-3xl font-bold text-white group-hover:text-cyan-400 transition-colors">TFT Game Concept</h4>
-                    <ExternalLink className="text-slate-600 group-hover:text-cyan-400 transition-colors" size={20} />
+          {/* Stack */}
+          <section id="engineer-skills" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+            <Reveal>
+              <SectionHeading eyebrow="Toolkit" title="The Stack" accent="I Build With." intro="From data notebooks to containers to design files — one toolkit, end to end." />
+            </Reveal>
+            <div className="grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
+              {STACK.map((s, i) => (
+                <Reveal key={s.title} className={`${card} group p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#4A94BA]/30`}>
+                  <div className="mb-8 flex items-start justify-between">
+                    <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA] transition-colors group-hover:bg-[#4A94BA]/10">
+                      <s.icon size={18} />
+                    </div>
+                    <span className={`${mono} text-[10px] text-slate-600`}>{String(i + 1).padStart(2, "0")}</span>
                   </div>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-8">
-                    Comprehensive graphics design project showcasing intricate visual elements, UI/UX concepts, and game asset integration patterns.
-                  </p>
-                </div>
-                <div className="flex gap-2 text-[10px] font-mono uppercase tracking-wider">
-                  <span className="px-3 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">UI/UX</span>
-                  <span className="px-3 py-1 rounded bg-white/5 text-slate-400 border border-white/10">Design</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 2 */}
-            <div className="group relative rounded-3xl border border-white/10 bg-white/[0.01] overflow-hidden hover:border-blue-500/50 transition-all duration-500 flex flex-col h-full">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="p-8 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <h4 className="text-3xl font-bold text-white group-hover:text-blue-400 transition-colors">C++ Phonebook</h4>
-                    <Github className="text-slate-600 group-hover:text-blue-400 transition-colors" size={20} />
+                  <h3 className={`${sora} mb-4 font-semibold text-white`}>{s.title}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {s.items.map((item) => (
+                      <span key={item} className={`${mono} rounded-full border border-white/[0.08] bg-black/20 px-2.5 py-1 text-[11px] text-slate-300`}>
+                        {item}
+                      </span>
+                    ))}
                   </div>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-8">
-                    A robust console application handling full CRUD operations for contacts using advanced file management and data structures in C++.
-                  </p>
-                </div>
-                <div className="flex gap-2 text-[10px] font-mono uppercase tracking-wider">
-                  <span className="px-3 py-1 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">C++</span>
-                  <span className="px-3 py-1 rounded bg-white/5 text-slate-400 border border-white/10">Algorithms</span>
-                </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* Work */}
+          <section id="engineer-projects" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
+            <Reveal>
+              <SectionHeading eyebrow="Selected work" title="Things I've" accent="Shipped." />
+            </Reveal>
+            <div className="grid gap-5 @3xl:grid-cols-2">
+              {PROJECTS.map((p) => (
+                <Reveal key={p.title} className={`${card} group relative overflow-hidden p-8 transition-colors hover:border-[#4A94BA]/30`}>
+                  <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#4A94BA]/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
+                  <span className={`${mono} rounded border border-white/10 px-2 py-1 text-[9px] uppercase tracking-[0.25em] text-slate-400`}>
+                    {p.status}
+                  </span>
+                  <h3 className={`${sora} mt-6 text-3xl font-bold tracking-[-0.02em] text-white`}>{p.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-slate-400">{p.body}</p>
+                  <div className="mt-8 flex gap-2">
+                    {p.tags.map((t) => (
+                      <span key={t} className={`${mono} rounded-full bg-[#4A94BA]/10 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-[#7cc4e4]`}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* Contact */}
+          <section id="engineer-contact" className="relative w-full overflow-hidden px-6 py-32 @3xl:px-14">
+            <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A94BA]/10 blur-[120px]" />
+            <Reveal className="relative mx-auto max-w-3xl text-center">
+              <Eyebrow>Contact</Eyebrow>
+              <h2 className={`${sora} mt-6 text-[clamp(2.25rem,6.5cqw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white`}>
+                Let&apos;s build
+                <br />
+                <span className={`italic font-light ${gradientText}`}>something together.</span>
+              </h2>
+              <p className="mx-auto mt-6 max-w-md text-slate-400">
+                Open to new opportunities, scalable architecture challenges and coffee chats.
+              </p>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className={`${sora} inline-flex items-center gap-2 rounded-full bg-[#4A94BA] px-8 py-4 text-xs font-medium uppercase tracking-[0.08em] text-white shadow-[0_0_30px_rgba(74,148,186,0.3)] transition hover:bg-[#5aa5cb]`}
+                >
+                  <Mail size={14} /> Email me
+                </a>
+                <a
+                  href={GITHUB}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${sora} inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-xs font-medium uppercase tracking-[0.08em] text-white transition hover:border-white/40`}
+                >
+                  GitHub <ArrowUpRight size={14} />
+                </a>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Footer */}
-        <section id="engineer-contact" className="w-full px-6 py-32 mt-12 relative z-20 bg-gradient-to-t from-cyan-950/20 to-transparent">
-          <div className="max-w-4xl mx-auto text-center border-t border-white/5 pt-20">
-            <div className="inline-block p-4 rounded-full bg-cyan-500/10 mb-8 animate-bounce">
-              <Mail className="text-cyan-400" size={32} />
-            </div>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">Let&apos;s build together.</h2>
-            <p className="text-slate-400 mb-10 max-w-lg mx-auto">Open for new opportunities, scalable architecture challenges, and coffee chats.</p>
-
-            <a href="mailto:sampannamahapatra6@gmail.com" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform rounded-full shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)]">
-              Send Transmission <ChevronRight size={16} />
-            </a>
-          </div>
-        </section>
-
+            </Reveal>
+          </section>
         </motion.div>
       </div>
     </div>
   );
 }
-
-const AmbientBackground = () => (
-  <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-    <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-white opacity-[0.03] blur-[100px]" />
-  </div>
-);
