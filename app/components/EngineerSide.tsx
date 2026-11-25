@@ -7,11 +7,8 @@ import {
   ArrowUp,
   ArrowUpRight,
   Github,
-  GraduationCap,
-  HeartHandshake,
   Mail,
   Terminal,
-  Users,
   AudioWaveform,
   Building2,
   Drama,
@@ -20,13 +17,13 @@ import {
   Plug,
   ScanText,
   ShoppingBag,
-  type LucideIcon,
 } from "lucide-react";
 import ParticleField from "./engineer/ParticleField";
 import ProjectCard, { type Project } from "./engineer/ProjectCard";
 import { card, gradientText, mono, sora } from "./engineer/styles";
 import ScrollLight, { ScrollContainerContext } from "./engineer/ScrollLight";
 import SectionCursor from "./engineer/SectionCursor";
+import Journey from "./engineer/Journey";
 
 const EMAIL = "sampannamahapatra6@gmail.com";
 const GITHUB = "https://github.com/sampannamahapatra";
@@ -43,23 +40,6 @@ const NAV = [
   { label: "HaorGrix", id: "engineer-haorgrix" },
   { label: "Work", id: "engineer-projects" },
   { label: "Contact", id: "engineer-contact" },
-];
-
-const EDUCATION = [
-  { title: "HSC (Higher Secondary)", place: "Jalalabad Cant. Public School", years: "2019-2021", score: "GPA 5.00" },
-  { title: "SSC (Secondary)", place: "Habiganj Govt High School", years: "2011-2019", score: "GPA 5.00" },
-];
-
-const LEADERSHIP: { role: string; org: string; years: string; icon: LucideIcon; notes?: string[] }[] = [
-  { role: "Founder & VP", org: "Muktanchal Lit. Club", years: "2020-Present", icon: Users },
-  { role: "Executive Member", org: "Northern University Computer Club", years: "2023", icon: Users },
-  {
-    role: "Humanitarian Work",
-    org: "Volunteer",
-    years: "",
-    icon: HeartHandshake,
-    notes: ["Organizer, COVID-19 Charity", "Flood Relief Volunteer (Sunamganj)"],
-  },
 ];
 
 const CLIENT_PROJECTS: Project[] = [
@@ -438,78 +418,13 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             <Reveal>
               <SectionHeading
                 eyebrow="About · Journey"
-                title="Education &"
-                accent="Leadership."
-                intro="Computer Science at Northern University Bangladesh, with a focus on data science and years of community leadership alongside it."
+                title="The Route"
+                accent="So Far."
+                intro="Schools, clubs and causes that shaped me. Tap any stop with a pin to see where it happened."
               />
             </Reveal>
 
-            <div className="grid gap-5 @3xl:grid-cols-2">
-              <Reveal className={`${card} p-7`}>
-                <div className="mb-6 flex items-center justify-between">
-                  <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA]">
-                    <GraduationCap size={18} />
-                  </div>
-                  <span className={`${mono} text-[10px] uppercase tracking-[0.25em] text-slate-500`}>2022-Present</span>
-                </div>
-                <h3 className={`${sora} text-xl font-semibold text-white`}>B.Sc. in Computer Science & Engineering</h3>
-                <p className="mt-1 text-sm text-slate-400">Northern University Bangladesh</p>
-                <div className="mt-6 grid grid-cols-2 gap-3 @md:grid-cols-3">
-                  {[
-                    ["CGPA", "3.25 / 4.00"],
-                    ["Credits", "140 / 152"],
-                    ["Focus", "Data Science"],
-                  ].map(([k, v]) => (
-                    <div key={k} className="rounded-xl border border-white/[0.06] bg-black/20 p-3 last:col-span-2 @md:last:col-span-1">
-                      <p className={`${mono} text-[9px] uppercase tracking-[0.2em] text-slate-500`}>{k}</p>
-                      <p className={`${mono} mt-1 whitespace-nowrap text-xs text-slate-200`}>{v}</p>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-6 text-xs leading-relaxed text-slate-500">
-                  Coursework: Machine Learning, Operating Systems, Web Programming, AI, Deep Learning, DBMS.
-                </p>
-                <div className="mt-6 space-y-3 border-t border-white/[0.06] pt-6">
-                  {EDUCATION.map((e) => (
-                    <div key={e.title} className="flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-slate-200">{e.title}</p>
-                        <p className="text-xs text-slate-500">{e.place}</p>
-                      </div>
-                      <div className={`${mono} text-right text-[10px] uppercase tracking-[0.15em]`}>
-                        <p className="text-slate-500">{e.years}</p>
-                        <p className="text-[#7cc4e4]">{e.score}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
-
-              <div className="flex flex-col gap-5">
-                {LEADERSHIP.map((l, i) => (
-                  <Reveal key={l.role} className={`${card} group flex gap-5 p-6 transition-colors hover:border-[#4A94BA]/30`}>
-                    <div className="h-fit rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA]">
-                      <l.icon size={18} />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-baseline justify-between gap-3">
-                        <h3 className={`${sora} font-semibold text-white`}>{l.role}</h3>
-                        <span className={`${mono} text-[10px] text-slate-500`}>{String(i + 1).padStart(2, "0")}</span>
-                      </div>
-                      <p className="text-sm text-slate-400">{l.org}</p>
-                      {l.years && <p className={`${mono} mt-2 text-[10px] uppercase tracking-[0.2em] text-[#4A94BA]`}>{l.years}</p>}
-                      {l.notes && (
-                        <ul className="mt-2 space-y-1 text-xs text-slate-400">
-                          {l.notes.map((n) => (
-                            <li key={n}>{n}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
+            <Journey />
           </section>
 
           {/* HaorGrix */}

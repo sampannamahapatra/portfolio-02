@@ -4,7 +4,7 @@ import { useEffect, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 
-export type CursorMode = "default" | "spot" | "lens" | "diamond" | "cross" | "view" | "hello" | "link";
+export type CursorMode = "default" | "spot" | "lens" | "diamond" | "cross" | "view" | "hello" | "link" | "map";
 
 const SIZE: Record<CursorMode, number> = {
   default: 34,
@@ -15,15 +15,16 @@ const SIZE: Record<CursorMode, number> = {
   view: 92,
   hello: 130,
   link: 64,
+  map: 92,
 };
 
-const LABEL: Partial<Record<CursorMode, string>> = { view: "View", hello: "Say hi" };
+const LABEL: Partial<Record<CursorMode, string>> = { view: "View", hello: "Say hi", map: "Map" };
 
 function modeAt(el: Element | null): CursorMode {
   if (!el) return "default";
   if (el.closest("a, button")) {
     const owner = el.closest<HTMLElement>("[data-cursor]");
-    return owner?.dataset.cursor === "view" ? "view" : "link";
+    return owner?.dataset.cursor === "view" || owner?.dataset.cursor === "map" ? (owner.dataset.cursor as CursorMode) : "link";
   }
   const owner = el.closest<HTMLElement>("[data-cursor]");
   return (owner?.dataset.cursor as CursorMode | undefined) ?? "default";
@@ -52,6 +53,7 @@ function Shape({ mode }: { mode: CursorMode }) {
         </div>
       );
     case "view":
+    case "map":
     case "hello":
       return (
         <div className="flex h-full w-full items-center justify-center rounded-full bg-[#4A94BA] text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_0_40px_rgba(74,148,186,0.55)]">
@@ -143,7 +145,7 @@ export default function SectionCursor({ scope, enabled }: { scope: RefObject<HTM
               </AnimatePresence>
             </motion.div>
           </motion.div>
-          {mode !== "view" && mode !== "hello" && (
+          {mode !== "view" && mode !== "hello" && mode !== "map" && (
             <motion.div style={{ x: dx, y: dy }} className="absolute left-0 top-0">
               <div className="h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#a5dcf3]" />
             </motion.div>
