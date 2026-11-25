@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, animate, motion, useInView, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, GraduationCap, HeartHandshake, MapPin, School, Users, X, type LucideIcon } from "lucide-react";
 import { ScrollContainerContext } from "./ScrollLight";
 import { card, gradientText, mono, sora } from "./styles";
@@ -18,6 +18,7 @@ type Milestone = {
   icon: LucideIcon;
   details: string[];
   stats?: [string, string][];
+  progress?: { label: string; done: number; total: number };
   place?: Place;
 };
 
@@ -56,6 +57,7 @@ const MILESTONES: Milestone[] = [
     org: "Muktanchal Lit. Club",
     icon: Users,
     details: ["Founded and still help lead a literature club."],
+    stats: [["Leading for", `${new Date().getFullYear() - 2020}+ years`]],
   },
   {
     year: "2022",
@@ -67,9 +69,9 @@ const MILESTONES: Milestone[] = [
     details: ["Coursework: Machine Learning, Operating Systems, Web Programming, AI, Deep Learning, DBMS."],
     stats: [
       ["CGPA", "3.25 / 4.00"],
-      ["Credits", "140 / 152"],
       ["Focus", "Data Science"],
     ],
+    progress: { label: "Credits completed", done: 140, total: 152 },
     place: { name: "Northern University Bangladesh", query: "Northern University Bangladesh, Dhaka", area: "Dhaka" },
   },
   {
@@ -99,62 +101,6 @@ const KIND_STYLE: Record<Milestone["kind"], string> = {
   Leadership: "bg-violet-400/10 text-violet-300",
   Volunteer: "bg-emerald-400/10 text-emerald-300",
 };
-
-function Counter({ to, decimals = 0, suffix = "" }: { to: number; decimals?: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, to, { duration: 1.6, ease: [0.16, 1, 0.3, 1], onUpdate: setValue });
-    return () => controls.stop();
-  }, [inView, to]);
-
-  return (
-    <span ref={ref}>
-      {value.toFixed(decimals)}
-      {suffix}
-    </span>
-  );
-}
-
-function StatsStrip() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
-  const stats = [
-    { label: "SSC GPA", node: <Counter to={5} decimals={2} /> },
-    { label: "HSC GPA", node: <Counter to={5} decimals={2} /> },
-    { label: "B.Sc. CGPA", node: <Counter to={3.25} decimals={2} /> },
-    { label: "Years leading", node: <Counter to={new Date().getFullYear() - 2020} suffix="+" /> },
-  ];
-
-  return (
-    <div ref={ref} className="mb-20 grid gap-3 @xl:grid-cols-2 @4xl:grid-cols-5">
-      {stats.map((s) => (
-        <div key={s.label} className={`${card} p-5`}>
-          <p className={`${mono} text-[10px] uppercase tracking-[0.25em] text-slate-500`}>{s.label}</p>
-          <p className={`${sora} mt-2 text-3xl font-bold tracking-[-0.03em] text-white`}>{s.node}</p>
-        </div>
-      ))}
-      <div className={`${card} p-5 @xl:col-span-2 @4xl:col-span-1`}>
-        <p className={`${mono} text-[10px] uppercase tracking-[0.25em] text-slate-500`}>Credits</p>
-        <p className={`${sora} mt-2 text-3xl font-bold tracking-[-0.03em] text-white`}>
-          <Counter to={140} />
-          <span className="text-lg text-slate-500"> / 152</span>
-        </p>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
-          <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-[#4A94BA] to-[#a5dcf3]"
-            initial={{ width: 0 }}
-            animate={{ width: inView ? `${(140 / 152) * 100}%` : 0 }}
-            transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function MapModal({ place, onClose }: { place: Place; onClose: () => void }) {
   useEffect(() => {
@@ -300,6 +246,26 @@ function MilestoneCard({ m, side, onOpen }: { m: Milestone; side: "left" | "righ
             </div>
           )}
 
+          {m.progress && (
+            <div className="relative mt-5">
+              <div className={`${mono} mb-2 flex justify-between text-[10px] uppercase tracking-[0.2em] text-slate-500`}>
+                <span>{m.progress.label}</span>
+                <span className="text-slate-300">
+                  {m.progress.done} / {m.progress.total}
+                </span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+                <motion.div
+                  className="h-full rounded-full bg-gradient-to-r from-[#4A94BA] to-[#a5dcf3]"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${(m.progress.done / m.progress.total) * 100}%` }}
+                  viewport={{ once: true, amount: 0.8 }}
+                  transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+                />
+              </div>
+            </div>
+          )}
+
           <ul className="relative mt-5 space-y-1.5 text-[13px] leading-relaxed text-slate-300">
             {m.details.map((d) => (
               <li key={d} className="flex gap-2.5">
@@ -343,7 +309,6 @@ export default function Journey() {
 
   return (
     <div>
-      <StatsStrip />
 
       <div ref={trackRef} className="relative">
         <div className="absolute bottom-0 left-[18px] top-0 w-px -translate-x-1/2 bg-white/[0.07] @4xl:left-1/2" />
