@@ -56,21 +56,24 @@ function CaseFile({
   progress: MotionValue<number>;
 }) {
   const { project } = entry;
-  const start = index / total;
-  const scale = useTransform(progress, [start, 1], [1, 1 - (total - index) * 0.035]);
-  const dim = useTransform(progress, [start, Math.min(1, start + 1 / total)], [1, index === total - 1 ? 1 : 0.55]);
+  const isLast = index === total - 1;
+  const covered = Math.min(1, (index + 1) / total);
+  const coverStart = Math.min(covered, (index + 0.55) / total);
+  const scale = useTransform(progress, [coverStart, 1], [1, isLast ? 1 : 1 - (total - index) * 0.035]);
+  const shade = useTransform(progress, [coverStart, covered], [0, isLast ? 0 : 0.6]);
 
   return (
     <div className="@5xl:sticky @5xl:h-[80vh]" style={{ top: `calc(7rem + ${index * 14}px)` }}>
       <motion.article
         data-cursor="view"
-        style={{ scale, opacity: dim, transformOrigin: "top center" }}
+        style={{ scale, transformOrigin: "top center" }}
         initial={{ y: 60, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="group relative grid gap-8 overflow-hidden rounded-3xl border border-white/[0.08] bg-[linear-gradient(160deg,rgba(26,30,46,0.97),rgba(12,14,22,0.98))] p-5 shadow-[0_-20px_60px_rgba(0,0,0,0.45)] @3xl:p-7 @5xl:grid-cols-[1.15fr_1fr] @5xl:items-center"
+        className="group relative grid gap-8 overflow-hidden rounded-3xl border border-white/[0.08] bg-[linear-gradient(160deg,#1a1e2e,#0c0e16)] p-5 shadow-[0_-20px_60px_rgba(0,0,0,0.45)] @3xl:p-7 @5xl:min-h-[min(36rem,calc(80vh-1rem))] @5xl:grid-cols-[1.15fr_1fr] @5xl:items-center"
       >
+        <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-30 rounded-3xl bg-[#07080d]" style={{ opacity: shade }} />
         <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#4A94BA]/10 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
 
         <div className="relative [&_img]:duration-[6s] [&_img]:group-hover:scale-[1.08]">
