@@ -19,7 +19,8 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import ParticleField from "./engineer/ParticleField";
-import ProjectCard, { type Project } from "./engineer/ProjectCard";
+import { type Project } from "./engineer/ProjectCard";
+import StackedWork from "./engineer/StackedWork";
 import { card, gradientText, mono, sora } from "./engineer/styles";
 import ScrollLight, { ScrollContainerContext } from "./engineer/ScrollLight";
 import SectionCursor from "./engineer/SectionCursor";
@@ -533,30 +534,15 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
               />
             </Reveal>
 
-            <Reveal>
-              <h3 className={`${mono} mb-5 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>
-                Client products <span className="text-slate-700">/ 0{CLIENT_PROJECTS.length}</span>
-              </h3>
-            </Reveal>
-            <div className="grid gap-5 @3xl:grid-cols-2 @6xl:grid-cols-3">
-              {CLIENT_PROJECTS.map((p) => (
-                <ProjectCard key={p.title} project={p} featured />
-              ))}
-            </div>
+            <StackedWork
+              chapters={[
+                { label: "Client products", projects: CLIENT_PROJECTS },
+                { label: "HaorGrix & independent builds", projects: OTHER_PROJECTS },
+              ]}
+            />
 
             <Reveal>
-              <h3 className={`${mono} mb-5 mt-16 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>
-                HaorGrix & independent builds <span className="text-slate-700">/ 0{OTHER_PROJECTS.length}</span>
-              </h3>
-            </Reveal>
-            <div className="grid gap-5 @3xl:grid-cols-2 @6xl:grid-cols-3">
-              {OTHER_PROJECTS.map((p) => (
-                <ProjectCard key={p.title} project={p} />
-              ))}
-            </div>
-
-            <Reveal>
-              <h3 className={`${mono} mb-5 mt-16 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>University course projects</h3>
+              <h3 className={`${mono} mb-5 mt-24 text-[11px] uppercase tracking-[0.3em] text-slate-500`}>University course projects</h3>
             </Reveal>
             <div className="grid gap-4 @3xl:grid-cols-2">
               {EARLIER_PROJECTS.map((p) => (
