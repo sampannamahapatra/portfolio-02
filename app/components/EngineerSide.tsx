@@ -24,6 +24,7 @@ import { card, gradientText, mono, sora } from "./engineer/styles";
 import ScrollLight, { ScrollContainerContext } from "./engineer/ScrollLight";
 import SectionCursor from "./engineer/SectionCursor";
 import Journey from "./engineer/Journey";
+import LiveSiteWindow from "./engineer/LiveSiteWindow";
 
 const EMAIL = "sampannamahapatra6@gmail.com";
 const GITHUB = "https://github.com/sampannamahapatra";
@@ -438,7 +439,16 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
               <Eyebrow>Co-Founder &amp; Chief Operating Officer</Eyebrow>
             </Reveal>
 
-            <div className="mt-14 grid items-center gap-10 @4xl:grid-cols-[1.05fr_0.95fr]">
+            <div className="mt-14">
+              <LiveSiteWindow
+                src="/videos/haorgrix-hero.mp4"
+                poster="/videos/haorgrix-hero-poster.jpg"
+                href="https://haorgrix.com"
+                host="haorgrix.com"
+              />
+            </div>
+
+            <div className="mt-16 grid items-center gap-10 @4xl:grid-cols-[1.05fr_0.95fr]">
               <Reveal>
                 <a
                   href={HAORGRIX_PROFILE}
