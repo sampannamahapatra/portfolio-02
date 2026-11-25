@@ -33,7 +33,6 @@ const HAORGRIX_PROFILE = "https://haorgrix.com/team/sampanna-mahapatra";
 const HAORGRIX_LINKS = [
   { label: "My profile", display: "haorgrix.com/team/sampanna-mahapatra", href: HAORGRIX_PROFILE },
   { label: "Meet the team", display: "haorgrix.com/team", href: "https://haorgrix.com/team" },
-  { label: "Visit HaorGrix", display: "haorgrix.com", href: "https://haorgrix.com" },
 ];
 
 const NAV = [
@@ -439,16 +438,7 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
               <Eyebrow>Co-Founder &amp; Chief Operating Officer</Eyebrow>
             </Reveal>
 
-            <div className="mt-14">
-              <LiveSiteWindow
-                src="/videos/haorgrix-hero.mp4"
-                poster="/videos/haorgrix-hero-poster.jpg"
-                href="https://haorgrix.com"
-                host="haorgrix.com"
-              />
-            </div>
-
-            <div className="mt-16 grid items-center gap-10 @4xl:grid-cols-[1.05fr_0.95fr]">
+            <div className="mt-14 grid items-center gap-10 @4xl:grid-cols-[1.05fr_0.95fr]">
               <Reveal>
                 <a
                   href={HAORGRIX_PROFILE}
@@ -519,6 +509,15 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
                   </span>
                 </a>
               ))}
+            </div>
+
+            <div className="mt-12">
+              <LiveSiteWindow
+                src="/videos/haorgrix-hero.mp4"
+                poster="/videos/haorgrix-hero-poster.jpg"
+                href="https://haorgrix.com"
+                host="haorgrix.com"
+              />
             </div>
           </section>
 
