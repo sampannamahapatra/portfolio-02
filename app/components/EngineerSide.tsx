@@ -6,12 +6,9 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   ArrowUp,
   ArrowUpRight,
-  Code2,
-  Database,
   Github,
   GraduationCap,
   HeartHandshake,
-  Layout,
   Mail,
   Terminal,
   Users,
@@ -44,16 +41,8 @@ const HAORGRIX_LINKS = [
 const NAV = [
   { label: "About", id: "engineer-about" },
   { label: "HaorGrix", id: "engineer-haorgrix" },
-  { label: "Stack", id: "engineer-skills" },
   { label: "Work", id: "engineer-projects" },
   { label: "Contact", id: "engineer-contact" },
-];
-
-const STACK: { title: string; icon: LucideIcon; items: string[] }[] = [
-  { title: "Languages", icon: Code2, items: ["Python", "Java", "C++", "JavaScript", "SQL"] },
-  { title: "Platforms", icon: Terminal, items: ["Linux", "Git", "Docker", "Oracle"] },
-  { title: "AI / Data", icon: Database, items: ["Colab", "Roboflow", "Pandas", "Jupyter"] },
-  { title: "Design", icon: Layout, items: ["Figma", "Illustrator", "Canva"] },
 ];
 
 const EDUCATION = [
@@ -608,32 +597,6 @@ export default function EngineerSide({ isActive, isShrunk }: { isActive: boolean
             </div>
           </section>
 
-          {/* Stack */}
-          <section id="engineer-skills" data-cursor="cross" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
-            <Reveal>
-              <SectionHeading eyebrow="Toolkit" title="The Stack" accent="I Build With." intro="From data notebooks to containers to design files: one toolkit, end to end." />
-            </Reveal>
-            <div className="grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
-              {STACK.map((s, i) => (
-                <Reveal key={s.title} className={`${card} group p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#4A94BA]/30`}>
-                  <div className="mb-8 flex items-start justify-between">
-                    <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5 text-[#4A94BA] transition-colors group-hover:bg-[#4A94BA]/10">
-                      <s.icon size={18} />
-                    </div>
-                    <span className={`${mono} text-[10px] text-slate-600`}>{String(i + 1).padStart(2, "0")}</span>
-                  </div>
-                  <h3 className={`${sora} mb-4 font-semibold text-white`}>{s.title}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {s.items.map((item) => (
-                      <span key={item} className={`${mono} rounded-full border border-white/[0.08] bg-black/20 px-2.5 py-1 text-[11px] text-slate-300`}>
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </section>
 
           {/* Work */}
           <section id="engineer-projects" className="mx-auto w-full max-w-6xl px-6 py-24 @3xl:px-14">
